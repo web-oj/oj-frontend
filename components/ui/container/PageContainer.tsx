@@ -8,7 +8,7 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 export function PageContainer(props: PageContainerProps) {
     return (
         <div {...props} className={clsx(
-            "w full h-full flex",
+            "w-full h-full flex",
             props.isCentered && "justify-center items-center",
             props.isCenteredX && "justify-center",
             props.isCenteredY && "items-center",
