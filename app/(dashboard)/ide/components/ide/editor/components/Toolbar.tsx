@@ -1,39 +1,58 @@
 "use client";
 
-import { Select, SelectItem } from "@nextui-org/react";
-import { monacoDataConfig } from "./data";
-import { useMonaco } from "@monaco-editor/react";
+import { Select, Selection, SelectItem } from "@nextui-org/react";
+import { Language, monacoDataConfig } from "../data";
+
 import React from "react";
+import { LinearContainer } from "@/components/ui/container/LinearContainer";
+import { useIDEContext } from "../../context";
+
+
 
 export default function Toolbar() {
-    const monaco = useMonaco();
-    
-    const [editorTheme, setEditorTheme] = React.useState("vs-dark");
-    const [editorLanguage, setEditorLanguage] = React.useState("javascript");
+    const { setLanguage, setTheme } = useIDEContext();
+
+    const themes = monacoDataConfig.themes;
+    const languages = monacoDataConfig.languages;
+
+    const [editorThemeKey, setEditorThemeKey] = React.useState<Selection>(new Set([]));
+    const [languagekey, setLanguageKey] = React.useState<Selection>(new Set([]));
 
     React.useEffect(() => {
-        // Set the editor theme
-        monaco?.editor.setTheme(editorTheme);
-
-        // Set the editor language
-        const model = monaco?.editor.getModels()[0];
-        if (model) {
-            monaco.editor.setModelLanguage(model, editorLanguage);
-        }
-    }, [editorTheme]);
+        setLanguage(Array.from(languagekey).join('') as Language);
+        setTheme(Array.from(editorThemeKey).join(''));
+    }, [editorThemeKey, languagekey]);
 
     return (
-        <div>
+        <LinearContainer direction="row" space="md">
             <Select
-                value={editorLanguage}
-                onChange={(e) => setEditorTheme(e.target.value)}
+                placeholder="Select theme"
+                selectedKeys={editorThemeKey}
+                onSelectionChange={setEditorThemeKey}
+                shouldFlip
+                radius="full"
+                aria-label="Select theme"
             >
-                {monacoDataConfig.themes.map((item, index) => (
-                    <SelectItem key={index} value={item.name}>
-                        {item.label}
+                {themes.map((item, index) => (
+                    <SelectItem key={item.key}>
+                        {item.key}
                     </SelectItem>
                 ))}
             </Select>
-        </div>
+            <Select
+                placeholder="Select language"
+                selectedKeys={languagekey}
+                onSelectionChange={setLanguageKey}
+                shouldFlip
+                radius="full"
+                aria-label="Select language"
+            >
+                {languages.map((item, index) => (
+                    <SelectItem key={item.key}>
+                        {item.key}
+                    </SelectItem>
+                ))}
+            </Select>
+        </LinearContainer>
     )
 }
