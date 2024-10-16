@@ -135,12 +135,16 @@ export const Navbar = () => {
       </div>
       <ul className="w-fit flex flex-row gap-4 items-center">
         <Button
+          as={NextLink}
+          href="../register"
           radius="full"
           color="default"
         >
           Register
         </Button>
         <Button
+          as={NextLink}
+          href="../login"
           radius="full"
           color="primary"
         >
