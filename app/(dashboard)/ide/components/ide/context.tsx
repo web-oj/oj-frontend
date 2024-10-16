@@ -8,6 +8,8 @@ type IDEContextType = {
     setTheme: (theme: string) => void;
     code: string;
     setCode: (code: string) => void;
+    output: string;
+    setOutput: (output: string) => void;
 };
 
 const IDEContext = createContext<IDEContextType | undefined>(undefined);
@@ -16,9 +18,43 @@ export const IDEProvider = ({ children }: { children: ReactNode }) => {
     const [language, setLanguage] = useState<Language>('javascript');
     const [theme, setTheme] = useState<string>('vs-dark');
     const [code, setCode] = useState<string>('');
+    const [output, setOutput] = useState<string>('');
+
+    React.useEffect(() => {
+        // load code from local storage
+        const storedCode = localStorage.getItem('code');
+        if (storedCode) {
+            setCode(storedCode);
+        }
+
+        // load language from local storage
+        const storedLanguage = localStorage.getItem('language');
+        if (storedLanguage) {
+            setLanguage(storedLanguage as Language);
+        }
+
+        // load theme from local storage
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme) {
+            setTheme(storedTheme);
+        }
+
+        // load output from local storage
+        const storedOutput = localStorage.getItem('output');
+        if (storedOutput) {
+            setOutput(storedOutput);
+        }
+    }, [localStorage])
+
+    React.useEffect(() => {
+        localStorage.setItem('code', code);
+        localStorage.setItem('language', language);
+        localStorage.setItem('theme', theme);
+        localStorage.setItem('output', output);
+    }, [code, language, theme, output]);
 
     return (
-        <IDEContext.Provider value={{ language, setLanguage, theme, setTheme, code, setCode }}>
+        <IDEContext.Provider value={{ language, setLanguage, theme, setTheme, code, setCode, output, setOutput }}>
             {children}
         </IDEContext.Provider>
     );
