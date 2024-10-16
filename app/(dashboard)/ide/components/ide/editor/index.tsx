@@ -6,10 +6,9 @@ import { monacoDataConfig } from './data';
 import { useIDEContext } from '../context';
 
 
-export default function CustomEditor() {
+export default function IDEEditor() {
     const { language, code, setCode, theme } = useIDEContext();
 
-    const monaco = useMonaco();
 
     React.useEffect(() => {
         if (!localStorage.getItem('code')) {
@@ -28,9 +27,6 @@ export default function CustomEditor() {
             language={language}
             onChange={(value) => {
                 setCode(value as string);
-                if (code) {
-                    localStorage.setItem('code', code);
-                }
             }}
             options={{
                 fontSize: 16,
