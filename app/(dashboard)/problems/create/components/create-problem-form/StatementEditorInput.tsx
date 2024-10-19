@@ -60,7 +60,7 @@ const StatementEditorInput = React.forwardRef<HTMLDivElement, StatementEditorInp
                                 }}
                             />
                             <ReactMarkdown
-                                rehypePlugins={[rehypeKatex, rehypeRaw]}
+                                rehypePlugins={[rehypeKatex]}
                                 remarkPlugins={[remarkMath, remarkBreaks]}
                                 children={markdown.replace(/&nbsp;/g, '')}
                             />
