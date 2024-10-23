@@ -1,14 +1,19 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
-
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { LinearContainer, PageContainer } from "@/components/ui";
+import ProblemArea from "./ProblemArea";
+import IDEArea from "./IDEArea";
+import { Splitter, SplitterPanel } from "primereact/splitter";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10"></section>
+    <PageContainer>
+      <Splitter layout="horizontal" className="w-full h-full flex flex-row gap-6 overflow-y-auto">
+        <SplitterPanel size={60}>
+          <ProblemArea />
+        </SplitterPanel>
+        <SplitterPanel size={40}>
+          <IDEArea />
+        </SplitterPanel>
+      </Splitter>
+    </PageContainer >
   );
 }

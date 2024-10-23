@@ -5,7 +5,8 @@ import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
-import { ToastContainer } from "react-toastify";
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+
 import "react-toastify/dist/ReactToastify.css";
 
 export interface ProvidersProps {
@@ -18,7 +19,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <NextUIProvider navigate={router.push}>
-      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      <PrimeReactProvider>
+        <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      </PrimeReactProvider>
     </NextUIProvider>
   );
 }

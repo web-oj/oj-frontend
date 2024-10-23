@@ -25,7 +25,8 @@ export function Search() {
     return (
         <Input
             classNames={{
-                inputWrapper: "bg-primary-50",
+                inputWrapper: "bg-foreground-100 min-w-[32ch]",
+                base: "w-fit"
             }}
             placeholder="Search anything"
             radius="full"
