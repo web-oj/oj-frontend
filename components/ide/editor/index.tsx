@@ -9,7 +9,6 @@ import { useIDEContext } from '../context';
 export default function IDEEditor() {
     const { language, code, setCode, theme } = useIDEContext();
 
-
     React.useEffect(() => {
         if (!localStorage.getItem('code')) {
             const defaultCode = monacoDataConfig.snippets[language as keyof typeof monacoDataConfig.snippets];
@@ -20,7 +19,7 @@ export default function IDEEditor() {
     return (
         <Editor
             width={"100%"}
-            height="90vh"
+            height={"100%"}
             className='rounded-large overflow-hidden'
             theme={theme}
             value={code}
@@ -32,7 +31,8 @@ export default function IDEEditor() {
                 fontSize: 16,
                 minimap: {
                     enabled: false
-                }
+                },
+                automaticLayout: true
             }}
         />
     )

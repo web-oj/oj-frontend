@@ -44,7 +44,7 @@ export const IDEProvider = ({ children }: { children: ReactNode }) => {
         if (storedOutput) {
             setOutput(storedOutput);
         }
-    }, [localStorage])
+    }, [])
 
     React.useEffect(() => {
         localStorage.setItem('code', code);
