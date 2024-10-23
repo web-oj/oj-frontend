@@ -7,6 +7,7 @@ export interface LinearContainerProps extends React.HTMLAttributes<HTMLDivElemen
     direction?: "row" | "column";
     space?: "sm" | "md" | "lg";
     fullWidth?: boolean;
+    fullHeight?: boolean;
     label?: string;
     classNames?: {
         wrapper?: string;
@@ -23,13 +24,14 @@ export function LinearContainer(props: LinearContainerProps) {
         <div className={clsx(
             "flex flex-col gap-2",
             props.fullWidth && "w-full",
+            props.fullHeight && "h-full",
             props.classNames?.wrapper
         )}>
             {props.label && <h3 className="text-sm font-medium text-foreground">{props.label}</h3>}
             <div
                 {...props}
                 className={clsx(
-                    "flex w-full",
+                    "flex w-full h-full",
                     direction === "row" && "flex-row",
                     direction === "column" && "flex-col",
                     space === "sm" && "gap-2",

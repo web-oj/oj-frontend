@@ -60,13 +60,12 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar
-      maxWidth="xl"
       position="sticky"
       classNames={{
-        wrapper: "mt-4"
+        wrapper: "mt-4 w-full max-w-full"
       }}
     >
-      <div className="flex flex-row gap-4 px-4 py-3 items-center justify-center w-full bg-foreground-900 rounded-full text-foreground-100">
+      <div className="flex flex-row gap-4 px-4 py-3 items-center justify-center w-full rounded-full text-foreground">
         <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <NextLink className="flex justify-start items-center gap-1" href="/">
@@ -79,7 +78,7 @@ export const Navbar = () => {
               <NavbarItem key={item.href}>
                 <Link
                   className={clsx(
-                    "text-foreground-100",
+                    "text-foreground",
                     "flex flex-row items-center gap-2",
                   )}
                   size="sm"
@@ -88,7 +87,7 @@ export const Navbar = () => {
                   href={item.href}
                 >
                   {
-                    <div className="bg-foreground-800 rounded-full w-8 h-8 flex items-center justify-center">
+                    <div className="w-8 h-8 flex items-center justify-center">
                       {getIconLink(item)}
                     </div>
                   }
@@ -124,7 +123,9 @@ export const Navbar = () => {
         <Search />
         <ul className="flex gap-4 flex-row w-fit">
           <Button
-            className="bg-primary-300 px-8 w-fit flex flex-row"
+            as={NextLink}
+            href="../ide"
+            className="bg-primary-300 px-4 w-fit flex flex-row"
             radius="full"
             color="primary"
             startContent={<KeyboardIcon />}
