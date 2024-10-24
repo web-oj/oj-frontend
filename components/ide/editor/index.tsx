@@ -27,6 +27,9 @@ export default function IDEEditor() {
             onChange={(value) => {
                 setCode(value as string);
             }}
+            loading={
+                <div className="flex items-center justify-center w-full h-full bg-foreground-500 rounded-large" />
+            }
             options={{
                 fontSize: 16,
                 minimap: {
