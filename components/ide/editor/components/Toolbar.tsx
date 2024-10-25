@@ -7,6 +7,7 @@ import { Language, monacoDataConfig } from "../data";
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { runCode } from "@/utils/piston";
 import { useIDEContext } from "../../context";
+import { PlayIcon } from "hugeicons-react";
 
 
 export default function Toolbar() {
@@ -94,6 +95,7 @@ export default function Toolbar() {
                 aria-label="Run code"
                 className="bg-foreground-900 text-foreground-100"
                 isLoading={isExecuting}
+                startContent={<PlayIcon size={24} />}
                 onClick={handleRunCode}
             >
                 Run

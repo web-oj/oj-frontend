@@ -20,7 +20,7 @@ export default function IDEEditor() {
         <Editor
             width={"100%"}
             height={"100%"}
-            className='rounded-large overflow-hidden'
+            className='rounded-large overflow-hidden absolute h-full'
             theme={theme}
             value={code}
             language={language}
