@@ -1,3 +1,4 @@
+import { Language } from "@/components/ide/editor/data";
 import { SVGProps } from "react";
 
 /*
@@ -35,3 +36,9 @@ export interface Problem {
   creator_id: string;
 }
 
+export interface Submission {
+  id: string;
+  problem_id: string;
+  source_code_lang: Language | string
+  submitted_at: string;
+}
