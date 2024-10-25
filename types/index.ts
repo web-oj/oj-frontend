@@ -22,6 +22,16 @@ export type ObjectContextType<T> = {
 * ========================================================
 * */
 
+export interface Contest {
+  id: string;
+  title: string;
+  scoring_rule: string;
+  organizer_id: string;
+  start_time: string;
+  end_time: string;
+  created_at: string;
+
+}
 export interface Problem {
   id: string;
   title: string;
