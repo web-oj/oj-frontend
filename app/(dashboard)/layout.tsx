@@ -1,3 +1,4 @@
+import { LayoutContainer } from "@/components/ui";
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 
@@ -12,8 +13,8 @@ export default function Layout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="h-full">
+        <LayoutContainer>
             {children}
-        </div>
+        </LayoutContainer>
     );
 }
