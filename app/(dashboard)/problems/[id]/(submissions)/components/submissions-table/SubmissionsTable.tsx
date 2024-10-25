@@ -179,7 +179,7 @@ export default function SubmissionsTable() {
             topContent={topContent}
             classNames={{
                 tbody: "h-full",
-                wrapper: "h-full",
+                wrapper: "h-full justify-start",
                 base: "h-full",
             }}
         >

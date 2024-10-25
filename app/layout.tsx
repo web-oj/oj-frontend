@@ -47,7 +47,7 @@ export default function RootLayout({
           <ToastContainer />
           <div className="relative flex flex-col h-screen w-screen">
             <Navbar />
-            <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-auto">
+            <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-hidden">
               {children}
             </main>
           </div>

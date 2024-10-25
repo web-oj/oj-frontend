@@ -62,7 +62,7 @@ export const Navbar = () => {
     <NextUINavbar
       position="sticky"
       classNames={{
-        wrapper: "mt-4 w-full max-w-full"
+        wrapper: "w-full max-w-full bg-foreground-800 border-b-2 border-divider",
       }}
     >
       <div className="flex flex-row gap-4 px-4 py-3 items-center justify-center w-full rounded-full text-foreground">
@@ -70,7 +70,7 @@ export const Navbar = () => {
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <NextLink className="flex justify-start items-center gap-1" href="/">
               <Logo />
-              <p className="font-bold">Sync <span className="text-primary">Up</span></p>
+              <p className="font-bold text-foreground-100">Sync <span className="text-primary">Up</span></p>
             </NextLink>
           </NavbarBrand>
           <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -78,7 +78,7 @@ export const Navbar = () => {
               <NavbarItem key={item.href}>
                 <Link
                   className={clsx(
-                    "text-foreground",
+                    "text-foreground-100",
                     "flex flex-row items-center gap-2",
                   )}
                   size="sm"
