@@ -69,7 +69,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         <form
             {...props}
             onSubmit={onSubmit}
-            className="flex flex-col gap-4 lg:min-w-[48ch]"
+            className="flex flex-col gap-4 lg:min-w-[48ch] h-full overflow-y-auto"
             id="create-problem-form"
         >
             <Input
