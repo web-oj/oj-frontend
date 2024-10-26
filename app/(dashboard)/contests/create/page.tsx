@@ -6,10 +6,10 @@ import FormToolbar from "./components/Toolbar";
 export default function Page() {
   return (
     <PageContainer>
-      <LinearContainer direction="column" fullWidth>
+      <LinearContainer direction="column" fullwidth>
         <h1 className="text-3xl font-bold">Create Contest</h1>
         <FormToolbar />
-        <LinearContainer direction="row" space="lg" fullWidth fullHeight>
+        <LinearContainer direction="row" space="lg" fullwidth fullheight>
           <CreateContestFormWrapper />
           <FastCheckTableWrapper />
         </LinearContainer>

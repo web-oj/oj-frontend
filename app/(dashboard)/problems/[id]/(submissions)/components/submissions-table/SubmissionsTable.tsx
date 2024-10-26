@@ -137,7 +137,7 @@ export default function SubmissionsTable() {
 
     const topContent = React.useMemo(() => {
         return (
-            <LinearContainer direction="row" space="sm" fullWidth>
+            <LinearContainer direction="row" space="sm" fullwidth>
                 <Input
                     fullWidth
                     isClearable

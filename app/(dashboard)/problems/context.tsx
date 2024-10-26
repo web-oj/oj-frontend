@@ -7,10 +7,10 @@ const ProblemContext = createContext<ProblemContextType>({} as ProblemContextTyp
 
 interface ProblemProviderProps {
     children: ReactNode;
-    problem: Partial<Problem>;
+    problem?: Problem;
 }
 export const ProblemProvider = ({ children, problem }: ProblemProviderProps) => {
-    const [data, setData] = useState<Partial<Problem>>(problem);
+    const [data, setData] = useState<Problem>(problem as Problem);
 
     return (
         <ProblemContext.Provider value={{ data, setData }}>

@@ -43,7 +43,7 @@ export function TagsInput(props: TagsInputProps) {
     return (
         <LinearContainer
             label="Tags"
-            classNames={{
+            classnames={{
                 container: "flex flex-row flex-wrap gap-2 bg-foreground-100 shadow rounded-medium p-2 w-full h-fit"
             }}
             onClick={() => {
