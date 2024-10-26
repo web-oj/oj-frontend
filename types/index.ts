@@ -35,6 +35,7 @@ export interface Contest {
 export interface Problem {
   id: string;
   title: string;
+  tags?: string[];
   statement: string;
   difficulty: number;
   time_limit: number;
