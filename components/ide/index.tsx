@@ -13,7 +13,7 @@ export default function IDE(props: IDEProps) {
     const { layout = "horizontal" } = props;
 
     return (
-        <LinearContainer direction="column" space="lg" fullWidth fullHeight>
+        <LinearContainer direction="column" space="lg" fullwidth fullheight>
             <Toolbar />
             <Splitter layout={layout} className="w-full h-full">
                 <SplitterPanel size={60}>

@@ -1,14 +1,15 @@
 "use client";
 
 import { Input, Textarea } from "@nextui-org/input";
-import { useForm } from "react-hook-form";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
-import { Button } from "@nextui-org/button";
 import { Select, SelectItem } from "@nextui-org/react";
+
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-import { toast } from "react-toastify";
 import { TagsInput } from "./TagsInput";
 import StatementEditorInput from "./StatementEditorInput";
+import { useProblem } from "../../../context";
 
 interface CreateProblemFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateProblemFormValues = {
@@ -31,15 +32,23 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         register,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<CreateProblemFormValues>();
+        watch,
+    } = useForm<CreateProblemFormValues>({
+        mode: "onChange",
+    });
+    const { data, setData } = useProblem();
 
     const [testCases, setTestCases] = React.useState<CreateProblemFormValues["testCases"]>([]);
     const [tags, setTags] = React.useState<CreateProblemFormValues["tags"]>([]);
     const [statement, setStatement] = React.useState<CreateProblemFormValues["statement"]>('');
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit: SubmitHandler<CreateProblemFormValues> = (data) => {
         console.log(data);
-    });
+    }
+
+    const onInvalid: SubmitErrorHandler<CreateProblemFormValues> = (errors, e) => {
+        console.log(errors);
+    }
 
     const registers = {
         title: register("title", {
@@ -47,7 +56,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
             maxLength: {
                 value: 200,
                 message: "Title must be less than 200 characters"
-            }
+            },
         }),
         statement: register("statement", { required: "Statement is required" }),
         difficulty: register("difficulty", { required: "Difficulty is required" }),
@@ -58,18 +67,27 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         outputFormat: register("outputFormat", { required: "Output format is required" }),
         testCases: register("testCases", { required: false }),
     }
+    const watchedFields = watch();
 
-    React.useEffect(() => {
-        if (!isValid) {
-            toast.error("Please fill all the required fields");
-        }
-    }, [isValid]);
 
     return (
         <form
             {...props}
-            onSubmit={onSubmit}
-            className="flex flex-col gap-4 lg:min-w-[48ch] h-full overflow-y-auto"
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            onBlur={() => {
+                setData({
+                    ...data,
+                    title: watchedFields.title,
+                    statement: watchedFields.statement,
+                    difficulty: watchedFields.difficulty as any,
+                    tags: watchedFields.tags,
+                    time_limit: watchedFields.timeLimit,
+                    memory_limit: watchedFields.memoryLimit,
+                    input_format: watchedFields.inputFormat,
+                    output_format: watchedFields.outputFormat,
+                });
+            }}
+            className="flex flex-col gap-4 lg:min-w-[48ch] h-full overflow-y-auto pr-4"
             id="create-problem-form"
         >
             <Input
@@ -77,11 +95,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 label="Title"
                 labelPlacement="outside"
                 placeholder="Title"
-                description="Max length 200"
+                description={`Max length ${registers.title.maxLength}`}
                 required
                 radius="full"
                 isRequired
                 {...registers.title}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="title"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
             />
             {/* @todo implement TagInput */}
             <TagsInput
@@ -94,34 +117,24 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 placeholder="Select difficulty"
                 labelPlacement="outside-left"
                 radius="full"
+                isRequired
                 aria-label="Difficulty"
                 classNames={{
                     base: "items-center",
                     trigger: "rounded-l-none",
                     label: "rounded-r-none rounded-l-full h-full bg-secondary text-secondary-foreground flex items-center justify-center px-4 ",
                 }}
+                {...registers.difficulty}
             >
                 <SelectItem key="easy">Easy</SelectItem>
                 <SelectItem key="medium">Medium</SelectItem>
                 <SelectItem key="hard">Hard</SelectItem>
             </Select>
-            {/* <Textarea
-                label="Statement"
-                isRequired
-                description={
-                    <p>
-                        Support <b>markdown</b> and <b>latex</b> syntax
-                    </p>
-                }
-                placeholder="Type the problem statement here"
-                labelPlacement="outside"
-                required
-                radius="full"
-                classNames={{
-                    base: "max-h-[200ch]"
-                }}
-                {...registers.statement}
-            /> */}
+            <ErrorMessage
+                errors={errors}
+                name="difficulty"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
             <StatementEditorInput markdown={statement} setMarkdown={setStatement} register={registers.statement} />
             <LinearContainer direction="row">
                 <Input
@@ -149,6 +162,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                     {...registers.memoryLimit}
                 />
             </LinearContainer>
+            <ErrorMessage
+                errors={errors}
+                name="timeLimit"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="memoryLimit"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
             <Textarea
                 label="Input Format"
                 description="Describe the input format"
@@ -168,6 +191,11 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 isRequired
                 radius="full"
                 {...registers.outputFormat}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="inputFormat"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
             />
             {/* @todo implement TestCasesInput */}
             {/* <TestCasesInput/> */}
