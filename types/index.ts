@@ -65,7 +65,7 @@ export interface Contest {
   end_time: string;
   scoring_rule: string;
   is_plagiarism_check_enabled: boolean;
-  organizer_id: number;
+  organizer_id: string;
   is_published: boolean;
 }
 
@@ -161,7 +161,7 @@ export interface ContestProblem {
 
 export interface Submission {
   id: string;
-  problem_id: string;
+  problem_id: number;
   source_code_lang: Language | string
   submitted_at: string;
 }
