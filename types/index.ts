@@ -1,4 +1,11 @@
+import { Language } from "@/components/ide/editor/data";
 import { SVGProps } from "react";
+
+/*
+* ========================================================
+*                       REACT
+* ========================================================
+* */
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -8,6 +15,12 @@ export type ObjectContextType<T> = {
   data: T;
   setData: (data: T) => void;
 };
+
+/*
+* ========================================================
+*                       SDK
+* ========================================================
+* */
 
 export interface Problem {
   id: string;
@@ -133,4 +146,11 @@ export interface ContestProblem {
   contest_id: number;
   problem_id: number;
   point: number;
+}
+
+export interface Submission {
+  id: string;
+  problem_id: string;
+  source_code_lang: Language | string
+  submitted_at: string;
 }
