@@ -1,3 +1,5 @@
+"use client";
+
 import { PropsWithChildren } from "react";
 import { UserProvider } from "../context";
 import { mockUser } from "@/mock";
