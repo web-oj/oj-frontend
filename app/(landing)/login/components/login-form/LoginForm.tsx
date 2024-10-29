@@ -1,9 +1,11 @@
 "use client";
 
 import { Input } from "@nextui-org/input";
-import { useForm } from "react-hook-form";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import React from "react";
 import { Button } from "@nextui-org/button";
+import { useRouter } from "next/navigation";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type LoginFormValues = {
@@ -12,15 +14,25 @@ type LoginFormValues = {
 };
 
 export function LoginForm(props: LoginFormProps) {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<LoginFormValues>();
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit: SubmitHandler<LoginFormValues> = ((data) => {
         console.log(data);
+        console.log("Login successful");
+        try {
+            router.back();
+        } catch (error) {
+            router.push("/dashboard");
+        }
     });
+    const onSubmitError: SubmitErrorHandler<LoginFormValues> = (errors) => {
+        console.log(errors);
+    }
 
     const registers = {
         email: register("email", { required: "Email is required" }),
@@ -30,13 +42,12 @@ export function LoginForm(props: LoginFormProps) {
     return (
         <form
             {...props}
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit(onSubmit, onSubmitError)}
             className="flex flex-col gap-1 lg:min-w-[48ch]"
         >
             <Input
-                type="email"
+                type="text"
                 placeholder="Email"
-                required
                 radius="full"
                 size="lg"
                 className="mb-4"
@@ -45,16 +56,21 @@ export function LoginForm(props: LoginFormProps) {
             <Input
                 type="password"
                 placeholder="Password"
-                required
                 radius="full"
                 size="lg"
                 className="mb-4"
                 {...registers.password}
             />
-            <p className="text-danger">
-                {errors.email?.message}
-                {errors.password?.message}
-            </p>
+            <ErrorMessage
+                errors={errors}
+                name="email"
+                render={({ message }) => <p className="text-red-500">{message}</p>}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="password"
+                render={({ message }) => <p className="text-red-500">{message}</p>}
+            />
             <Button
                 type="submit"
                 radius="full"
