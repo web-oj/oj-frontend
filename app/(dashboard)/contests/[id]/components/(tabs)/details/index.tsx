@@ -1,9 +1,9 @@
 "use client";
 
-import { useContest } from "@/app/(dashboard)/contests/context";
-import DifficultyBadge from "@/app/(dashboard)/problems/[id]/components/difficulty_badge";
+import { RenderMarkdown } from "@/components/markdown";
 import { Field, LinearContainer } from "@/components/ui";
 import { Calendar03Icon } from "hugeicons-react";
+import { useContest } from "../../../../context";
 
 interface DetailsAreaProps extends React.HTMLAttributes<HTMLDivElement> { }
 export default function DetailsArea(props: DetailsAreaProps) {
@@ -16,7 +16,7 @@ export default function DetailsArea(props: DetailsAreaProps) {
             fullheight
             fullwidth
             classnames={{
-                wrapper: "bg-foreground-100 p-4"
+                wrapper: "bg-foreground-100 p-4 overflow-y-auto"
             }}
             {...props}
         >
@@ -33,7 +33,9 @@ export default function DetailsArea(props: DetailsAreaProps) {
                     value: "text-foreground-500"
                 }}
             />
-
+            <RenderMarkdown
+                data={contest.description}
+            />
         </LinearContainer>
     );
 }

@@ -1,10 +1,39 @@
 import { Contest, Problem, User, TestCase, Submission, Achievement, DiscussionMessage, Tag, TaggedProblem, PlagiarismReport, SubmissionResult, ContestParticipated, ProblemSolved, ContestProblem, Notification } from "@/types";
 
+const contestDescription = `
+# **Mock Contest**
 
+## **Description**
+This is a **mock contest** description. Participate in this contest to test your skills and compete with others.
+
+## **Details**
+- **Start Time:** January 1, 2023, 00:00 UTC
+- **End Time:** January 2, 2023, 00:00 UTC
+- **Scoring Rule:** Default
+- **Organizer:** Organizer 1
+- **Published:** Yes
+
+## **Rules**
+1. **Plagiarism Check:** Enabled
+2. **Submission Guidelines:** Follow the standard submission guidelines.
+3. **Scoring:** Points will be awarded based on the correctness and efficiency of the solutions.
+
+## **Prizes**
+- **1st Place:** $500
+- **2nd Place:** $300
+- **3rd Place:** $200
+
+## **Contact**
+For any queries, please contact the organizer at [organizer@example.com](mailto:organizer@example.com).
+
+---
+
+**Good luck and happy coding!**
+`;
 export const mockContest: Contest = {
     contest_id: 1,
     title: "Mock Contest",
-    description: "This is a mock contest description.",
+    description: contestDescription,
     start_time: "2023-01-01T00:00:00Z",
     end_time: "2023-01-02T00:00:00Z",
     scoring_rule: "default",
@@ -145,3 +174,8 @@ export const mockSubmissionSimple: Submission = {
     status: "",
     compiler_message: ""
 };
+
+// More mock data can be added here
+
+export const mockContests: Contest[] = Array(20).fill(mockContest);
+export const mockProblems: Problem[] = Array(20).fill(mockProblem);
