@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/ui";
+import { LinearContainer, PageContainer } from "@/components/ui";
 import LoginFormWrapper from "./components/login-form";
 
 export default function Home() {
