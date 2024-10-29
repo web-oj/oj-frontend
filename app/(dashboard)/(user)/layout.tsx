@@ -1,3 +1,4 @@
+import { LayoutContainer } from "@/components/ui";
 import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
@@ -8,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function Layout(props: PropsWithChildren) {
     return (
-        <div>
+        <LayoutContainer>
             {props.children}
-        </div>
+        </LayoutContainer>
     );
 }
