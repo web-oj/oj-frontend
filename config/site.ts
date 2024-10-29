@@ -5,8 +5,8 @@ export const siteConfig = {
   description: "Online judging platform for hackathons and coding competitions",
   navItems: [
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Problems",
+      href: "/problems",
     },
     {
       label: "Contests",
