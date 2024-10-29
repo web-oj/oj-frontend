@@ -2,7 +2,7 @@
 import React from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, Tooltip, ChipProps, Input, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection } from "@nextui-org/react";
 import { columns } from "./data";
-import { ArrowDown01Icon, CircleIcon } from "hugeicons-react";
+import { ArrowDown01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
