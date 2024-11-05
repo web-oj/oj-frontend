@@ -164,7 +164,7 @@ export const Navbar = () => {
       </ul>
       <NavbarMenuToggle
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        className="text-foreground-100"
+        className="text-foreground-100 lg:hidden"
       />
       <NavbarMenu className="bg-foreground-800">
         <NavbarMenuItem>
