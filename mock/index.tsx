@@ -179,3 +179,4 @@ export const mockSubmissionSimple: Submission = {
 
 export const mockContests: Contest[] = Array(20).fill(mockContest);
 export const mockProblems: Problem[] = Array(20).fill(mockProblem);
+export const mockUsers: User[] = Array(20).fill(mockUser);
