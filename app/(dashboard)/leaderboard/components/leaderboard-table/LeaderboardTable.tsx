@@ -4,33 +4,30 @@
 import React from "react";
 import Link from "next/link";
 import { useAsyncList } from "@react-stately/data";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, Tooltip, ChipProps, Input, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, Tooltip, ChipProps, Input, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection, Avatar, User as UserUI } from "@nextui-org/react";
 
+import { User } from "@/types";
+import { mockUsers } from "@/mock";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
-import { Contest } from "@/types";
-import { mockContests } from "@/mock";
-
 import { columns } from "./data";
 
-export default function ContestsTable() {
-    const [contests, setContests] = React.useState<Contest[]>(mockContests);
-    const [difficultiesFilter, setDifficultiesFilter] = React.useState<Selection>("all");
+export default function LeaderboardTable() {
     const [filterValue, setFilterValue] = React.useState("");
 
-    const list = useAsyncList<Contest>({
+    const list = useAsyncList<User>({
         async load({ signal }) {
-            let items = mockContests;
+            let items = mockUsers;
 
             return {
-                items: mockContests
+                items: mockUsers
             };
         },
         async sort({ items, sortDescriptor }) {
             return {
                 items: items.sort((a, b) => {
-                    let first = a[sortDescriptor.column as keyof Contest] as number;
-                    let second = b[sortDescriptor.column as keyof Contest] as number;
+                    let first = a[sortDescriptor.column as keyof User] as number;
+                    let second = b[sortDescriptor.column as keyof User] as number;
 
                     const cmp = first - second;
 
@@ -41,7 +38,7 @@ export default function ContestsTable() {
 
     });
     const filteredItems = React.useMemo(() => {
-        return list.items.filter(submission => submission.id.toString().includes(filterValue));
+        return list.items.filter(user => user.user_id.toString().includes(filterValue));
     }, [list.items, filterValue]);
 
     const onSearchChange = React.useCallback((value?: string) => {
@@ -53,27 +50,36 @@ export default function ContestsTable() {
     }, []);
 
 
-    const renderCell = React.useCallback((contest: Contest, columnKey: React.Key) => {
-        const cellValue = contest[columnKey as keyof Contest];
+    const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
+        const cellValue = user[columnKey as keyof User];
 
         switch (columnKey) {
-            case "contest_id":
+            case "standing":
                 return (
-                    <Tooltip content="View contest">
-                        <a href={`/contests/${contest.contest_id}`}>{cellValue}</a>
-                    </Tooltip>
+                    <>{cellValue}</>
                 );
-            case "title":
+            case "user_name":
                 return (
-                    <Link href={`/contests/${contest.contest_id}`}>
-                        {cellValue}
-                    </Link>
-                );
-            case "start_time":
-                return new Date(contest.start_time).toLocaleString();
-            case "end_time":
-                return new Date(contest.end_time).toLocaleString();
+                    <UserUI
+                        name={
+                            <Link href={`/profiles/${user.user_id}`}>
+                                {user.user_name}
+                            </Link>
+                        }
+                        avatarProps={{
+                            showFallback: true,
+                            alt: user.user_name,
+                            size: "sm",
+                        }}
 
+                    />
+                );
+            case "rating":
+                return (
+                    <p>
+                        {cellValue}
+                    </p>
+                );
             default:
                 return cellValue;
         }
@@ -94,14 +100,14 @@ export default function ContestsTable() {
     }, []);
     return (
         <Table
-            aria-label="Contests Table"
+            aria-label="Users Table"
             sortDescriptor={list.sortDescriptor}
             onSortChange={list.sort}
             topContent={topContent}
             classNames={{
                 tbody: "h-full",
                 wrapper: "h-full justify-start",
-                base: "h-full",
+                base: "h-full overflow-auto",
             }}
         >
             <TableHeader columns={columns}>
@@ -116,7 +122,7 @@ export default function ContestsTable() {
                 isLoading={list.isLoading}
             >
                 {(item) => (
-                    <TableRow key={item.id}>
+                    <TableRow key={item.user_id}>
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                     </TableRow>
                 )}
