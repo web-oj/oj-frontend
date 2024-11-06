@@ -27,7 +27,7 @@ export default function ContestsArea(props: Props) {
             fullwidth
             fullheight
         >
-            {mockContests.slice(0, 3).map((contest) => (
+            {mockContests.slice(0, 4).map((contest) => (
                 <ContestCard
                     key={contest.contest_id}
                     contest={contest}
