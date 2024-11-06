@@ -7,6 +7,7 @@ export default function Page() {
             title="Contests"
         >
             <LinearContainer
+                className="overflow-hidden"
                 fullwidth
                 fullheight
             >
