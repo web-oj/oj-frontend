@@ -6,7 +6,7 @@ export const columns = [
     },
     {
         name: "Coder",
-        uid: "user",
+        uid: "user_name",
         sortable: true,
     },
     {
