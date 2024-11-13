@@ -16,7 +16,7 @@ export async function signUp(params: {
     }
 }
 
-export async function login(params: { email: string; password: string }): w {
+export async function login(params: { email: string; password: string }) {
     try {
         const res = await api.post("/user/login", params);
 
@@ -29,11 +29,10 @@ export async function login(params: { email: string; password: string }): w {
 
 export async function getUser(params: { user_id: number }): Promise<User> {
     try {
-        const res = await api.get<User>(`/user/${params.user_id}`);
+        const res = await api.get<User>(`/user/id/${params.user_id}`);
 
         return res.data;
     } catch (error) {
         throw new Error("Failed to get user");
     }
 }
-
