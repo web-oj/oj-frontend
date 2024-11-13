@@ -41,7 +41,7 @@ export const mockContest: Contest = {
     organizer_id: "organizer_1",
     is_published: true,
     id: "",
-    created_at: ""
+    created_at: "28"
 };
 
 export const mockProblem: Problem = {
