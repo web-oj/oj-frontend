@@ -27,9 +27,11 @@ import { Button } from "@nextui-org/button";
 import { Search } from "./search";
 import { usePathname } from "next/navigation";
 import { LinearContainer } from "./ui";
+import { useAuth } from "@/app/context";
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const searchInput = (
