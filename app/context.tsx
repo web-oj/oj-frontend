@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { User, ObjectContextType } from "@/types";
-import { getUser } from "@/fetch-functions";
+import { getUser, getUserIdByToken } from "@/fetch-functions";
 import Cookies from "js-cookie";
 
 type AuthContextType = {
@@ -24,7 +24,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const fetchUser = React.useCallback(async () => {
         try {
-            const user = await getUser({ user_id: 1 });
+            const token = Cookies.get("token");
+            if (!token) {
+                return;
+            }
+            const id = await getUserIdByToken();
+            const user = await getUser({ user_id: id });
             setUser(user);
         } catch (error) {
             console.error("Failed to fetch user", error);
@@ -47,6 +52,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, [user, fetchUser]);
 
     const login = (token: string) => {
+        if (!token) {
+            throw new Error("Token is required");
+        }
         Cookies.set("token", token);
     };
 
