@@ -36,3 +36,17 @@ export async function getUser(params: { user_id: number }): Promise<User> {
         throw new Error("Failed to get user");
     }
 }
+
+export async function register(params: {
+    email: string;
+    password: string;
+    confirmPassword: string;
+}) {
+    try {
+        const res = await api.post("/user/register", params);
+
+        return res.data;
+    } catch (error) {
+        throw new Error("Failed to register");
+    }
+}
