@@ -28,9 +28,8 @@ export function LoginForm(props: LoginFormProps) {
 
     const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
         try {
-            const response = await login(data);
-            console.log("Login successful:", response);
-            authLogin(response.token);
+            const token = await login(data);
+            authLogin(token);
             router.push("/dashboard");
         } catch (error) {
             toast.error("Login failed");
