@@ -41,7 +41,7 @@ export const mockContest: Contest = {
     organizer_id: "organizer_1",
     is_published: true,
     id: "",
-    created_at: ""
+    created_at: "28"
 };
 
 export const mockProblem: Problem = {
@@ -179,3 +179,4 @@ export const mockSubmissionSimple: Submission = {
 
 export const mockContests: Contest[] = Array(20).fill(mockContest);
 export const mockProblems: Problem[] = Array(20).fill(mockProblem);
+export const mockUsers: User[] = Array(20).fill(mockUser);

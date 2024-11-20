@@ -7,8 +7,9 @@ export default function Page() {
             title="Problems"
         >
             <LinearContainer
+                className="overflow-hidden"
                 fullwidth
-                fullheight
+                fullheight  
             >
                 <ProblemsTableWrapper />
             </LinearContainer>
