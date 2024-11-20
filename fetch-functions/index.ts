@@ -5,13 +5,14 @@ import { api } from "@/utils/api";
 export async function signUp(params: {
     email: string;
     password: string;
-    handle: string;
+    handle: string; // username
 }) {
     try {
-        const res = await api.post("/user/sign-up", params);
+        const res = await api.post("/user/sign_up", params);
 
         return res.data;
     } catch (error) {
+        console.error("Failed to sign up", error);
         throw new Error("Failed to sign up");
     }
 }
@@ -42,19 +43,5 @@ export async function getUser(params: { user_id: number }): Promise<User> {
         return res.data;
     } catch (error) {
         throw new Error("Failed to get user");
-    }
-}
-
-export async function register(params: {
-    email: string;
-    password: string;
-    confirmPassword: string;
-}) {
-    try {
-        const res = await api.post("/user/register", params);
-
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to register");
     }
 }
