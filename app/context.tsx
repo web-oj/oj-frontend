@@ -1,11 +1,15 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { User, ObjectContextType } from "@/types";
+import { getUser, getUserIdByToken } from "@/fetch-functions";
+import Cookies from "js-cookie";
 
 type AuthContextType = {
     user: User | null;
     login: (token: string) => void;
     logout: () => void;
     loginWithGoogle: () => void;
+    showCookieConsent: boolean;
+    allowCookies: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -16,34 +20,59 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
+    const [showCookieConsent, setShowCookieConsent] = useState<boolean>(false);
 
-    useEffect(() => {
-        // Check for existing token in local storage
-        const token = localStorage.getItem("token");
-        if (token) {
-            // Validate token and set user
-            // This is a placeholder, replace with actual token validation logic
-            const decodedUser = JSON.parse(atob(token.split(".")[1])) as User;
-            setUser(decodedUser);
+    const fetchUser = React.useCallback(async () => {
+        try {
+            const token = Cookies.get("token");
+            if (!token) {
+                return;
+            }
+            const id = await getUserIdByToken();
+            const user = await getUser({ user_id: id });
+            setUser(user);
+        } catch (error) {
+            console.error("Failed to fetch user", error);
         }
     }, []);
 
+    useEffect(() => {
+        const token = Cookies.get("token");
+        const cookieConsent = Cookies.get("cookieConsent");
+
+        if (!cookieConsent) {
+            setShowCookieConsent(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (user === null) {
+            fetchUser();
+        }
+    }, [user, fetchUser]);
+
     const login = (token: string) => {
-        localStorage.setItem("token", token);
-        const decodedUser = JSON.parse(atob(token.split(".")[1])) as User;
-        setUser(decodedUser);
+        if (!token) {
+            throw new Error("Token is required");
+        }
+        Cookies.set("token", token);
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
+        Cookies.remove("token");
         setUser(null);
     };
 
     const loginWithGoogle = () => {
     };
 
+    const allowCookies = () => {
+        Cookies.set("cookieConsent", "true");
+        setShowCookieConsent(false);
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loginWithGoogle }}>
+        <AuthContext.Provider value={{ user, login, logout, loginWithGoogle, showCookieConsent, allowCookies }}>
             {children}
         </AuthContext.Provider>
     );

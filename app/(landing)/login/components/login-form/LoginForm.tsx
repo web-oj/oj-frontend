@@ -6,6 +6,9 @@ import React from "react";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
+import { login } from "@/fetch-functions";
+import { useAuth } from "@/app/context";
+import { toast } from "react-toastify";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type LoginFormValues = {
@@ -21,15 +24,19 @@ export function LoginForm(props: LoginFormProps) {
         formState: { errors },
     } = useForm<LoginFormValues>();
 
-    const onSubmit: SubmitHandler<LoginFormValues> = ((data) => {
-        console.log(data);
-        console.log("Login successful");
+    const { login: authLogin } = useAuth();
+
+    const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
         try {
-            router.back();
-        } catch (error) {
+            const token = await login(data);
+            authLogin(token);
             router.push("/dashboard");
+        } catch (error) {
+            toast.error("Login failed");
+            console.error("Login failed", error);
         }
-    });
+    };
+
     const onSubmitError: SubmitErrorHandler<LoginFormValues> = (errors) => {
         console.log(errors);
     }
