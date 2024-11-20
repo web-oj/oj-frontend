@@ -15,7 +15,7 @@ interface CreateProblemFormProps extends React.HTMLAttributes<HTMLFormElement> {
 type CreateProblemFormValues = {
     title: string;
     statement: string;
-    difficulty: string;
+    difficulty: number;
     tags?: string[];
     timeLimit: number;
     memoryLimit: number;
@@ -81,7 +81,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                     ...data,
                     title: watchedFields.title,
                     statement: watchedFields.statement,
-                    difficulty: watchedFields.difficulty as any,
+                    difficulty: watchedFields.difficulty,
                     tags: watchedFields.tags,
                     time_limit: watchedFields.timeLimit,
                     memory_limit: watchedFields.memoryLimit,
@@ -128,9 +128,9 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 }}
                 {...registers.difficulty}
             >
-                <SelectItem key="easy">Easy</SelectItem>
-                <SelectItem key="medium">Medium</SelectItem>
-                <SelectItem key="hard">Hard</SelectItem>
+                <SelectItem key="easy" value={1}>Easy</SelectItem>
+                <SelectItem key="medium" value={2}>Medium</SelectItem>
+                <SelectItem key="hard" value={3}>Hard</SelectItem>
             </Select>
             <ErrorMessage
                 errors={errors}
@@ -193,6 +193,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 isRequired
                 radius="full"
                 {...registers.outputFormat}
+            />
+            <Textarea
+                label="Solution Text"
+                description="Type the solution text here"
+                placeholder="Type the solution text here"
+                labelPlacement="outside"
+                required
+                isRequired
+                radius="full"
+                {...registers.solutionText}
             />
             <ErrorMessage
                 errors={errors}
