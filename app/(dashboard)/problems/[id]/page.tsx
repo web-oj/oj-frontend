@@ -5,6 +5,7 @@ import ProblemTabs from "./components/(tabs)";
 import { notFound } from "next/navigation";
 import Providers from "./providers";
 import { Problem } from "@/types";
+import { getProblemById } from "@/fetch-functions";
 
 interface Props {
   params: {
@@ -15,7 +16,7 @@ export default async function Page({ params }: Props) {
   const { id } = params;
   const fetchProblem = async () => {
     try {
-      const problem = {} as Problem;
+      const problem = await getProblemById({ id: parseInt(id) });
       return problem;
     } catch (error) {
       console.error("Failed to fetch problem", error);
