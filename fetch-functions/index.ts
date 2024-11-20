@@ -1,5 +1,4 @@
-import { API_URL } from "@/config/constants";
-import { User } from "@/types";
+import type { User, Problem } from "@/types";
 import { api } from "@/utils/api";
 
 export async function signUp(params: {
@@ -39,18 +38,18 @@ export async function getUser(params: { user_id: number }): Promise<User> {
 
 
 export async function createProblem(params: {
-    title: string;
-    statement: string;
-    difficulty: string;
+    title: Problem["title"];
+    difficulty: Problem["difficulty"];
+    statement: Problem["statement"];
     /**
      * @ignore: tags are not implemented yet
      */
     // tags: string[]; 
-    timeLimit: number;
-    memoryLimit: number;
-    inputFormat: string;
-    outputFormat: string;
-    solutionText: string;
+    timeLimit: Problem["time_limit"];
+    memoryLimit: Problem["memory_limit"];
+    inputFormat: Problem["input_format"];
+    outputFormat: Problem["output_format"];
+    solutionText: Problem["solution_text"];
 }) {
     try {
         const res = await api.post("/problem/create_problem", params);
