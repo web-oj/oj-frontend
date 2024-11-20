@@ -7,7 +7,14 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     isCenteredX?: boolean;
     isCenteredY?: boolean;
     title?: string;
+<<<<<<< Updated upstream
     label?: React.ReactNode;
+=======
+<<<<<<< HEAD
+=======
+    label?: React.ReactNode;
+>>>>>>> main
+>>>>>>> Stashed changes
 }
 export function PageContainer(props: PageContainerProps) {
     const {
@@ -15,7 +22,14 @@ export function PageContainer(props: PageContainerProps) {
         isCenteredX = false,
         isCenteredY = false,
         title,
+<<<<<<< Updated upstream
         label,
+=======
+<<<<<<< HEAD
+=======
+        label,
+>>>>>>> main
+>>>>>>> Stashed changes
         className,
         ...rest
     } = props;
@@ -30,7 +44,14 @@ export function PageContainer(props: PageContainerProps) {
         )} >
 
             {title && <h1 className="text-4xl font-bold text-foreground">{title}</h1>}
+<<<<<<< Updated upstream
             {label}
+=======
+<<<<<<< HEAD
+=======
+            {label}
+>>>>>>> main
+>>>>>>> Stashed changes
             {props.children}
         </div>
     );

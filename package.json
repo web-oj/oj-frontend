@@ -1,6 +1,14 @@
 {
 	"name": "Sync Up",
+<<<<<<< Updated upstream
 	"version": "0.1.1",
+=======
+<<<<<<< HEAD
+	"version": "0.0.1",
+=======
+	"version": "0.1.1",
+>>>>>>> main
+>>>>>>> Stashed changes
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbo",
@@ -31,7 +39,14 @@
 		"framer-motion": "~11.1.1",
 		"hugeicons-react": "^0.3.0",
 		"intl-messageformat": "^10.5.0",
+<<<<<<< Updated upstream
 		"js-cookie": "^3.0.5",
+=======
+<<<<<<< HEAD
+=======
+		"js-cookie": "^3.0.5",
+>>>>>>> main
+>>>>>>> Stashed changes
 		"katex": "^0.16.11",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
@@ -51,7 +66,14 @@
 		"tailwind-merge": "^2.5.4"
 	},
 	"devDependencies": {
+<<<<<<< Updated upstream
 		"@types/js-cookie": "^3.0.6",
+=======
+<<<<<<< HEAD
+=======
+		"@types/js-cookie": "^3.0.6",
+>>>>>>> main
+>>>>>>> Stashed changes
 		"@types/node": "20.5.7",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",

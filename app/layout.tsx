@@ -10,7 +10,14 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { ToastContainer } from "react-toastify";
+<<<<<<< Updated upstream
 import CookieConsent from "@/components/pop/CookieConsent";
+=======
+<<<<<<< HEAD
+=======
+import CookieConsent from "@/components/pop/CookieConsent";
+>>>>>>> main
+>>>>>>> Stashed changes
 
 export const metadata: Metadata = {
   title: {
@@ -46,10 +53,23 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <ToastContainer />
+<<<<<<< Updated upstream
           <CookieConsent />
           <div className="relative flex flex-col h-screen w-screen">
             <Navbar />
             <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-auto overflow-x-hidden">
+=======
+<<<<<<< HEAD
+          <div className="relative flex flex-col h-screen w-screen">
+            <Navbar />
+            <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-hidden">
+=======
+          <CookieConsent />
+          <div className="relative flex flex-col h-screen w-screen">
+            <Navbar />
+            <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-auto overflow-x-hidden">
+>>>>>>> main
+>>>>>>> Stashed changes
               {children}
             </main>
           </div>
