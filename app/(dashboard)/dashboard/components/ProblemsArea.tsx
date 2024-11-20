@@ -9,10 +9,10 @@ export default function ProblemsArea(props: Props) {
         <LinearContainer
             label={
                 <div className="gap-0 flex flex-row justify-between w-full">
-                    <h1 className="text-2xl font-bold text-foreground">Contests</h1>
+                    <h1 className="text-2xl font-bold text-foreground">Problems</h1>
                     <Link
                         href={`/problems`}
-                        className="text-base text-foreground-500"
+                        className="text-sm text-foreground-500"
                     >
                         See all
                     </Link>
