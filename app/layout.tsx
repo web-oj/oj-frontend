@@ -49,7 +49,7 @@ export default function RootLayout({
           <CookieConsent />
           <div className="relative flex flex-col h-screen w-screen">
             <Navbar />
-            <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-hidden">
+            <main className="mx-auto w-full h-full py-4 px-6 flex-grow overflow-y-auto overflow-x-hidden">
               {children}
             </main>
           </div>
