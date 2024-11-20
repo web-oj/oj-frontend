@@ -36,3 +36,28 @@ export async function getUser(params: { user_id: number }): Promise<User> {
         throw new Error("Failed to get user");
     }
 }
+
+
+export async function createProblem(params: {
+    title: string;
+    statement: string;
+    difficulty: string;
+    /**
+     * @ignore: tags are not implemented yet
+     */
+    // tags: string[]; 
+    timeLimit: number;
+    memoryLimit: number;
+    inputFormat: string;
+    outputFormat: string;
+    solutionText: string;
+}) {
+    try {
+        const res = await api.post("/problem/create_problem", params);
+
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        throw new Error("Failed to create problem");
+    }
+}
