@@ -4,8 +4,16 @@ import { Input } from "@nextui-org/input";
 import { useForm } from "react-hook-form";
 import React from "react";
 import { Button } from "@nextui-org/button";
+<<<<<<< Updated upstream
 import { register as registerUser } from "@/fetch-functions";
 import { toast } from "react-toastify";
+=======
+<<<<<<< HEAD
+=======
+import { register as registerUser } from "@/fetch-functions";
+import { toast } from "react-toastify";
+>>>>>>> main
+>>>>>>> Stashed changes
 
 interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type RegisterFormValues = {
@@ -21,6 +29,13 @@ export function RegisterForm(props: RegisterFormProps) {
         formState: { errors },
     } = useForm<RegisterFormValues>();
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    const onSubmit = handleSubmit((data) => {
+        console.log(data);
+=======
+>>>>>>> Stashed changes
     const onSubmit = handleSubmit(async (data) => {
         try {
             const response = await registerUser(data);
@@ -29,6 +44,10 @@ export function RegisterForm(props: RegisterFormProps) {
             toast.error("Registration failed");
             console.error("Registration failed:", error);
         }
+<<<<<<< Updated upstream
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     });
 
     const registers = {

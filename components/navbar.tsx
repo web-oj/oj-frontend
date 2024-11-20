@@ -27,12 +27,27 @@ import { Button } from "@nextui-org/button";
 import { Search } from "./search";
 import { usePathname } from "next/navigation";
 import { LinearContainer } from "./ui";
+<<<<<<< Updated upstream
 import { useAuth } from "@/app/context";
 import { User } from "@nextui-org/react";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
+=======
+<<<<<<< HEAD
+
+export const Navbar = () => {
+  const pathname = usePathname();
+=======
+import { useAuth } from "@/app/context";
+import { User } from "@nextui-org/react";
+
+export const Navbar = () => {
+  const pathname = usePathname();
+  const { user } = useAuth();
+>>>>>>> main
+>>>>>>> Stashed changes
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const searchInput = (
@@ -146,6 +161,7 @@ export const Navbar = () => {
         </div>
       </NavbarContent>
 
+<<<<<<< Updated upstream
       {
         user ? (
           <User
@@ -179,6 +195,66 @@ export const Navbar = () => {
       <NavbarMenuToggle
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         className="text-foreground-100 lg:hidden"
+=======
+<<<<<<< HEAD
+      <ul className="w-fit hidden lg:flex flex-row gap-4 items-center">
+        <Button
+          as={NextLink}
+          href="../register"
+          radius="full"
+          color="default"
+          className="bg-foreground-700 text-foreground-100"
+        >
+          Register
+        </Button>
+        <Button
+          as={NextLink}
+          href="../login"
+          radius="full"
+          color="primary"
+        >
+          Login
+        </Button>
+      </ul>
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="text-foreground-100"
+=======
+      {
+        user ? (
+          <User
+            name={user.user_name}
+            avatarProps={{
+              showFallback: true,
+            }}
+          />
+        ) : (
+          <ul className="w-fit hidden lg:flex flex-row gap-4 items-center">
+            <Button
+              as={NextLink}
+              href="../register"
+              radius="full"
+              color="default"
+              className="bg-foreground-700 text-foreground-100"
+            >
+              Register
+            </Button>
+            <Button
+              as={NextLink}
+              href="../login"
+              radius="full"
+              color="primary"
+            >
+              Login
+            </Button>
+          </ul>
+        )
+      }
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="text-foreground-100 lg:hidden"
+>>>>>>> main
+>>>>>>> Stashed changes
       />
       <NavbarMenu className="bg-foreground-800">
         <NavbarMenuItem>

@@ -164,4 +164,12 @@ export interface Submission {
   problem_id: number;
   source_code_lang: Language | string
   submitted_at: string;
+<<<<<<< Updated upstream
 }
+=======
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> main
+>>>>>>> Stashed changes

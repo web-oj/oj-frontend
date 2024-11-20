@@ -9,12 +9,28 @@ export interface LinearContainerProps extends React.HTMLAttributes<HTMLDivElemen
     space?: "sm" | "md" | "lg";
     fullwidth?: boolean;
     fullheight?: boolean;
+<<<<<<< Updated upstream
     label?: React.ReactNode;
     labelSize?: "sm" | "md" | "lg" | "2xl";
     classnames?: {
         wrapper?: string;
         container?: string;
         label?: string;
+=======
+<<<<<<< HEAD
+    label?: string;
+    classnames?: {
+        wrapper?: string;
+        container?: string;
+=======
+    label?: React.ReactNode;
+    labelSize?: "sm" | "md" | "lg" | "2xl";
+    classnames?: {
+        wrapper?: string;
+        container?: string;
+        label?: string;
+>>>>>>> main
+>>>>>>> Stashed changes
     };
 }
 export function LinearContainer(props: LinearContainerProps) {
@@ -37,6 +53,12 @@ export function LinearContainer(props: LinearContainerProps) {
             fullHeight && "h-full",
             twJoin(className, classNames?.wrapper)
         )}>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+            {props.label && <h3 className="text-sm font-medium text-foreground">{props.label}</h3>}
+=======
+>>>>>>> Stashed changes
             {
                 props.label &&
                 <h3 className={twMerge(
@@ -50,6 +72,10 @@ export function LinearContainer(props: LinearContainerProps) {
                     {props.label}
                 </h3>
             }
+<<<<<<< Updated upstream
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
             <div
                 {...props}
                 className={clsx(
