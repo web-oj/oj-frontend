@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { twJoin, twMerge } from "tailwind-merge";
 
 export interface LinearContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     isCentered?: boolean;
@@ -24,14 +25,15 @@ export function LinearContainer(props: LinearContainerProps) {
         isCenteredX = false,
         isCenteredY = false,
         classnames: classNames,
+        className,
         ...rest
     } = props;
     return (
-        <div className={clsx(
-            "flex flex-col gap-2 h-fit",
+        <div className={twMerge(
+            "flex flex-col gap-2 h-fit rounded-medium",
             fullWidth && "w-full",
             fullHeight && "h-full",
-            classNames?.wrapper
+            twJoin(className, classNames?.wrapper)
         )}>
             {props.label && <h3 className="text-sm font-medium text-foreground">{props.label}</h3>}
             <div
