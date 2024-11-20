@@ -10,78 +10,24 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
 import NextLink from "next/link";
 import clsx from "clsx";
+import { KeyboardIcon } from "hugeicons-react";
+import { Button } from "@nextui-org/button";
+import { User } from "@nextui-org/react";
 
 import { siteConfig } from "@/config/site";
-import {
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
-import { DocumentValidationIcon, KeyboardIcon, RankingIcon, SourceCodeIcon } from "hugeicons-react";
-import { Button } from "@nextui-org/button";
+import { useAuth } from "@/app/context";
+
 import { Search } from "./search";
 import { usePathname } from "next/navigation";
 import { LinearContainer } from "./ui";
-import { useAuth } from "@/app/context";
-import { User } from "@nextui-org/react";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const SearchButton = () => {
-    const [isExpanded, setIsExpanded] = React.useState(false);
-
-    const handleButtonClick = () => {
-      setIsExpanded(true);
-    };
-
-    const handleBlur = () => {
-      setIsExpanded(false);
-    };
-
-    return (
-      <div className="relative">
-        {isExpanded ? (
-          <Input
-            aria-label="Search"
-            classNames={{
-              inputWrapper: "bg-default-100",
-              input: "text-sm",
-            }}
-            endContent={
-              <Kbd className="hidden lg:inline-block" keys={["command"]}>
-                K
-              </Kbd>
-            }
-            labelPlacement="outside"
-            placeholder="Search..."
-            startContent={
-              <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-            }
-            type="search"
-            autoFocus
-            onBlur={handleBlur}
-          />
-        ) : (
-          <Button
-            variant="light"
-            isIconOnly
-            onClick={handleButtonClick}
-            className="p-2 rounded-full bg-default-100 hover:bg-default-200"
-          >
-            <SearchIcon className="text-base text-default-400" />
-          </Button>
-        )}
-      </div>
-    );
-  };
 
   return (
     <NextUINavbar
