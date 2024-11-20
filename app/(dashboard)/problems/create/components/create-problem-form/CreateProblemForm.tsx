@@ -16,11 +16,12 @@ type CreateProblemFormValues = {
     title: string;
     statement: string;
     difficulty: string;
-    tags: string[];
+    tags?: string[];
     timeLimit: number;
     memoryLimit: number;
     inputFormat: string;
     outputFormat: string;
+    solutionText: string;
     testCases: {
         input: string;
         output: string;
@@ -65,6 +66,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         memoryLimit: register("memoryLimit", { required: "Memory limit is required" }),
         inputFormat: register("inputFormat", { required: "Input format is required" }),
         outputFormat: register("outputFormat", { required: "Output format is required" }),
+        solutionText: register("solutionText", { required: "Solution text is required" }),
         testCases: register("testCases", { required: false }),
     }
     const watchedFields = watch();
@@ -108,7 +110,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
             />
             {/* @todo implement TagInput */}
             <TagsInput
-                tags={tags}
+                tags={tags || []}
                 onTagsChange={setTags}
                 className="mb-4"
             />
