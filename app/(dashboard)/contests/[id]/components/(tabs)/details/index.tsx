@@ -16,7 +16,7 @@ export default function DetailsArea(props: DetailsAreaProps) {
             fullheight
             fullwidth
             classnames={{
-                wrapper: "bg-foreground-100 p-4 overflow-y-auto"
+                wrapper: "bg-foreground-50 p-4 overflow-y-auto"
             }}
             {...props}
         >
