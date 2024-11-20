@@ -7,7 +7,6 @@ import React from "react";
 import { Select, SelectItem } from "@nextui-org/react";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-
 import { TagsInput } from "./TagsInput";
 import StatementEditorInput from "./StatementEditorInput";
 import { useProblem } from "../../../context";
@@ -16,12 +15,13 @@ interface CreateProblemFormProps extends React.HTMLAttributes<HTMLFormElement> {
 type CreateProblemFormValues = {
     title: string;
     statement: string;
-    difficulty: number;
-    tags: string[];
+    difficulty: string;
+    tags?: string[];
     timeLimit: number;
     memoryLimit: number;
     inputFormat: string;
     outputFormat: string;
+    solutionText: string;
     testCases: {
         input: string;
         output: string;
@@ -66,6 +66,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         memoryLimit: register("memoryLimit", { required: "Memory limit is required" }),
         inputFormat: register("inputFormat", { required: "Input format is required" }),
         outputFormat: register("outputFormat", { required: "Output format is required" }),
+        solutionText: register("solutionText", { required: "Solution text is required" }),
         testCases: register("testCases", { required: false }),
     }
     const watchedFields = watch();
@@ -80,7 +81,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                     ...data,
                     title: watchedFields.title,
                     statement: watchedFields.statement,
-                    difficulty: watchedFields.difficulty,
+                    difficulty: watchedFields.difficulty as any,
                     tags: watchedFields.tags,
                     time_limit: watchedFields.timeLimit,
                     memory_limit: watchedFields.memoryLimit,
@@ -109,7 +110,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
             />
             {/* @todo implement TagInput */}
             <TagsInput
-                tags={tags}
+                tags={tags || []}
                 onTagsChange={setTags}
                 className="mb-4"
             />
@@ -127,9 +128,9 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 }}
                 {...registers.difficulty}
             >
-                <SelectItem key="easy" value={1}>Easy</SelectItem>
-                <SelectItem key="medium" value={2}>Medium</SelectItem>
-                <SelectItem key="hard" value={3}>Hard</SelectItem>
+                <SelectItem key="easy">Easy</SelectItem>
+                <SelectItem key="medium">Medium</SelectItem>
+                <SelectItem key="hard">Hard</SelectItem>
             </Select>
             <ErrorMessage
                 errors={errors}

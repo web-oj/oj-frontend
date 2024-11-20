@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 export default function Layout(props: PropsWithChildren) {
     return (
         <Providers>
-            <>
-                {props.children}
-            </>
+            {props.children}
         </Providers>
     );
 }
