@@ -16,7 +16,7 @@ export function ContestCard(props: Props) {
         <LinearContainer
             direction="column"
             space="md"
-            className="max-w-64 bg-foreground-100 p-4 cursor-pointer"
+            className="max-w-64 bg-foreground-50 p-4 cursor-pointer"
             fullwidth
             onClick={() => router.push(`/contests/${contest.contest_id}`)}
         >

@@ -12,7 +12,7 @@ export default function ProblemArea(props: ProblemAreaProps) {
             fullwidth
             fullheight
             classnames={{
-                wrapper: "overflow-y-auto bg-foreground-100 rounded-large p-6",
+                wrapper: "overflow-y-auto bg-foreground-50 rounded-large p-6",
             }}
         >
             <Header />
