@@ -35,7 +35,7 @@ export function LinearContainer(props: LinearContainerProps) {
     return (
         <div className={twMerge(
             "flex flex-col gap-2 h-fit",
-            roundedMedium && "rounded-md",
+            roundedMedium && "rounded-medium",
             fullWidth && "w-full",
             fullHeight && "h-full",
             twJoin(className, classNames?.wrapper)
