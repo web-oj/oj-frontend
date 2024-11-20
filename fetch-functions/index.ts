@@ -22,131 +22,40 @@ export async function login(params: { email: string; password: string }) {
         const res = await api.post("/user/login", params);
 
         return res.data;
-
     } catch (error) {
         throw new Error("Failed to sign in");
     }
 }
 
-export async function getUserById(params: { id: number }): Promise<User> {
+export async function getUserIdByToken() {
     try {
-        const res = await api.get<User>(`/user/id/${params.id}`);
+        const res = await api.get(`/user/get-user-id-from-token`);
         return res.data;
     } catch (error) {
-        throw new Error("Failed to fetch user by ID");
+        console.error("Failed to get user by token", error);
+        throw new Error("Failed to get user by token");
+    }
+}
+export async function getUser(params: { user_id: number }): Promise<User> {
+    try {
+        const res = await api.get<User>(`/user/id/${params.user_id}`);
+
+        return res.data;
+    } catch (error) {
+        throw new Error("Failed to get user");
     }
 }
 
-export async function getUserByHandle(params: { handle: string }): Promise<User> {
-    try {
-        const res = await api.get<User>(`/user/handle/${params.handle}`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to fetch user by handle");
-    }
-}
-
-export async function deleteUser(params: { id: number }) {
-    try {
-        const res = await api.delete(`/user/${params.id}`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to delete user");
-    }
-}
-
-export async function updateUser(params: Partial<User>) {
-    try {
-        const res = await api.patch(`/user`, params);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to update user");
-    }
-}
-
-
-// Problem functions
-
-export async function createProblem(params: {
-    title: Problem["title"];
-    difficulty: Problem["difficulty"];
-    statement: Problem["statement"];
-    /**
-     * @ignore: tags are not implemented yet
-     */
-    // tags: string[]; 
-    timeLimit: Problem["time_limit"];
-    memoryLimit: Problem["memory_limit"];
-    inputFormat: Problem["input_format"];
-    outputFormat: Problem["output_format"];
-    solutionText: Problem["solution_text"];
+export async function register(params: {
+    email: string;
+    password: string;
+    confirmPassword: string;
 }) {
     try {
-        const res = await api.post("/problem/create_problem", params);
+        const res = await api.post("/user/register", params);
 
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw new Error("Failed to create problem");
-    }
-}
-
-export async function updateProblem(params: { id: number; data: Partial<Problem> }) {
-    try {
-        const res = await api.patch(`/problem/id/${params.id}`, params.data);
-
-        return res.data;
-    } catch (error: any) {
-        throw new Error("Failed to update problem");
-    }
-}
-
-export async function getProblemById(params: { id: number }): Promise<Problem> {
-    try {
-        const res = await api.get<Problem>(`/problem/id/${params.id}`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to fetch problem by ID");
-    }
-}
-
-export async function deleteProblemById(params: { id: number }) {
-    try {
-        const res = await api.delete(`/problem/id/${params.id}`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to delete problem by ID");
-    }
-}
-
-export async function getProblemByTitle(params: { title: string }): Promise<Problem[]> {
-    try {
-        const res = await api.get<Problem[]>(`/problem/title/${params.title}`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to fetch problem by title");
-    }
-}
-
-export async function getAllProblems(limit?: number, offset?: number): Promise<Problem[]> {
-    try {
-        const res = await api.get<Problem[]>(`/problem`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to fetch all problems");
-    }
-}
-export async function searchProblems(
-    searchKeyword?: string,
-    difficultyLow?: number,
-    difficultyHigh?: number,
-    offset?: number,
-    limit?: number,
-): Promise<Problem[]> {
-    try {
-        const res = await api.get<Problem[]>(`/problem`);
-        return res.data;
-    } catch (error) {
-        throw new Error("Failed to fetch all problems");
+        throw new Error("Failed to register");
     }
 }

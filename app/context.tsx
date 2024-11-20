@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { User, ObjectContextType } from "@/types";
+import { getUser, getUserIdByToken } from "@/fetch-functions";
 import Cookies from "js-cookie";
 
 type AuthContextType = {
@@ -21,26 +22,40 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
     const [showCookieConsent, setShowCookieConsent] = useState<boolean>(false);
 
-    useEffect(() => {
-        // Check for existing token in cookies
-        const token = Cookies.get("token");
-        if (token) {
-            // Validate token and set user
-            // This is a placeholder, replace with actual token validation logic
-            const decodedUser = JSON.parse(atob(token.split(".")[1])) as User;
-            setUser(decodedUser);
+    const fetchUser = React.useCallback(async () => {
+        try {
+            const token = Cookies.get("token");
+            if (!token) {
+                return;
+            }
+            const id = await getUserIdByToken();
+            const user = await getUser({ user_id: id });
+            setUser(user);
+        } catch (error) {
+            console.error("Failed to fetch user", error);
         }
+    }, []);
 
+    useEffect(() => {
+        const token = Cookies.get("token");
         const cookieConsent = Cookies.get("cookieConsent");
+
         if (!cookieConsent) {
             setShowCookieConsent(true);
         }
     }, []);
 
+    useEffect(() => {
+        if (user === null) {
+            fetchUser();
+        }
+    }, [user, fetchUser]);
+
     const login = (token: string) => {
+        if (!token) {
+            throw new Error("Token is required");
+        }
         Cookies.set("token", token);
-        const decodedUser = JSON.parse(atob(token.split(".")[1])) as User;
-        setUser(decodedUser);
     };
 
     const logout = () => {
