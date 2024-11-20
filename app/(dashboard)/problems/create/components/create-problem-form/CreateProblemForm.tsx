@@ -10,6 +10,8 @@ import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { TagsInput } from "./TagsInput";
 import StatementEditorInput from "./StatementEditorInput";
 import { useProblem } from "../../../context";
+import { createProblem } from "@/fetch-functions";
+import { toast } from "react-toastify";
 
 interface CreateProblemFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateProblemFormValues = {
@@ -44,7 +46,22 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
     const [statement, setStatement] = React.useState<CreateProblemFormValues["statement"]>('');
 
     const onSubmit: SubmitHandler<CreateProblemFormValues> = (data) => {
-        console.log(data);
+        try {
+            createProblem({
+                title: data.title,
+                statement: data.statement,
+                difficulty: data.difficulty,
+                timeLimit: data.timeLimit,
+                memoryLimit: data.memoryLimit,
+                inputFormat: data.inputFormat,
+                outputFormat: data.outputFormat,
+                solutionText: data.solutionText,
+            });
+            console.log(data);
+            toast.success("Problem created successfully");
+        } catch (error) {
+            toast.error("Failed to create problem");
+        }
     }
 
     const onInvalid: SubmitErrorHandler<CreateProblemFormValues> = (errors, e) => {
@@ -128,9 +145,9 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
                 }}
                 {...registers.difficulty}
             >
-                <SelectItem key="easy" value={1}>Easy</SelectItem>
-                <SelectItem key="medium" value={2}>Medium</SelectItem>
-                <SelectItem key="hard" value={3}>Hard</SelectItem>
+                <SelectItem key={1} value={1}>Easy</SelectItem>
+                <SelectItem key={2}>Medium</SelectItem>
+                <SelectItem key={3} value={3}>Hard</SelectItem>
             </Select>
             <ErrorMessage
                 errors={errors}
