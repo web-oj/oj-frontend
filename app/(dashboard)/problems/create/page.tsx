@@ -1,22 +1,24 @@
-import { LinearContainer, PageContainer } from "@/components/ui";
 import CreateContestFormWrapper from "./components/create-problem-form";
 import FastCheckTableWrapper from "./components/fast-check-table";
 import FormToolbar from "./components/Toolbar";
 
+import { LinearContainer, PageContainer } from "@/components/ui";
+
 export default function Page() {
   return (
     <PageContainer>
-      <LinearContainer direction="column" fullwidth fullheight>
+      <LinearContainer fullheight fullwidth direction="column">
         <h1 className="text-3xl font-bold">Create Problem</h1>
         <FormToolbar />
         <LinearContainer
+          fullheight
+          fullwidth
           classnames={{
-            wrapper: "overflow-hidden"
+            wrapper: "overflow-hidden",
           }}
-          roundedMedium={false}
           direction="row"
+          roundedMedium={false}
           space="lg"
-          fullwidth fullheight
         >
           <CreateContestFormWrapper />
           <FastCheckTableWrapper />

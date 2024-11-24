@@ -1,20 +1,12 @@
 import { LayoutContainer } from "@/components/ui";
+
 import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Dashboard",
+  title: "Dashboard",
 };
 
-
-export default function Layout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <LayoutContainer>
-            {children}
-        </LayoutContainer>
-    );
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <LayoutContainer>{children}</LayoutContainer>;
 }

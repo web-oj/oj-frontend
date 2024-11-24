@@ -15,11 +15,51 @@ export const Logo: React.FC<IconSvgProps> = ({
     width={size || width}
     {...props}
   >
-    <rect x="4.54504" y="4" width="1" height="5.01345" rx="0.5" transform="rotate(45 4.54504 4)" fill="white" />
-    <rect x="5.25215" y="10.545" width="1" height="5.01345" rx="0.5" transform="rotate(135 5.25215 10.545)" fill="white" />
-    <rect x="10.455" y="11" width="1" height="5.01345" rx="0.5" transform="rotate(-135 10.455 11)" fill="#21F733" />
-    <rect x="9.74785" y="4.45496" width="1" height="5.01345" rx="0.5" transform="rotate(-45 9.74785 4.45496)" fill="#21F733" />
-    <rect x="8" y="11" width="0.999999" height="7" rx="0.5" transform="rotate(180 8 11)" fill="#ACF721" />
+    <rect
+      fill="white"
+      height="5.01345"
+      rx="0.5"
+      transform="rotate(45 4.54504 4)"
+      width="1"
+      x="4.54504"
+      y="4"
+    />
+    <rect
+      fill="white"
+      height="5.01345"
+      rx="0.5"
+      transform="rotate(135 5.25215 10.545)"
+      width="1"
+      x="5.25215"
+      y="10.545"
+    />
+    <rect
+      fill="#21F733"
+      height="5.01345"
+      rx="0.5"
+      transform="rotate(-135 10.455 11)"
+      width="1"
+      x="10.455"
+      y="11"
+    />
+    <rect
+      fill="#21F733"
+      height="5.01345"
+      rx="0.5"
+      transform="rotate(-45 9.74785 4.45496)"
+      width="1"
+      x="9.74785"
+      y="4.45496"
+    />
+    <rect
+      fill="#ACF721"
+      height="7"
+      rx="0.5"
+      transform="rotate(180 8 11)"
+      width="0.999999"
+      x="8"
+      y="11"
+    />
   </svg>
 );
 

@@ -1,12 +1,14 @@
-import { LinearContainer, PageContainer } from "@/components/ui";
 import { Splitter, SplitterPanel } from "primereact/splitter";
+
 import ContestGeneralArea from "./ContestGeneralArea";
 import RankingArea from "./RankingArea";
+
+import { PageContainer } from "@/components/ui";
 
 export default function Home() {
   return (
     <PageContainer>
-      <Splitter layout="horizontal" className="w-full h-full space-x-1">
+      <Splitter className="w-full h-full space-x-1" layout="horizontal">
         <SplitterPanel size={60}>
           <ContestGeneralArea />
         </SplitterPanel>
@@ -14,6 +16,6 @@ export default function Home() {
           <RankingArea />
         </SplitterPanel>
       </Splitter>
-    </PageContainer >
+    </PageContainer>
   );
 }
