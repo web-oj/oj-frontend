@@ -27,6 +27,8 @@ import { LinearContainer } from "./ui";
 export const Navbar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
+>>>>>>> main
+>>>>>>> Stashed changes
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
