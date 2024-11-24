@@ -104,7 +104,11 @@ export default function ProblemsTable() {
                     onValueChange={onSearchChange}
                 />
                 <div className="flex gap-3">
-                    <Dropdown>
+                    <Dropdown
+                        classNames={{
+                            trigger: "bg-foreground-50 shadow-sm",
+                        }}
+                    >
                         <DropdownTrigger className="hidden sm:flex">
                             <Button endContent={<ArrowDown01Icon className="text-small" />} variant="flat">
                                 Difficulty
@@ -130,42 +134,37 @@ export default function ProblemsTable() {
         )
     }, []);
     return (
-        <Table
-            aria-label="Problems Table"
-            sortDescriptor={list.sortDescriptor}
-            onSortChange={list.sort}
-            topContent={topContent}
-            classNames={{
-                tbody: "h-full",
-                wrapper: "h-full justify-start",
-<<<<<<< Updated upstream
-                base: "h-full overflow-hidden",
-=======
-<<<<<<< HEAD
-                base: "h-full",
-=======
-                base: "h-full overflow-hidden",
->>>>>>> main
->>>>>>> Stashed changes
-            }}
-        >
-            <TableHeader columns={columns}>
-                {(column) => (
-                    <TableColumn key={column.uid} className={"bg-transparent"} align={column.uid === "actions" ? "center" : "start"} allowsSorting={column.sortable}>
-                        {column.name}
-                    </TableColumn>
-                )}
-            </TableHeader>
-            <TableBody
-                items={filteredItems}
-                isLoading={list.isLoading}
+
+        <LinearContainer direction="column" fullheight fullwidth>
+            {topContent}
+            <Table
+                aria-label="Problems Table"
+                sortDescriptor={list.sortDescriptor}
+                onSortChange={list.sort}
+                classNames={{
+                    tbody: "h-full",
+                    wrapper: "h-full justify-start",
+                    base: "h-full overflow-hidden",
+                }}
             >
-                {(item) => (
-                    <TableRow key={item.id}>
-                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+                <TableHeader columns={columns}>
+                    {(column) => (
+                        <TableColumn key={column.uid} className={"bg-transparent"} align={column.uid === "actions" ? "center" : "start"} allowsSorting={column.sortable}>
+                            {column.name}
+                        </TableColumn>
+                    )}
+                </TableHeader>
+                <TableBody
+                    items={filteredItems}
+                    isLoading={list.isLoading}
+                >
+                    {(item) => (
+                        <TableRow key={item.id}>
+                            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        </LinearContainer>
     );
 }

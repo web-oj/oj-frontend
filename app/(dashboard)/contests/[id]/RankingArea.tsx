@@ -5,7 +5,7 @@ export default function RankingArea() {
         <LinearContainer
             fullheight
             fullwidth classnames={{
-                wrapper: "bg-foreground-100",
+                wrapper: "bg-foreground-50",
             }}>
             <p>HI</p>
         </LinearContainer>
