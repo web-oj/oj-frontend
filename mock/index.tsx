@@ -41,7 +41,15 @@ export const mockContest: Contest = {
     organizer_id: "organizer_1",
     is_published: true,
     id: "",
+<<<<<<< Updated upstream
     created_at: "28"
+=======
+<<<<<<< HEAD
+    created_at: ""
+=======
+    created_at: "28"
+>>>>>>> main
+>>>>>>> Stashed changes
 };
 
 export const mockProblem: Problem = {
@@ -178,5 +186,14 @@ export const mockSubmissionSimple: Submission = {
 // More mock data can be added here
 
 export const mockContests: Contest[] = Array(20).fill(mockContest);
+<<<<<<< Updated upstream
 export const mockProblems: Problem[] = Array(20).fill(mockProblem);
 export const mockUsers: User[] = Array(20).fill(mockUser);
+=======
+<<<<<<< HEAD
+export const mockProblems: Problem[] = Array(20).fill(mockProblem);
+=======
+export const mockProblems: Problem[] = Array(20).fill(mockProblem);
+export const mockUsers: User[] = Array(20).fill(mockUser);
+>>>>>>> main
+>>>>>>> Stashed changes

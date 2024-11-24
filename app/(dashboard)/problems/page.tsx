@@ -7,9 +7,20 @@ export default function Page() {
             title="Problems"
         >
             <LinearContainer
+<<<<<<< Updated upstream
                 className="overflow-hidden"
                 fullwidth
                 fullheight  
+=======
+<<<<<<< HEAD
+                fullwidth
+                fullheight
+=======
+                className="overflow-hidden"
+                fullwidth
+                fullheight  
+>>>>>>> main
+>>>>>>> Stashed changes
             >
                 <ProblemsTableWrapper />
             </LinearContainer>

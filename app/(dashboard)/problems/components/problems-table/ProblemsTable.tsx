@@ -138,7 +138,15 @@ export default function ProblemsTable() {
             classNames={{
                 tbody: "h-full",
                 wrapper: "h-full justify-start",
+<<<<<<< Updated upstream
                 base: "h-full overflow-hidden",
+=======
+<<<<<<< HEAD
+                base: "h-full",
+=======
+                base: "h-full overflow-hidden",
+>>>>>>> main
+>>>>>>> Stashed changes
             }}
         >
             <TableHeader columns={columns}>
