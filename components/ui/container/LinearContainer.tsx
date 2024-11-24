@@ -16,6 +16,7 @@ export interface LinearContainerProps extends React.HTMLAttributes<HTMLDivElemen
         container?: string;
         label?: string;
     };
+    roundedMedium?: boolean;
 }
 export function LinearContainer(props: LinearContainerProps) {
     const {
@@ -26,13 +27,15 @@ export function LinearContainer(props: LinearContainerProps) {
         isCentered = false,
         isCenteredX = false,
         isCenteredY = false,
+        roundedMedium = true,
         classnames: classNames,
         className,
         ...rest
     } = props;
     return (
         <div className={twMerge(
-            "flex flex-col gap-2 h-fit rounded-medium",
+            "flex flex-col gap-2 h-fit",
+            roundedMedium && "rounded-medium",
             fullWidth && "w-full",
             fullHeight && "h-full",
             twJoin(className, classNames?.wrapper)
