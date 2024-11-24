@@ -31,17 +31,17 @@ For any queries, please contact the organizer at [organizer@example.com](mailto:
 **Good luck and happy coding!**
 `;
 export const mockContest: Contest = {
-  contest_id: 1,
-  title: "Mock Contest",
-  description: contestDescription,
-  start_time: "2023-01-01T00:00:00Z",
-  end_time: "2023-01-02T00:00:00Z",
-  scoring_rule: "default",
-  is_plagiarism_check_enabled: true,
-  organizer_id: "organizer_1",
-  is_published: true,
-  id: "",
-  created_at: "28"
+    contest_id: 1,
+    title: "Mock Contest",
+    description: contestDescription,
+    start_time: "2023-01-01T00:00:00Z",
+    end_time: "2023-01-02T00:00:00Z",
+    scoring_rule: "default",
+    is_plagiarism_check_enabled: true,
+    organizer_id: "organizer_1",
+    is_published: true,
+    id: "",
+    created_at: "28"
 };
 
 export const mockProblem: Problem = {

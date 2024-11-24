@@ -37,7 +37,7 @@ export function FastCheckTable(props: FastCheckTableProps) {
             direction="column"
             space="sm"
             classnames={{
-                wrapper: "w-full bg-foreground-100 rounded-large p-4",
+                wrapper: "w-full bg-foreground-50 rounded-large p-4",
             }}
             fullwidth
         >

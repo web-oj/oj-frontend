@@ -44,7 +44,7 @@ export function TagsInput(props: TagsInputProps) {
         <LinearContainer
             label="Tags"
             classnames={{
-                container: "flex flex-row flex-wrap gap-2 bg-foreground-100 shadow rounded-medium p-2 w-full h-fit"
+                container: "flex flex-row flex-wrap gap-2 bg-foreground-50 shadow rounded-medium p-2 w-full h-fit"
             }}
             onClick={() => {
                 setIsTagInputFocused(true);

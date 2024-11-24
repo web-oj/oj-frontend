@@ -1,6 +1,6 @@
 import { LinearContainer } from "@/components/ui";
-import Header from "../../header";
-import ProblemDetails from "../../details";
+import Header from "../components/header";
+import ProblemDetails from "../components/details";
 
 export interface ProblemAreaProps extends React.HTMLAttributes<HTMLDivElement> {
 }

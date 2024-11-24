@@ -12,7 +12,7 @@ export default function LeaderboardArea(props: Props) {
                 <div className="gap-0 flex flex-row justify-between w-full">
                     <Link
                         href={`/leaderboard`}
-                        className="text-base text-foreground-500"
+                        className="text-sm text-foreground-500"
                     >
                         See all
                     </Link>
