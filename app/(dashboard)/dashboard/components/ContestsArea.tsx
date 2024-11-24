@@ -14,7 +14,7 @@ export default function ContestsArea(props: Props) {
                     <h1 className="text-2xl font-bold text-foreground">Contests</h1>
                     <Link
                         href={`/contests`}
-                        className="text-base text-foreground-500"
+                        className="text-sm text-foreground-500"
                     >
                         See all
                     </Link>
