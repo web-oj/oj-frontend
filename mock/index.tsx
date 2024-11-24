@@ -31,25 +31,17 @@ For any queries, please contact the organizer at [organizer@example.com](mailto:
 **Good luck and happy coding!**
 `;
 export const mockContest: Contest = {
-    contest_id: 1,
-    title: "Mock Contest",
-    description: contestDescription,
-    start_time: "2023-01-01T00:00:00Z",
-    end_time: "2023-01-02T00:00:00Z",
-    scoring_rule: "default",
-    is_plagiarism_check_enabled: true,
-    organizer_id: "organizer_1",
-    is_published: true,
-    id: "",
-<<<<<<< Updated upstream
-    created_at: "28"
-=======
-<<<<<<< HEAD
-    created_at: ""
-=======
-    created_at: "28"
->>>>>>> main
->>>>>>> Stashed changes
+  contest_id: 1,
+  title: "Mock Contest",
+  description: contestDescription,
+  start_time: "2023-01-01T00:00:00Z",
+  end_time: "2023-01-02T00:00:00Z",
+  scoring_rule: "default",
+  is_plagiarism_check_enabled: true,
+  organizer_id: "organizer_1",
+  is_published: true,
+  id: "",
+  created_at: "28"
 };
 
 export const mockProblem: Problem = {
@@ -86,17 +78,17 @@ export const mockTestCase: TestCase = {
 };
 
 export const mockSubmission: Submission = {
-    submission_id: 1,
-    user_id: 1,
-    problem_id: 1,
-    contest_id: 1,
-    submitted_at: "2023-01-01T00:00:00Z",
-    source_code_language: "javascript",
-    source_code_file: "console.log('Hello, world!');",
-    status: "pending",
-    compiler_message: "No errors",
-    id: "",
-    source_code_lang: ""
+  submission_id: 1,
+  user_id: 1,
+  problem_id: 1,
+  contest_id: 1,
+  submitted_at: "2023-01-01T00:00:00Z",
+  source_code_language: "javascript",
+  source_code_file: "console.log('Hello, world!');",
+  status: "pending",
+  compiler_message: "No errors",
+  id: "",
+  source_code_lang: ""
 };
 
 export const mockAchievement: Achievement = {
@@ -170,30 +162,21 @@ export const mockContestProblem: ContestProblem = {
 };
 
 export const mockSubmissionSimple: Submission = {
-    id: "1",
-    problem_id: 1,
-    source_code_lang: "javascript",
-    submitted_at: "2023-01-01T00:00:00Z",
-    submission_id: 0,
-    user_id: 0,
-    contest_id: 0,
-    source_code_language: "",
-    source_code_file: "",
-    status: "",
-    compiler_message: ""
+  id: "1",
+  problem_id: 1,
+  source_code_lang: "javascript",
+  submitted_at: "2023-01-01T00:00:00Z",
+  submission_id: 0,
+  user_id: 0,
+  contest_id: 0,
+  source_code_language: "",
+  source_code_file: "",
+  status: "",
+  compiler_message: ""
 };
 
 // More mock data can be added here
 
 export const mockContests: Contest[] = Array(20).fill(mockContest);
-<<<<<<< Updated upstream
 export const mockProblems: Problem[] = Array(20).fill(mockProblem);
 export const mockUsers: User[] = Array(20).fill(mockUser);
-=======
-<<<<<<< HEAD
-export const mockProblems: Problem[] = Array(20).fill(mockProblem);
-=======
-export const mockProblems: Problem[] = Array(20).fill(mockProblem);
-export const mockUsers: User[] = Array(20).fill(mockUser);
->>>>>>> main
->>>>>>> Stashed changes
