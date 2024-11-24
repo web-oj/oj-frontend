@@ -13,6 +13,7 @@ export default function Page() {
           classnames={{
             wrapper: "overflow-hidden"
           }}
+          roundedMedium={false}
           direction="row"
           space="lg"
           fullwidth fullheight
