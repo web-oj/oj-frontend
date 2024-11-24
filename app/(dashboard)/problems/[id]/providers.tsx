@@ -1,8 +1,8 @@
 "use client";
 
-import { IDEProvider } from "@/components/ide/context";
-import { PropsWithChildren } from "react";
 import { ProblemProvider } from "../context";
+
+import { IDEProvider } from "@/components/ide/context";
 import { Problem } from "@/types";
 interface Props {
   children: React.ReactNode;
@@ -140,14 +140,12 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
     output_format: "This is the output format.",
     solution_text: "This is the solution text.",
     created_at: "2021-10-10",
-    creator_id: ""
+    creator_id: "",
   };
 
   return (
     <IDEProvider>
-      <ProblemProvider problem={problem}>
-        {children}
-      </ProblemProvider>
+      <ProblemProvider problem={problem}>{children}</ProblemProvider>
     </IDEProvider>
-  )
+  );
 }

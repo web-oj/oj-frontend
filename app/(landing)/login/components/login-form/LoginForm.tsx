@@ -6,87 +6,83 @@ import React from "react";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
-import { login } from "@/fetch-functions";
-import { useAuth } from "@/app/context";
 import { toast } from "react-toastify";
 
-interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> { }
+import { login } from "@/fetch-functions";
+import { useAuth } from "@/app/context";
+
+interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 type LoginFormValues = {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 };
 
 export function LoginForm(props: LoginFormProps) {
-    const router = useRouter();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginFormValues>();
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>();
 
-    const { login: authLogin } = useAuth();
+  const { login: authLogin } = useAuth();
 
-    const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-        try {
-            const token = await login(data);
-            authLogin(token);
-            router.push("/dashboard");
-        } catch (error) {
-            toast.error("Login failed");
-            console.error("Login failed", error);
-        }
-    };
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const token = await login(data);
 
-    const onSubmitError: SubmitErrorHandler<LoginFormValues> = (errors) => {
-        console.log(errors);
+      authLogin(token);
+      router.push("/dashboard");
+    } catch (error) {
+      toast.error("Login failed");
+      console.error("Login failed", error);
     }
+  };
 
-    const registers = {
-        email: register("email", { required: "Email is required" }),
-        password: register("password", { required: "Password is required" }),
-    }
+  const onSubmitError: SubmitErrorHandler<LoginFormValues> = (errors) => {
+    console.log(errors);
+  };
 
-    return (
-        <form
-            {...props}
-            onSubmit={handleSubmit(onSubmit, onSubmitError)}
-            className="flex flex-col gap-1 lg:min-w-[48ch]"
-        >
-            <Input
-                type="text"
-                placeholder="Email"
-                radius="full"
-                size="lg"
-                className="mb-4"
-                {...registers.email}
-            />
-            <Input
-                type="password"
-                placeholder="Password"
-                radius="full"
-                size="lg"
-                className="mb-4"
-                {...registers.password}
-            />
-            <ErrorMessage
-                errors={errors}
-                name="email"
-                render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-            <ErrorMessage
-                errors={errors}
-                name="password"
-                render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-            <Button
-                type="submit"
-                radius="full"
-                fullWidth
-                size="lg"
-                color="primary"
-            >
-                Login
-            </Button>
-        </form>
-    );
+  const registers = {
+    email: register("email", { required: "Email is required" }),
+    password: register("password", { required: "Password is required" }),
+  };
+
+  return (
+    <form
+      {...props}
+      className="flex flex-col gap-1 lg:min-w-[48ch]"
+      onSubmit={handleSubmit(onSubmit, onSubmitError)}
+    >
+      <Input
+        className="mb-4"
+        placeholder="Email"
+        radius="full"
+        size="lg"
+        type="text"
+        {...registers.email}
+      />
+      <Input
+        className="mb-4"
+        placeholder="Password"
+        radius="full"
+        size="lg"
+        type="password"
+        {...registers.password}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="email"
+        render={({ message }) => <p className="text-red-500">{message}</p>}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="password"
+        render={({ message }) => <p className="text-red-500">{message}</p>}
+      />
+      <Button fullWidth color="primary" radius="full" size="lg" type="submit">
+        Login
+      </Button>
+    </form>
+  );
 }
