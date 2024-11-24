@@ -27,6 +27,14 @@ export async function login(params: { email: string; password: string }) {
         throw new Error("Failed to sign in");
     }
 }
+export async function getUserByToken() {
+    try {
+        const res = await api.get<string>("/user/get-user-id-from-token");
+        return res.data;
+    } catch (error) {
+        throw new Error("Failed to fetch user by token");
+    }
+}
 
 export async function getUserById(params: { id: number }): Promise<User> {
     try {

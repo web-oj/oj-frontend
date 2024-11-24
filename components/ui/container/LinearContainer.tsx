@@ -40,12 +40,6 @@ export function LinearContainer(props: LinearContainerProps) {
             fullHeight && "h-full",
             twJoin(className, classNames?.wrapper)
         )}>
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-            {props.label && <h3 className="text-sm font-medium text-foreground">{props.label}</h3>}
-=======
->>>>>>> Stashed changes
             {
                 props.label &&
                 <h3 className={twMerge(
