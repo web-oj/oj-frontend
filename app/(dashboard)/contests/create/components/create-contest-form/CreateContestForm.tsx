@@ -16,6 +16,9 @@ type CreateContestFormValues = {
   start_time: string;
   end_time: string;
   scoring_rule: string;
+  isPublished: boolean;
+  description: string;
+  isPlagiarismCheckEnabled: boolean;
 };
 
 export function CreateContestForm(props: CreateContestFormProps) {
@@ -51,6 +54,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
     scoringRule: register("scoring_rule", {
       required: "Scoring rule is required",
     }),
+    isPublished: register("isPublished"),
+    isPlagiarismCheckEnabled: register("isPlagiarismCheckEnabled"),
+    description: register("description"),
   };
 
   const watchedFields = watch();
@@ -141,6 +147,19 @@ export function CreateContestForm(props: CreateContestFormProps) {
         render={({ message }) => (
           <p className="text-red-500 text-sm">{message}</p>
         )}
+      />
+      <Input type="checkbox" {...registers.isPublished} />
+      <label htmlFor="isPublished">Published</label>
+      <Input type="checkbox" {...registers.isPlagiarismCheckEnabled} />
+      <label htmlFor="isPlagiarismCheckEnabled">Plagiarism Check Enabled</label>
+      <Textarea
+        isRequired
+        required
+        label="Description"
+        labelPlacement="outside"
+        placeholder="Type the description here"
+        radius="full"
+        {...registers.description}
       />
     </form>
   );
