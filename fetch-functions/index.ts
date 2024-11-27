@@ -1,5 +1,7 @@
 import type { User, Problem } from "@/types";
 
+import { CreateContestParams } from "./types";
+
 import { api } from "@/utils/api";
 
 // User functions
@@ -90,11 +92,12 @@ export async function createProblem(params: {
    * @ignore: tags are not implemented yet
    */
   // tags: string[];
-  timeLimit: Problem["time_limit"];
+  timeLimit: Problem["timeLimit"];
   memoryLimit: Problem["memory_limit"];
-  inputFormat: Problem["input_format"];
-  outputFormat: Problem["output_format"];
-  solutionText: Problem["solution_text"];
+  inputFormat: Problem["inputFormat"];
+  outputFormat: Problem["outputFormat"];
+  solutionText: Problem["solutionText"];
+  isPublished: Problem["isPublished"];
 }) {
   try {
     const res = await api.post("/problem/create_problem", params);
@@ -163,6 +166,7 @@ export async function getAllProblems(
     throw new Error("Failed to fetch all problems");
   }
 }
+
 export async function searchProblems(
   searchKeyword?: string,
   difficultyLow?: number,
@@ -176,5 +180,15 @@ export async function searchProblems(
     return res.data;
   } catch (error) {
     throw new Error("Failed to fetch all problems");
+  }
+}
+
+export async function createContest(params: CreateContestParams) {
+  try {
+    const res = await api.post("/contest/create", params);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to create contest");
   }
 }

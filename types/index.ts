@@ -38,13 +38,14 @@ export interface Problem {
   tags?: string[];
   statement: string;
   difficulty: number;
-  time_limit: number;
+  timeLimit: number;
   memory_limit: number;
-  input_format: string;
-  output_format: string;
-  solution_text: string;
+  inputFormat: string;
+  outputFormat: string;
+  solutionText: string;
   created_at: string;
   creator_id: string;
+  isPublished: boolean;
 }
 export interface User {
   user_id: number;

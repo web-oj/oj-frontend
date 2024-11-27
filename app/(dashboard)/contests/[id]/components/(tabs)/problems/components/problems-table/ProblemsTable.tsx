@@ -26,7 +26,7 @@ import { columns } from "./data";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
-import { mockProblems } from "@/mock";
+import { mockProblem, mockProblems } from "@/mock";
 
 const difficultyColorMap: Record<string, ChipProps["color"]> = {
   1: "success",
@@ -35,7 +35,7 @@ const difficultyColorMap: Record<string, ChipProps["color"]> = {
 };
 
 export default function ProblemsTable() {
-  const [problems, setProblems] = React.useState<Problem[]>(mockProblems);
+  const [problems, setProblems] = React.useState<Problem[]>([mockProblem]);
   const [difficultiesFilter, setDifficultiesFilter] =
     React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
