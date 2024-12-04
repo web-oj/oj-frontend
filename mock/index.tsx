@@ -1,4 +1,20 @@
-import { Contest, Problem, User, TestCase, Submission, Achievement, DiscussionMessage, Tag, TaggedProblem, PlagiarismReport, SubmissionResult, ContestParticipated, ProblemSolved, ContestProblem, Notification } from "@/types";
+import {
+  Contest,
+  Problem,
+  User,
+  TestCase,
+  Submission,
+  Achievement,
+  DiscussionMessage,
+  Tag,
+  TaggedProblem,
+  PlagiarismReport,
+  SubmissionResult,
+  ContestParticipated,
+  ProblemSolved,
+  ContestProblem,
+  Notification,
+} from "@/types";
 
 const contestDescription = `
 # **Mock Contest**
@@ -30,18 +46,19 @@ For any queries, please contact the organizer at [organizer@example.com](mailto:
 
 **Good luck and happy coding!**
 `;
+
 export const mockContest: Contest = {
-    contest_id: 1,
-    title: "Mock Contest",
-    description: contestDescription,
-    start_time: "2023-01-01T00:00:00Z",
-    end_time: "2023-01-02T00:00:00Z",
-    scoring_rule: "default",
-    is_plagiarism_check_enabled: true,
-    organizer_id: "organizer_1",
-    is_published: true,
-    id: "",
-    created_at: "28"
+  contestId: 1,
+  title: "Mock Contest",
+  description: contestDescription,
+  startTime: "2023-01-01T00:00:00Z",
+  endTime: "2023-01-02T00:00:00Z",
+  scoringRule: "default",
+  isPlagiarismCheckEnabled: true,
+  organizerId: "organizer_1",
+  isPublished: true,
+  id: "",
+  createdAt: "28",
 };
 
 export const mockProblem: Problem = {
@@ -50,129 +67,129 @@ export const mockProblem: Problem = {
   tags: ["tag1", "tag2"],
   statement: "This is a mock problem statement.",
   difficulty: 1,
-  time_limit: 1000,
-  memory_limit: 256,
-  input_format: "Input format description.",
-  output_format: "Output format description.",
-  solution_text: "Solution text.",
-  created_at: "2023-01-01T00:00:00Z",
-  creator_id: "creator_1",
+  timeLimit: 1000,
+  memoryLimit: 256,
+  inputFormat: "Input format description.",
+  outputFormat: "Output format description.",
+  solutionText: "Solution text.",
+  createdAt: "2023-01-01T00:00:00Z",
+  creatorId: "creator_1",
 };
 
 export const mockUser: User = {
-  user_id: 1,
-  user_name: "mockuser",
+  userId: 1,
+  userName: "mockuser",
   email: "mockuser@example.com",
   password: "password",
   role: "user",
-  created_at: "2023-01-01T00:00:00Z",
+  createdAt: "2023-01-01T00:00:00Z",
   rating: 1000,
 };
 
 export const mockTestCase: TestCase = {
-  test_case_id: 1,
-  problem_id: 1,
+  testCaseId: 1,
+  problemId: 1,
   input: "Mock input",
-  expected_output: "Mock output",
-  is_hidden: false,
+  expectedOutput: "Mock output",
+  isHidden: false,
 };
 
 export const mockSubmission: Submission = {
-    submission_id: 1,
-    user_id: 1,
-    problem_id: 1,
-    contest_id: 1,
-    submitted_at: "2023-01-01T00:00:00Z",
-    source_code_language: "javascript",
-    source_code_file: "console.log('Hello, world!');",
-    status: "pending",
-    compiler_message: "No errors",
-    id: "",
-    source_code_lang: ""
+  submissionId: 1,
+  userId: 1,
+  problemId: 1,
+  contestId: 1,
+  submittedAt: "2023-01-01T00:00:00Z",
+  sourceCodeLanguage: "javascript",
+  sourceCodeFile: "console.log('Hello, world!');",
+  status: "pending",
+  compilerMessage: "No errors",
+  id: "",
+  sourceCodeLang: "",
 };
 
 export const mockAchievement: Achievement = {
-  achievement_id: 1,
+  achievementId: 1,
   title: "Mock Achievement",
-  user_id: 1,
+  userId: 1,
   attachment: "attachment_url",
-  is_verified: true,
+  isVerified: true,
 };
 
 export const mockNotification: Notification = {
-  notification_id: 1,
-  receive_id: 1,
+  notificationId: 1,
+  receiveId: 1,
   content: "This is a mock notification.",
-  send_at: "2023-01-01T00:00:00Z",
+  sendAt: "2023-01-01T00:00:00Z",
 };
 
 export const mockDiscussionMessage: DiscussionMessage = {
-  message_id: 1,
-  user_id: 1,
-  contest_id: 1,
-  problem_id: 1,
+  messageId: 1,
+  userId: 1,
+  contestId: 1,
+  problemId: 1,
   content: "This is a mock discussion message.",
-  send_at: "2023-01-01T00:00:00Z",
-  parent_id: undefined,
+  sendAt: "2023-01-01T00:00:00Z",
+  parentId: undefined,
 };
 
 export const mockTag: Tag = {
-  tag_id: 1,
-  tag_name: "Mock Tag",
-  tag_type: "type1",
-  is_selected: false,
+  tagId: 1,
+  tagName: "Mock Tag",
+  tagType: "type1",
+  isSelected: false,
 };
 
 export const mockTaggedProblem: TaggedProblem = {
-  tag_id: 1,
-  problem_id: 1,
+  tagId: 1,
+  problemId: 1,
 };
 
 export const mockPlagiarismReport: PlagiarismReport = {
-  report_id: 1,
-  submission_id: 1,
-  moss_dump_file: "moss_dump_file_url",
+  reportId: 1,
+  submissionId: 1,
+  mossDumpFile: "moss_dump_file_url",
 };
 
 export const mockSubmissionResult: SubmissionResult = {
-  submission_id: 1,
-  test_case_id: 1,
-  time_elapsed: 100,
-  memory_used: 256,
+  submissionId: 1,
+  testCaseId: 1,
+  timeElapsed: 100,
+  memoryUsed: 256,
   output: "Mock output",
-  judge_message: "Accepted",
+  judgeMessage: "Accepted",
   status: "accepted",
-  judged_at: "2023-01-01T00:00:00Z",
+  judgedAt: "2023-01-01T00:00:00Z",
 };
 
 export const mockContestParticipated: ContestParticipated = {
-  user_id: 1,
-  contest_id: 1,
+  userId: 1,
+  contestId: 1,
 };
 
 export const mockProblemSolved: ProblemSolved = {
-  user_id: 1,
-  problem_id: 1,
+  userId: 1,
+  problemId: 1,
 };
 
 export const mockContestProblem: ContestProblem = {
-  contest_id: 1,
-  problem_id: 1,
+  contestId: 1,
+  problemId: 1,
   point: 100,
 };
 
 export const mockSubmissionSimple: Submission = {
-    id: "1",
-    problem_id: 1,
-    source_code_lang: "javascript",
-    submitted_at: "2023-01-01T00:00:00Z",
-    submission_id: 0,
-    user_id: 0,
-    contest_id: 0,
-    source_code_language: "",
-    source_code_file: "",
-    status: "",
-    compiler_message: ""
+  id: "1",
+  problemId: 1,
+  sourceCodeLang: "javascript",
+  submittedAt: "2023-01-01T00:00:00Z",
+  submissionId: 0,
+  userId: 0,
+  contestId: 0,
+  sourceCodeLanguage: "",
+  sourceCodeFile: "",
+  status: "",
+  compilerMessage: "",
 };
 
 // More mock data can be added here
