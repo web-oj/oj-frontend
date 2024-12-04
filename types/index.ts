@@ -23,12 +23,13 @@ export type ObjectContextType<T> = {
 * */
 
 export interface Contest {
+  organizerId: string;
   id: string;
   title: string;
   scoringRule: string;
-  organizerId: string;
-  startTime: string;
-  endTime: string;
+  ruleText?: string;
+  startTime: Date;
+  endTime: Date;
   createdAt: string;
 
 }
