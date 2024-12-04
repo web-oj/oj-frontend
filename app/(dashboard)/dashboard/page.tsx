@@ -7,7 +7,7 @@ import { LinearContainer, PageContainer } from "@/components/ui";
 export default function Page() {
   return (
     <PageContainer
-      className="h-fit overflow-y-auto"
+      className="flex-1 overflow-hidden"
       label={
         <div className="gap-0 flex flex-col">
           <p className="text-lg text-foreground">Welcome to the dashboard!</p>
@@ -19,21 +19,12 @@ export default function Page() {
         fullheight
         fullwidth
         classnames={{
-          wrapper: "py-4",
+          wrapper: "py-4 flex-[2] overflow-hidden",
         }}
         direction="row"
       >
-        <LinearContainer
-          fullheight
-          classnames={{
-            wrapper: "overflow-y-auto flex-[3]",
-          }}
-          direction="column"
-        >
           <ContestsArea />
           <ProblemsArea />
-        </LinearContainer>
-        <LeaderboardArea className="hidden lg:flex" />
       </LinearContainer>
     </PageContainer>
   );
