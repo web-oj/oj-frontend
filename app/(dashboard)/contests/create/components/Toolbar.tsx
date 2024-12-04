@@ -1,24 +1,33 @@
-import { Toolbar } from "@/components/ui";
 import { Button } from "@nextui-org/button";
 import { Switch } from "@nextui-org/switch";
 
+import { Toolbar } from "@/components/ui";
+
 export default function FormToolbar() {
-    return (
-        <Toolbar
-            leftContents={
-                <>
-                    <Switch
-                        color="secondary"
-                        classNames={{
-                            label: "text-foreground-500",
-                        }} >
-                        View mode
-                    </Switch>
-                </>
-            }
-            rightContents={
-                <Button type="submit" form="create-contest-form" color="primary" radius="full">Create</Button>
-            }
-        />
-    )
+  return (
+    <Toolbar
+      leftContents={
+        <>
+          <Switch
+            classNames={{
+              label: "text-foreground-500",
+            }}
+            color="secondary"
+          >
+            View mode
+          </Switch>
+        </>
+      }
+      rightContents={
+        <Button
+          color="primary"
+          form="create-contest-form"
+          radius="full"
+          type="submit"
+        >
+          Create
+        </Button>
+      }
+    />
+  );
 }

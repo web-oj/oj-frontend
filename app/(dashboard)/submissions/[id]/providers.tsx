@@ -1,12 +1,13 @@
 "use client";
 
-import { IDEProvider } from "@/components/ide/context";
 import { PropsWithChildren } from "react";
-import { ProblemProvider } from "../context";
+
+
+import { IDEProvider } from "@/components/ide/context";
 import { Problem } from "@/types";
 
 export default function Providers({ children }: PropsWithChildren<{}>) {
-    const markdownString = `
+  const markdownString = `
 # A demo of \`react-markdown\`
 
 \`react-markdown\` is a markdown component for React.
@@ -126,25 +127,38 @@ Much more info is available in the
 
 A component by [Espen Hovlandsdal](https://espen.codes/)
 `;
+<<<<<<< HEAD
+  const mockProblem: Problem = {
+    id: "1",
+    title: "Sample Problem",
+    statement: markdownString,
+    difficulty: 1,
+    time_limit: 0,
+    memory_limit: 0,
+    input_format: "This is the input format.",
+    output_format: "This is the output format.",
+    solution_text: "This is the solution text.",
+    created_at: "2021-10-10",
+    creatorId: "",
+  };
+=======
     const mockProblem: Problem = {
         id: "1",
         title: "Sample Problem",
         statement: markdownString,
         difficulty: 1,
-        time_limit: 0,
-        memory_limit: 0,
-        input_format: "This is the input format.",
-        output_format: "This is the output format.",
-        solution_text: "This is the solution text.",
-        created_at: "2021-10-10",
+        timeLimit: 0,
+        memoryLimit: 0,
+        inputFormat: "This is the input format.",
+        outputFormat: "This is the output format.",
+        solutionText: "This is the solution text.",
+        createdAt: "2021-10-10",
         creator_id: ""
     };
+>>>>>>> feat/types
 
-    return (
-        <IDEProvider>
-            <ProblemProvider problem={mockProblem}>
-                {children}
-            </ProblemProvider>
-        </IDEProvider>
-    )
+  return (
+   <>
+   </>
+  );
 }

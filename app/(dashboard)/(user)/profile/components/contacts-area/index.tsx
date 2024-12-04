@@ -1,47 +1,45 @@
 "use client";
 
-import { Field, LinearContainer } from "@/components/ui";
-import { useUser } from "../../../context";
 import { GoogleIcon, IdIcon, MentorIcon } from "hugeicons-react";
 
-export interface ContactsAreaProps extends React.HTMLAttributes<HTMLDivElement> {
-}
-export default function ContactsArea(props: ContactsAreaProps) {
-    const { data: user } = useUser();
+import { useUser } from "../../../context";
 
-    return (
-        <LinearContainer
-            title="Contacts"
-            direction="column"
-            fullwidth
-        >
-            <Field
-                label="Email"
-                showLabel={false}
-                icon={<GoogleIcon className="text-foreground-500" size={16} />}
-                value={user?.email}
-                classNames={{
-                    value: "text-foreground-500"
-                }}
-            />
-            <Field
-                label="Role"
-                showLabel={false}
-                icon={<MentorIcon className="text-foreground-500" size={16} />}
-                value={user?.role}
-                classNames={{
-                    value: "text-foreground-500"
-                }}
-            />
-            <Field
-                label="Username"
-                showLabel={false}
-                icon={<IdIcon className="text-foreground-500" size={16} />}
-                value={user?.user_name}
-                classNames={{
-                    value: "text-foreground-500"
-                }}
-            />
-        </LinearContainer>
-    )
+import { Field, LinearContainer } from "@/components/ui";
+
+export interface ContactsAreaProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
+export default function ContactsArea(props: ContactsAreaProps) {
+  const { data: user } = useUser();
+
+  return (
+    <LinearContainer fullwidth direction="column" title="Contacts">
+      <Field
+        classNames={{
+          value: "text-foreground-500",
+        }}
+        icon={<GoogleIcon className="text-foreground-500" size={16} />}
+        label="Email"
+        showLabel={false}
+        value={user?.email}
+      />
+      <Field
+        classNames={{
+          value: "text-foreground-500",
+        }}
+        icon={<MentorIcon className="text-foreground-500" size={16} />}
+        label="Role"
+        showLabel={false}
+        value={user?.role}
+      />
+      <Field
+        classNames={{
+          value: "text-foreground-500",
+        }}
+        icon={<IdIcon className="text-foreground-500" size={16} />}
+        label="Username"
+        showLabel={false}
+        value={user?.user_name}
+      />
+    </LinearContainer>
+  );
 }

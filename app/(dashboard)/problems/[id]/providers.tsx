@@ -1,8 +1,8 @@
 "use client";
 
-import { IDEProvider } from "@/components/ide/context";
-import { PropsWithChildren } from "react";
 import { ProblemProvider } from "../context";
+
+import { IDEProvider } from "@/components/ide/context";
 import { Problem } from "@/types";
 interface Props {
   children: React.ReactNode;
@@ -129,6 +129,7 @@ Much more info is available in the
 
 A component by [Espen Hovlandsdal](https://espen.codes/)
 `;
+<<<<<<< HEAD
   const mockProblem: Problem = {
     id: "1",
     title: "Sample Problem",
@@ -140,14 +141,27 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
     output_format: "This is the output format.",
     solution_text: "This is the solution text.",
     created_at: "2021-10-10",
-    creator_id: ""
+    creatorId: "",
   };
+=======
+    const mockProblem: Problem = {
+        id: "1",
+        title: "Sample Problem",
+        statement: markdownString,
+        difficulty: 1,
+        timeLimit: 0,
+        memoryLimit: 0,
+        inputFormat: "This is the input format.",
+        outputFormat: "This is the output format.",
+        solutionText: "This is the solution text.",
+        createdAt: "2021-10-10",
+        creator_id: ""
+    };
+>>>>>>> feat/types
 
   return (
     <IDEProvider>
-      <ProblemProvider problem={problem}>
-        {children}
-      </ProblemProvider>
+      <ProblemProvider problem={problem}>{children}</ProblemProvider>
     </IDEProvider>
-  )
+  );
 }
