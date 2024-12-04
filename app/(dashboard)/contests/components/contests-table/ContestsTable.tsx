@@ -93,13 +93,7 @@ export default function ContestsTable() {
   const topContent = React.useMemo(() => {
     return (
       <LinearContainer fullwidth direction="row" space="sm">
-        <Input
-          fullWidth
-          isClearable
-          placeholder="Search by name..."
-          startContent={<SearchIcon />}
-          onValueChange={onSearchChange}
-        />
+
       </LinearContainer>
     );
   }, []);
