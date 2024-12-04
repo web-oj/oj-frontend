@@ -27,8 +27,11 @@ const CookieConsent: React.FC<CookieConsentProps> = () => {
       isOpen={showCookieConsent && !isOpen}
       placement="bottom"
       size="2xl"
+      classNames={{
+        wrapper: "pointer-events-none",
+      }}
     >
-      <ModalContent>
+      <ModalContent className="pointer-events-auto">
         <ModalBody className="flex flex-row py-4">
           <Image height={32} src="/cookie.svg" width={32} />
           <p className="w-full break-words text-sm te-fo-10">
