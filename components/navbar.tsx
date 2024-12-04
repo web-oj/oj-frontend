@@ -13,9 +13,9 @@ import {
 import { Link } from "@nextui-org/link";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { KeyboardIcon } from "hugeicons-react";
+import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
 import { Button } from "@nextui-org/button";
-import { User } from "@nextui-org/react";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 
 import { Search } from "./search";
@@ -30,34 +30,34 @@ export const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const UserAccordion = () => {
+    const { logout } = useAuth();
     return (
-      <LinearContainer
-        fullwidth
-        direction="column"
-        className="bg-foreground-800 rounded-lg shadow-lg p-4"
-      >
-        <LinearContainer
-          fullwidth
-          direction="row"
-          className="justify-between items-center"
-        >
+      <Dropdown>
+        <DropdownTrigger>
           <User
             avatarProps={{
               showFallback: true,
             }}
             name={user?.userName}
+            className="cursor-pointer"
           />
-          <Button
-            as={NextLink}
-            className="font-medium shadow-sm shadow-neutral-50"
-            color="primary"
-            href="../login"
-            radius="full"
+        </DropdownTrigger>
+        <DropdownMenu>
+          <DropdownItem
+            startContent={
+              <UserIcon className="text-foreground-500" />
+            }
+          >
+            <NextLink href="/profile">Profile</NextLink>
+          </DropdownItem>
+          <DropdownItem
+            startContent={<LogoutCircle01Icon className="text-foreground-500" />}
+            onClick={logout}
           >
             Logout
-          </Button>
-        </LinearContainer>
-      </LinearContainer>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     )
   };
 
@@ -124,35 +124,32 @@ export const Navbar = () => {
         </div>
       </NavbarContent>
 
-      {user ? (
-        <User
-          avatarProps={{
-            showFallback: true,
-          }}
-          name={user.userName}
+      <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
+        <Search />
+        <Button
+          isIconOnly
+          as={NextLink}
+          href="../ide"
+          radius="full"
+          startContent={<KeyboardIcon className="text-foreground-500" />}
+          variant="light"
         />
-      ) : (
-        <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
-          <Search />
-          <Button
-            isIconOnly
-            as={NextLink}
-            href="../ide"
-            radius="full"
-            startContent={<KeyboardIcon className="text-foreground-500" />}
-            variant="light"
-          />
-          <Button
-            as={NextLink}
-            className="font-medium shadow-sm shadow-neutral-50"
-            color="primary"
-            href="../login"
-            radius="full"
-          >
-            Get started
-          </Button>
-        </ul>
-      )}
+        {
+          user ? (
+            <UserAccordion />
+          ) : (
+            <Button
+              fullWidth
+              as={NextLink}
+              color="primary"
+              href="../login"
+              radius="full"
+            >
+              Get started
+            </Button>
+          )
+        }
+      </ul>
       <NavbarMenuToggle
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         className="text-foreground-100 lg:hidden"
