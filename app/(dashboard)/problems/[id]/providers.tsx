@@ -1,8 +1,8 @@
 "use client";
 
-import { IDEProvider } from "@/components/ide/context";
-import { PropsWithChildren } from "react";
 import { ProblemProvider } from "../context";
+
+import { IDEProvider } from "@/components/ide/context";
 import { Problem } from "@/types";
 interface Props {
   children: React.ReactNode;
@@ -134,20 +134,18 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
     title: "Sample Problem",
     statement: markdownString,
     difficulty: 1,
-    time_limit: 0,
-    memory_limit: 0,
-    input_format: "This is the input format.",
-    output_format: "This is the output format.",
-    solution_text: "This is the solution text.",
-    created_at: "2021-10-10",
-    creator_id: ""
+    timeLimit: 0,
+    memoryLimit: 0,
+    inputFormat: "This is the input format.",
+    outputFormat: "This is the output format.",
+    solutionText: "This is the solution text.",
+    createdAt: "2021-10-10",
+    creatorId: ""
   };
 
   return (
     <IDEProvider>
-      <ProblemProvider problem={problem}>
-        {children}
-      </ProblemProvider>
+      <ProblemProvider problem={problem}>{children}</ProblemProvider>
     </IDEProvider>
-  )
+  );
 }

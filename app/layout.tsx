@@ -1,15 +1,14 @@
 import "@/styles/globals.css";
-import 'react-resizable/css/styles.css';
+import "react-resizable/css/styles.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
+import { ToastContainer } from "react-toastify";
 
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
-import { ToastContainer } from "react-toastify";
 import CookieConsent from "@/components/pop/CookieConsent";
 
 export const metadata: Metadata = {

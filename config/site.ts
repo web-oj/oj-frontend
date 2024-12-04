@@ -15,7 +15,7 @@ export const siteConfig = {
     {
       label: "Leaderboard",
       href: "/leaderboard",
-    }
+    },
   ],
   navMenuItems: [
     {
@@ -26,6 +26,6 @@ export const siteConfig = {
     },
     {
       label: "Logout",
-    }
+    },
   ],
 };

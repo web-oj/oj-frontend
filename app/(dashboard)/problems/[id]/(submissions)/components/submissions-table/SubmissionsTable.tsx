@@ -14,7 +14,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 
 type Submission = {
     id: number;
-    created_at: string;
+    createdAt: string;
     status: string;
 }
 
@@ -22,32 +22,32 @@ export default function SubmissionsTable() {
     const mockSubmissions: Submission[] = [
         {
             id: 1,
-            created_at: "2021-10-10",
+            createdAt: "2021-10-10",
             status: "accepted",
         },
         {
             id: 2,
-            created_at: "2021-10-11",
+            createdAt: "2021-10-11",
             status: "error",
         },
         {
             id: 3,
-            created_at: "2021-10-12",
+            createdAt: "2021-10-12",
             status: "accepted",
         },
         {
             id: 4,
-            created_at: "2021-10-13",
+            createdAt: "2021-10-13",
             status: "error",
         },
         {
             id: 5,
-            created_at: "2021-10-14",
+            createdAt: "2021-10-14",
             status: "accepted",
         },
         {
             id: 6,
-            created_at: "2021-10-15",
+            createdAt: "2021-10-15",
             status: "error",
         }
     ];
@@ -75,9 +75,9 @@ export default function SubmissionsTable() {
 
                     const cmp = first - second;
 
-                    if (sortDescriptor.column === "created_at") {
-                        first = new Date(a.created_at).getTime();
-                        second = new Date(b.created_at).getTime();
+                    if (sortDescriptor.column === "createdAt") {
+                        first = new Date(a.createdAt).getTime();
+                        second = new Date(b.createdAt).getTime();
 
                         return sortDescriptor.direction === "descending" ? first - second : second - first;
                     }
@@ -111,8 +111,8 @@ export default function SubmissionsTable() {
                         <a href={`/submissions/${submission.id}`}>{cellValue}</a>
                     </Tooltip>
                 );
-            case "created_at":
-                return new Date(submission.created_at).toLocaleDateString();
+            case "createdAt":
+                return new Date(submission.createdAt).toLocaleDateString();
             case "status":
                 return (
                     <Chip

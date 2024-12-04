@@ -13,32 +13,69 @@ import {
 import { Link } from "@nextui-org/link";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { KeyboardIcon } from "hugeicons-react";
+import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
 import { Button } from "@nextui-org/button";
-import { User } from "@nextui-org/react";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from "@nextui-org/react";
+import { usePathname } from "next/navigation";
+
+import { Search } from "./search";
+import { LinearContainer } from "./ui";
 
 import { siteConfig } from "@/config/site";
 import { useAuth } from "@/app/context";
 
-import { Search } from "./search";
-import { usePathname } from "next/navigation";
-import { LinearContainer } from "./ui";
-
 export const Navbar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const UserAccordion = () => {
+    const { logout } = useAuth();
+    return (
+      <Dropdown>
+        <DropdownTrigger>
+          <User
+            avatarProps={{
+              showFallback: true,
+            }}
+            name={user?.userName}
+            className="cursor-pointer"
+          />
+        </DropdownTrigger>
+        <DropdownMenu>
+          <DropdownItem
+            startContent={
+              <UserIcon className="text-foreground-500" />
+            }
+          >
+            <NextLink href="/profile">Profile</NextLink>
+          </DropdownItem>
+          <DropdownItem
+            startContent={<LogoutCircle01Icon className="text-foreground-500" />}
+            onClick={logout}
+          >
+            Logout
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    )
+  };
 
   return (
     <NextUINavbar
-      position="sticky"
       classNames={{
         wrapper: "w-full max-w-full",
       }}
+      position="sticky"
     >
       <NavbarBrand as="li" className="gap-3 max-w-fit">
         <NextLink className="flex justify-start items-center gap-1" href="/">
-          <p className="font-bold text-foreground">Sync <span className="text-primary-foreground p-1 rounded-full bg-primary">Up</span></p>
+          <p className="font-bold text-foreground">
+            Sync{" "}
+            <span className="text-primary-foreground p-1 rounded-full bg-primary">
+              Up
+            </span>
+          </p>
         </NextLink>
       </NavbarBrand>
       <NavbarContent className="basis-1/5 lg:basis-full" justify="start">
@@ -47,15 +84,16 @@ export const Navbar = () => {
             {siteConfig.navItems.map((item) => (
               <NavbarItem key={item.href}>
                 <Link
+                  as={NextLink}
                   className={clsx(
                     "text-foreground-500",
                     "flex flex-row items-center gap-1 rounded-full px-3 py-1",
-                    pathname.startsWith(item.href) && "text-foreground bg-primary font-medium"
+                    pathname.startsWith(item.href) &&
+                    "text-foreground bg-primary font-medium",
                   )}
-                  size="sm"
-                  as={NextLink}
                   color="foreground"
                   href={item.href}
+                  size="sm"
                 >
                   {item.label}
                 </Link>
@@ -86,38 +124,32 @@ export const Navbar = () => {
         </div>
       </NavbarContent>
 
-      {
-        user ? (
-          <User
-            name={user.user_name}
-            avatarProps={{
-              showFallback: true,
-            }}
-          />
-        ) : (
-          <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
-            <Search />
+      <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
+        <Search />
+        <Button
+          isIconOnly
+          as={NextLink}
+          href="../ide"
+          radius="full"
+          startContent={<KeyboardIcon className="text-foreground-500" />}
+          variant="light"
+        />
+        {
+          user ? (
+            <UserAccordion />
+          ) : (
             <Button
+              fullWidth
               as={NextLink}
-              variant="light"
-              href="../ide"
-              radius="full"
-              isIconOnly
-              startContent={<KeyboardIcon className="text-foreground-500" />}
-            >
-            </Button>
-            <Button
-              as={NextLink}
+              color="primary"
               href="../login"
               radius="full"
-              color="primary"
-              className="font-medium shadow-sm shadow-neutral-50"
             >
               Get started
             </Button>
-          </ul>
-        )
-      }
+          )
+        }
+      </ul>
       <NavbarMenuToggle
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         className="text-foreground-100 lg:hidden"
@@ -126,15 +158,16 @@ export const Navbar = () => {
         {siteConfig.navItems.map((item) => (
           <NavbarMenuItem key={item.href}>
             <Link
+              as={NextLink}
               className={clsx(
                 "text-foreground-100",
                 "flex flex-row items-center gap-1 rounded-full px-3 py-1",
-                pathname.startsWith(item.href) && "text-primary-foreground bg-primary font-medium"
+                pathname.startsWith(item.href) &&
+                "text-primary-foreground bg-primary font-medium",
               )}
-              size="sm"
-              as={NextLink}
               color="foreground"
               href={item.href}
+              size="sm"
             >
               {item.label}
             </Link>
@@ -144,29 +177,40 @@ export const Navbar = () => {
           <Button
             fullWidth
             as={NextLink}
-            href="../ide"
             className="px-4 flex flex-row"
-            radius="full"
             color="secondary"
+            href="../ide"
+            radius="full"
             startContent={<KeyboardIcon />}
           >
             Open IDE
           </Button>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <LinearContainer direction="row" space="sm" className="justify-center items-center" fullwidth>
-            <Button
-              fullWidth
-              as={NextLink}
-              href="../login"
-              radius="full"
-              color="primary"
-            >
-              Get started
-            </Button>
+          <LinearContainer
+            fullwidth
+            className="justify-center items-center"
+            direction="row"
+            space="sm"
+          >
+            {
+              user ? (
+                <UserAccordion />
+              ) : (
+                <Button
+                  fullWidth
+                  as={NextLink}
+                  color="primary"
+                  href="../login"
+                  radius="full"
+                >
+                  Get started
+                </Button>
+              )
+            }
           </LinearContainer>
         </NavbarMenuItem>
       </NavbarMenu>
-    </NextUINavbar >
+    </NextUINavbar>
   );
 };

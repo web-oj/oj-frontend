@@ -4,88 +4,85 @@ import { Input } from "@nextui-org/input";
 import { useForm } from "react-hook-form";
 import React from "react";
 import { Button } from "@nextui-org/button";
-import { register as registerUser } from "@/fetch-functions";
 import { toast } from "react-toastify";
 
-interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> { }
+import { signUp } from "@/fetch-functions";
+
+interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 type RegisterFormValues = {
-    email: string;
-    password: string;
-    confirmPassword: string;
+  email: string;
+  password: string;
+  handle: string;
 };
 
 export function RegisterForm(props: RegisterFormProps) {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<RegisterFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormValues>();
 
-    const onSubmit = handleSubmit(async (data) => {
-        try {
-            const response = await registerUser(data);
-            console.log("Registration successful:", response);
-        } catch (error) {
-            toast.error("Registration failed");
-            console.error("Registration failed:", error);
-        }
-    });
-
-    const registers = {
-        email: register("email", { required: "Email is required" }),
-        password: register("password", { required: "Password is required" }),
-        confirmPassword: register("confirmPassword", {
-            required: "Confirm Password is required",
-            // validate: (value) => value === data.password || "Passwords do not match"
-        }),
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await signUp(data);
+      toast.success("Registration successful");
+    } catch (error) {
+      toast.error("Registration failed");
     }
+  });
 
-    return (
-        <form
-            {...props}
-            onSubmit={onSubmit}
-            className="flex flex-col gap-1 lg:min-w-[48ch]"
-        >
-            <Input
-                type="email"
-                placeholder="Email"
-                required
-                radius="full"
-                size="lg"
-                className="mb-4"
-                {...registers.email}
-            />
-            <Input
-                type="password"
-                placeholder="Password"
-                required
-                radius="full"
-                size="lg"
-                className="mb-4"
-                {...registers.password}
-            />
-            <Input
-                type="password"
-                placeholder="Confirm Password"
-                required
-                radius="full"
-                size="lg"
-                className="mb-4"
-                {...registers.confirmPassword}
-            />
-            <p className="text-danger">
-                {errors.email?.message}
-                {errors.password?.message}
-            </p>
-            <Button
-                type="submit"
-                radius="full"
-                fullWidth
-                size="lg"
-                color="primary"
-            >
-                Register
-            </Button>
-        </form>
-    );
+  const registers = {
+    email: register("email", {
+      required: "Email is required",
+      pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
+    }),
+    password: register("password", { required: "Password is required" }),
+    handle: register("handle", {
+      required: "Handle is required",
+      // validate: (value) => value === data.password || "Passwords do not match"
+    }),
+  };
+
+  return (
+    <form
+      {...props}
+      className="flex flex-col gap-1 lg:min-w-[48ch]"
+      onSubmit={onSubmit}
+    >
+      <Input
+        required
+        className="mb-4"
+        placeholder="Email"
+        radius="full"
+        size="lg"
+        type="email"
+        {...registers.email}
+      />
+      <Input
+        required
+        className="mb-4"
+        placeholder="Handle"
+        radius="full"
+        size="lg"
+        type="text"
+        {...registers.handle}
+      />
+      <Input
+        required
+        className="mb-4"
+        placeholder="Password"
+        radius="full"
+        size="lg"
+        type="password"
+        {...registers.password}
+      />
+      <p className="text-danger">
+        {errors.email?.message}
+        {errors.password?.message}
+      </p>
+      <Button fullWidth color="primary" radius="full" size="lg" type="submit">
+        Register
+      </Button>
+    </form>
+  );
 }

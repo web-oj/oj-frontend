@@ -1,10 +1,11 @@
-import { LinearContainer } from "@/components/ui";
 import { FastCheckTable } from "./FastCheckTable";
 
+import { LinearContainer } from "@/components/ui";
+
 export default function FastCheckTableWrapper() {
-    return (
-        <LinearContainer fullwidth fullheight>
-            <FastCheckTable />
-        </LinearContainer>
-    );
+  return (
+    <LinearContainer fullheight fullwidth>
+      <FastCheckTable />
+    </LinearContainer>
+  );
 }

@@ -1,10 +1,11 @@
-import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { CreateContestForm } from "./CreateContestForm";
 
+import { LinearContainer } from "@/components/ui/container/LinearContainer";
+
 export default function CreateContestFormWrapper() {
-    return (
-        <LinearContainer direction="column" fullwidth>
-            <CreateContestForm />
-        </LinearContainer>
-    )
+  return (
+    <LinearContainer fullwidth direction="column">
+      <CreateContestForm />
+    </LinearContainer>
+  );
 }
