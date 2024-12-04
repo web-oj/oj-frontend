@@ -29,7 +29,7 @@ export interface Contest {
   organizer_id: string;
   start_time: string;
   end_time: string;
-  created_at: string;
+  createdAt: string;
 
 }
 export interface Problem {
@@ -38,130 +38,130 @@ export interface Problem {
   tags?: string[];
   statement: string;
   difficulty: number;
-  time_limit: number;
-  memory_limit: number;
-  input_format: string;
-  output_format: string;
-  solution_text: string;
-  created_at: string;
+  timeLimit: number;
+  memoryLimit: number;
+  inputFormat: string;
+  outputFormat: string;
+  solutionText: string;
+  createdAt: string;
   creator_id: string;
 }
 
 export interface User {
-  user_id: number;
-  user_name: string;
+  userId: number;
+  userName: string;
   email: string;
   password: string;
   role: string;
-  created_at: string;
+  createdAt: string;
   rating: number;
 }
 
 export interface Contest {
-  contest_id: number;
+  contestId: number;
   title: string;
   description: string;
-  start_time: string;
-  end_time: string;
-  scoring_rule: string;
-  is_plagiarism_check_enabled: boolean;
-  organizer_id: string;
-  is_published: boolean;
+  startTime: string;
+  endTime: string;
+  scoringRule: string;
+  isPlagiarismCheckEnabled: boolean;
+  organizerId: string;
+  isPublished: boolean;
 }
 
 export interface TestCase {
-  test_case_id: number;
-  problem_id: number;
+  testCaseId: number;
+  problemId: number;
   input: string;
-  expected_output: string;
-  is_hidden: boolean;
+  expectedOutput: string;
+  isHidden: boolean;
 }
 
 export interface Submission {
-  submission_id: number;
-  user_id: number;
-  problem_id: number;
-  contest_id: number;
-  submitted_at: string;
-  source_code_language: string;
-  source_code_file: string;
+  submissionId: number;
+  userId: number;
+  problemId: number;
+  contestId: number;
+  submittedAt: string;
+  sourceCodeLanguage: string;
+  sourceCodeFile: string;
   status: string;
-  compiler_message: string;
+  compilerMessage: string;
 }
 
 export interface Achievement {
-  achievement_id: number;
+  achievementId: number;
   title: string;
-  user_id: number;
+  userId: number;
   attachment: string;
-  is_verified: boolean;
+  isVerified: boolean;
 }
 
 export interface Notification {
-  notification_id: number;
-  receive_id: number;
+  notificationId: number;
+  receiveId: number;
   content: string;
-  send_at: string;
+  sendAt: string;
 }
 
 export interface DiscussionMessage {
-  message_id: number;
-  user_id: number;
-  contest_id: number;
-  problem_id: number;
+  messageId: number;
+  userId: number;
+  contestId: number;
+  problemId: number;
   content: string;
-  send_at: string;
-  parent_id?: number;
+  sendAt: string;
+  parentId?: number;
 }
 
 export interface Tag {
-  tag_id: number;
-  tag_name: string;
-  tag_type: string;
-  is_selected: boolean;
+  tagId: number;
+  tagName: string;
+  tagType: string;
+  isSelected: boolean;
 }
 
 export interface TaggedProblem {
-  tag_id: number;
-  problem_id: number;
+  tagId: number;
+  problemId: number;
 }
 
 export interface PlagiarismReport {
-  report_id: number;
-  submission_id: number;
-  moss_dump_file: string;
+  reportId: number;
+  submissionId: number;
+  mossDumpFile: string;
 }
 
 export interface SubmissionResult {
-  submission_id: number;
-  test_case_id: number;
-  time_elapsed: number;
-  memory_used: number;
+  submissionId: number;
+  testCaseId: number;
+  timeElapsed: number;
+  memoryUsed: number;
   output: string;
-  judge_message: string;
+  judgeMessage: string;
   status: string;
-  judged_at: string;
+  judgedAt: string;
 }
 
 export interface ContestParticipated {
-  user_id: number;
-  contest_id: number;
+  userId: number;
+  contestId: number;
 }
 
 export interface ProblemSolved {
-  user_id: number;
-  problem_id: number;
+  userId: number;
+  problemId: number;
 }
 
 export interface ContestProblem {
-  contest_id: number;
-  problem_id: number;
+  contestId: number;
+  problemId: number;
   point: number;
 }
 
 export interface Submission {
   id: string;
-  problem_id: number;
-  source_code_lang: Language | string
-  submitted_at: string;
+  problemId: number;
+  sourceCodeLang: Language | string;
+  submittedAt: string;
 }
