@@ -1,8 +1,7 @@
 import Link from "next/link";
 
 import { LinearContainer } from "@/components/ui";
-import { mockContests } from "@/mock";
-import { ContestCard } from "@/components/ui/contest";
+import { ContestsTableWrapper } from "../../contests/components/contests-table";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 export default function ContestsArea(props: Props) {
@@ -24,9 +23,7 @@ export default function ContestsArea(props: Props) {
       }
       labelSize="2xl"
     >
-      {mockContests.slice(0, 4).map((contest) => (
-        <ContestCard key={contest.contestId} contest={contest} />
-      ))}
+      <ContestsTableWrapper />
     </LinearContainer>
   );
 }

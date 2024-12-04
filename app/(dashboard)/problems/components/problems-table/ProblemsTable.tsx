@@ -19,7 +19,7 @@ import {
   DropdownTrigger,
   Selection,
 } from "@nextui-org/react";
-import { ArrowDown01Icon } from "hugeicons-react";
+import { ArrangeByNumbers19Icon, ArrowDown01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 import Link from "next/link";
 
@@ -30,12 +30,17 @@ import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
 import { mockProblems } from "@/mock";
 
-const difficultyColorMap: Record<string, ChipProps["color"]> = {
-  1: "success",
-  2: "warning",
-  3: "danger",
-};
+// const difficultyColorMap = {
+//   1: "#5BFF4F",
+//   2: "#FFB031",
+//   3: "#FF3131",
+// };
 
+const difficultyColorMap = [
+  "#5BFF4F",
+  "#FFB031",
+  "#FF3131",
+]
 export default function ProblemsTable() {
   const [problems, setProblems] = React.useState<Problem[]>(mockProblems);
   const [difficultiesFilter, setDifficultiesFilter] =
@@ -88,6 +93,19 @@ export default function ProblemsTable() {
     (problem: Problem, columnKey: React.Key) => {
       const cellValue = problem[columnKey as keyof Problem];
 
+      const convertDifficulty = (difficulty: number) => {
+        switch (difficulty) {
+          case 0:
+            return "Easy";
+          case 1:
+            return "Medium";
+          case 2:
+            return "Hard";
+          default:
+            return "Unknown";
+        }
+      };
+
       switch (columnKey) {
         case "id":
           return (
@@ -99,12 +117,14 @@ export default function ProblemsTable() {
           return <Link href={`/problems/${problem.id}`}>{cellValue}</Link>;
         case "difficulty":
           return (
-            <Chip
-              color={difficultyColorMap[problem.difficulty.toString()]}
-              radius="full"
+            <div
+              className="flex items-center gap-1 p-1 w-fit rounded-full text-foreground-700"
+              style={{
+                backgroundColor: difficultyColorMap[problem.difficulty],
+              }}
             >
-              {problem.difficulty}
-            </Chip>
+              {convertDifficulty(problem.difficulty)}
+            </div>
           );
         default:
           return cellValue;
@@ -116,13 +136,6 @@ export default function ProblemsTable() {
   const topContent = React.useMemo(() => {
     return (
       <LinearContainer fullwidth direction="row" space="sm">
-        <Input
-          fullWidth
-          isClearable
-          placeholder="Search by name..."
-          startContent={<SearchIcon />}
-          onValueChange={onSearchChange}
-        />
         <div className="flex gap-3">
           <Dropdown
             classNames={{
@@ -131,7 +144,8 @@ export default function ProblemsTable() {
           >
             <DropdownTrigger className="hidden sm:flex">
               <Button
-                endContent={<ArrowDown01Icon className="text-small" />}
+                startContent={<ArrangeByNumbers19Icon className="text-foreground-500" />}
+                endContent={<ArrowDown01Icon size={16} className="text-small" />}
                 variant="flat"
               >
                 Difficulty
@@ -141,12 +155,14 @@ export default function ProblemsTable() {
               disallowEmptySelection
               aria-label="Table Columns"
               closeOnSelect={false}
-              selectedKeys={difficultiesFilter}
+              defaultSelectedKeys={["1"]}
               selectionMode="multiple"
               onSelectionChange={setDifficultiesFilter}
             >
               {["1", "2", "3"].map((difficulty) => (
-                <DropdownItem key={difficulty}>{difficulty}</DropdownItem>
+                <DropdownItem key={difficulty}>{
+                  difficulty === "1" ? "Easy" : difficulty === "2" ? "Medium" : "Hard"
+                }</DropdownItem>
               ))}
             </DropdownMenu>
           </Dropdown>
