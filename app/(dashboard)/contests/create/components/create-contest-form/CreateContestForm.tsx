@@ -70,9 +70,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
         setData({
           ...data,
           title: watchedFields.title,
-          start_time: watchedFields.start_time,
-          end_time: watchedFields.end_time,
-          scoring_rule: watchedFields.scoring_rule,
+          startTime: watchedFields.start_time,
+          endTime: watchedFields.end_time,
+          scoringRule: watchedFields.scoring_rule,
         });
       }}
       onSubmit={handleSubmit(onSubmit, onInvalid)}
