@@ -1,7 +1,7 @@
 export const columns = [
   {
     name: "ID",
-    uid: "contest_id",
+    uid: "contestId",
     sortable: true,
   },
   {
@@ -11,12 +11,12 @@ export const columns = [
   },
   {
     name: "Start Time",
-    uid: "start_time",
+    uid: "startTime",
     sortable: true,
   },
   {
     name: "End Time",
-    uid: "end_time",
+    uid: "endTime",
     sortable: true,
   },
 ];

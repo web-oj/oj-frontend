@@ -13,9 +13,9 @@ interface CreateContestFormProps
   extends React.HTMLAttributes<HTMLFormElement> {}
 type CreateContestFormValues = {
   title: string;
-  start_time: string;
-  end_time: string;
-  scoring_rule: string;
+  startTime: string;
+  endTime: string;
+  scoringRule: string;
   isPublished: boolean;
   description: string;
   isPlagiarismCheckEnabled: boolean;
@@ -49,9 +49,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
         message: "Title must be less than 200 characters",
       },
     }),
-    startTime: register("start_time", { required: "Start time is required" }),
-    endTime: register("end_time", { required: "End time is required" }),
-    scoringRule: register("scoring_rule", {
+    startTime: register("startTime", { required: "Start time is required" }),
+    endTime: register("endTime", { required: "End time is required" }),
+    scoringRule: register("scoringRule", {
       required: "Scoring rule is required",
     }),
     isPublished: register("isPublished"),
@@ -70,9 +70,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
         setData({
           ...data,
           title: watchedFields.title,
-          startTime: watchedFields.start_time,
-          endTime: watchedFields.end_time,
-          scoringRule: watchedFields.scoring_rule,
+          startTime: watchedFields.startTime,
+          endTime: watchedFields.endTime,
+          scoringRule: watchedFields.scoringRule,
         });
       }}
       onSubmit={handleSubmit(onSubmit, onInvalid)}
@@ -117,14 +117,14 @@ export function CreateContestForm(props: CreateContestFormProps) {
       </LinearContainer>
       <ErrorMessage
         errors={errors}
-        name="start_time"
+        name="startTime"
         render={({ message }) => (
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
       <ErrorMessage
         errors={errors}
-        name="end_time"
+        name="endTime"
         render={({ message }) => (
           <p className="text-red-500 text-sm">{message}</p>
         )}
@@ -143,7 +143,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
       />
       <ErrorMessage
         errors={errors}
-        name="scoring_rule"
+        name="scoringRule"
         render={({ message }) => (
           <p className="text-red-500 text-sm">{message}</p>
         )}

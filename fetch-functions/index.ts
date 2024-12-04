@@ -93,7 +93,7 @@ export async function createProblem(params: {
    */
   // tags: string[];
   timeLimit: Problem["timeLimit"];
-  memoryLimit: Problem["memory_limit"];
+  memoryLimit: Problem["memoryLimit"];
   inputFormat: Problem["inputFormat"];
   outputFormat: Problem["outputFormat"];
   solutionText: Problem["solutionText"];

@@ -15,7 +15,7 @@ export function UserHeader(props: UserHeaderProps) {
       <Avatar showFallback className="w-32 h-32" radius="md" />
       <LinearContainer className={"items-center"} direction="column" space="sm">
         <h1 className="text-2xl font-semibold text-foreground-900">
-          {user?.user_name}
+          {user?.userName}
         </h1>
         <Tooltip content={"Rating"}>
           <p className="text-2xl font-bold text-secondary cursor-pointer">

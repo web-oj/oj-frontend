@@ -38,7 +38,7 @@ export default function ContactsArea(props: ContactsAreaProps) {
         icon={<IdIcon className="text-foreground-500" size={16} />}
         label="Username"
         showLabel={false}
-        value={user?.user_name}
+        value={user?.userName}
       />
     </LinearContainer>
   );

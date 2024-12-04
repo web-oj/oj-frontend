@@ -98,7 +98,7 @@ export const Navbar = () => {
           avatarProps={{
             showFallback: true,
           }}
-          name={user.user_name}
+          name={user.userName}
         />
       ) : (
         <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">

@@ -127,21 +127,6 @@ Much more info is available in the
 
 A component by [Espen Hovlandsdal](https://espen.codes/)
 `;
-<<<<<<< HEAD
-  const mockProblem: Problem = {
-    id: "1",
-    title: "Sample Problem",
-    statement: markdownString,
-    difficulty: 1,
-    time_limit: 0,
-    memory_limit: 0,
-    input_format: "This is the input format.",
-    output_format: "This is the output format.",
-    solution_text: "This is the solution text.",
-    created_at: "2021-10-10",
-    creatorId: "",
-  };
-=======
     const mockProblem: Problem = {
         id: "1",
         title: "Sample Problem",
@@ -153,9 +138,8 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
         outputFormat: "This is the output format.",
         solutionText: "This is the solution text.",
         createdAt: "2021-10-10",
-        creator_id: ""
+        creatorId: ""
     };
->>>>>>> feat/types
 
   return (
    <>
