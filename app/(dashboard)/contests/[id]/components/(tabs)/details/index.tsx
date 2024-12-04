@@ -33,7 +33,7 @@ export default function DetailsArea(props: DetailsAreaProps) {
         icon={<Calendar03Icon className="text-foreground-500" size={16} />}
         label="Duration"
         showLabel={false}
-        value={`${new Date(contest?.start_time).toLocaleString()} - ${new Date(contest?.end_time).toLocaleString()}`}
+        value={`${new Date(contest?.startTime).toLocaleString()} - ${new Date(contest?.endTime).toLocaleString()}`}
       />
       <RenderMarkdown data={contest.description} />
     </LinearContainer>

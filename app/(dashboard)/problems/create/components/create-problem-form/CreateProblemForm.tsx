@@ -106,6 +106,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
   };
   const watchedFields = watch();
 
+<<<<<<< HEAD
   return (
     <form
       {...props}
@@ -263,3 +264,138 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
     </form>
   );
 }
+=======
+
+    return (
+        <form
+            {...props}
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            onBlur={() => {
+                setData({
+                    ...data,
+                    title: watchedFields.title,
+                    statement: watchedFields.statement,
+                    difficulty: watchedFields.difficulty as any,
+                    tags: watchedFields.tags,
+                    timeLimit: watchedFields.timeLimit,
+                    memoryLimit: watchedFields.memoryLimit,
+                    inputFormat: watchedFields.inputFormat,
+                    outputFormat: watchedFields.outputFormat,
+                });
+            }}
+            className="flex flex-col gap-4 lg:min-w-[48ch] h-full overflow-y-auto pr-4"
+            id="create-problem-form"
+        >
+            <Input
+                type="text"
+                label="Title"
+                labelPlacement="outside"
+                placeholder="Title"
+                description={`Max length ${registers.title.maxLength}`}
+                required
+                radius="full"
+                isRequired
+                {...registers.title}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="title"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
+            {/* @todo implement TagInput */}
+            <TagsInput
+                tags={tags}
+                onTagsChange={setTags}
+                className="mb-4"
+            />
+            <Select
+                label="Difficulty"
+                placeholder="Select difficulty"
+                labelPlacement="outside-left"
+                radius="full"
+                isRequired
+                aria-label="Difficulty"
+                classNames={{
+                    base: "items-center",
+                    trigger: "rounded-l-none",
+                    label: "rounded-r-none rounded-l-full h-full bg-secondary text-secondary-foreground flex items-center justify-center px-4 ",
+                }}
+                {...registers.difficulty}
+            >
+                <SelectItem key="easy">Easy</SelectItem>
+                <SelectItem key="medium">Medium</SelectItem>
+                <SelectItem key="hard">Hard</SelectItem>
+            </Select>
+            <ErrorMessage
+                errors={errors}
+                name="difficulty"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
+            <StatementEditorInput markdown={statement} setMarkdown={setStatement} register={registers.statement} />
+            <LinearContainer direction="row">
+                <Input
+                    type="number"
+                    placeholder="Time Limit"
+                    label="Time Limit"
+                    labelPlacement="outside"
+                    description="Time limit in milliseconds"
+                    required
+                    radius="full"
+                    fullWidth
+                    isRequired
+                    {...registers.timeLimit}
+                />
+                <Input
+                    type="number"
+                    placeholder="Memory Limit"
+                    label="Memory Limit"
+                    labelPlacement="outside"
+                    description="Memory limit in bytes"
+                    required
+                    radius="full"
+                    fullWidth
+                    isRequired
+                    {...registers.memoryLimit}
+                />
+            </LinearContainer>
+            <ErrorMessage
+                errors={errors}
+                name="timeLimit"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="memoryLimit"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
+            <Textarea
+                label="Input Format"
+                description="Describe the input format"
+                placeholder="Type the input format here"
+                labelPlacement="outside"
+                required
+                isRequired
+                radius="full"
+                {...registers.inputFormat}
+            />
+            <Textarea
+                label="Output Format"
+                description="Describe the output format"
+                placeholder="Type the output format here"
+                labelPlacement="outside"
+                required
+                isRequired
+                radius="full"
+                {...registers.outputFormat}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="inputFormat"
+                render={(message) => <p className="text-sm text-danger">{message.message}</p>}
+            />
+            {/* @todo implement TestCasesInput */}
+            {/* <TestCasesInput/> */}
+        </form>
+    );
+}
+>>>>>>> feat/types
