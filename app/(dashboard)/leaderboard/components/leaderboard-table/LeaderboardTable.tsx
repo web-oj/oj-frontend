@@ -47,7 +47,7 @@ export default function LeaderboardTable() {
   });
   const filteredItems = React.useMemo(() => {
     return list.items.filter((user) =>
-      user.user_id.toString().includes(filterValue),
+      user.userId.toString().includes(filterValue),
     );
   }, [list.items, filterValue]);
 
@@ -65,16 +65,16 @@ export default function LeaderboardTable() {
     switch (columnKey) {
       case "standing":
         return <>{cellValue}</>;
-      case "user_name":
+      case "userName":
         return (
           <UserUI
             avatarProps={{
               showFallback: true,
-              alt: user.user_name,
+              alt: user.userName,
               size: "sm",
             }}
             name={
-              <Link href={`/profiles/${user.user_id}`}>{user.user_name}</Link>
+              <Link href={`/profiles/${user.userId}`}>{user.userName}</Link>
             }
           />
         );
@@ -125,7 +125,7 @@ export default function LeaderboardTable() {
       </TableHeader>
       <TableBody isLoading={list.isLoading} items={filteredItems}>
         {(item) => (
-          <TableRow key={item.user_id}>
+          <TableRow key={item.userId}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

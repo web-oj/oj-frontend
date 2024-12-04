@@ -68,19 +68,19 @@ export default function ContestsTable() {
       const cellValue = contest[columnKey as keyof Contest];
 
       switch (columnKey) {
-        case "contest_id":
+        case "contestId":
           return (
             <Tooltip content="View contest">
-              <a href={`/contests/${contest.contest_id}`}>{cellValue}</a>
+              <a href={`/contests/${contest.contestId}`}>{cellValue}</a>
             </Tooltip>
           );
         case "title":
           return (
-            <Link href={`/contests/${contest.contest_id}`}>{cellValue}</Link>
+            <Link href={`/contests/${contest.contestId}`}>{cellValue}</Link>
           );
-        case "start_time":
+        case "startTime":
           return new Date(contest.startTime).toLocaleString();
-        case "end_time":
+        case "endTime":
           return new Date(contest.endTime).toLocaleString();
 
         default:

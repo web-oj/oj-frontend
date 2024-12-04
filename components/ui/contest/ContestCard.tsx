@@ -20,10 +20,10 @@ export function ContestCard(props: Props) {
       className="max-w-64 bg-foreground-50 p-4 cursor-pointer"
       direction="column"
       space="md"
-      onClick={() => router.push(`/contests/${contest.contest_id}`)}
+      onClick={() => router.push(`/contests/${contest.contestId}`)}
     >
       <p className="text-primary text-base font-semibold">
-        {contest.contest_id}
+        {contest.contestId}
       </p>
       <p className="text-2xl font-semibold text-foreground-900">
         {contest.title}
