@@ -26,6 +26,18 @@ export function FastCheckTable(props: FastCheckTableProps) {
       value: data ? data.memoryLimit : "N/A"
     },
     {
+      label : "Input Format",
+      value: data ? data.inputFormat : "N/A"
+    },
+    {
+      label: "Output Format",
+      value: data ? data.outputFormat : "N/A"
+    },
+    {
+      label: "Solution",
+      value: data ? data.solutionText : "N/A"
+    },
+    {
       label: "Tags",
       value: data ? data?.tags?.join(", ") : "N/A"
     }

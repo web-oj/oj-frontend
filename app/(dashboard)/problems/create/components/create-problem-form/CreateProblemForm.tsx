@@ -51,20 +51,30 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
   const [statement, setStatement] =
     React.useState<CreateProblemFormValues["statement"]>("");
 
-  const onSubmit: SubmitHandler<CreateProblemFormValues> = (data) => {
+  const onSubmit: SubmitHandler<CreateProblemFormValues> = async (data) => {
+    console.log({
+      title: data.title,
+      statement: data.statement,
+      difficulty: 1,
+      timeLimit: data.timeLimit,
+      memoryLimit: data.memoryLimit,
+      inputFormat: data.inputFormat,
+      outputFormat: data.outputFormat,
+      solutionText: data.solutionText,
+      isPublished: true,
+    });
     try {
-      createProblem({
+      await createProblem({
         title: data.title,
         statement: data.statement,
-        difficulty: data.difficulty,
+        difficulty: data.difficulty as number,
         timeLimit: data.timeLimit,
         memoryLimit: data.memoryLimit,
         inputFormat: data.inputFormat,
         outputFormat: data.outputFormat,
         solutionText: data.solutionText,
-        isPublished: false,
+        isPublished: true,
       });
-      console.log(data);
       toast.success("Problem created successfully");
     } catch (error) {
       toast.error("Failed to create problem");
@@ -153,6 +163,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         label="Difficulty"
         placeholder="Select difficulty"
         labelPlacement="outside-left"
+        defaultSelectedKeys={[0]}
         radius="full"
         isRequired
         aria-label="Difficulty"
@@ -163,9 +174,9 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         }}
         {...registers.difficulty}
       >
-        <SelectItem key="easy">Easy</SelectItem>
-        <SelectItem key="medium">Medium</SelectItem>
-        <SelectItem key="hard">Hard</SelectItem>
+        <SelectItem key={0} value={0}>Easy</SelectItem>
+        <SelectItem key={1} value={1}>Medium</SelectItem>
+        <SelectItem key={2} value={2}>Hard</SelectItem>
       </Select>
       <ErrorMessage
         errors={errors}
@@ -228,6 +239,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         isRequired
         radius="full"
         {...registers.outputFormat}
+      />
+      <Textarea
+        label="Solution Text"
+        description="Type the solution text here"
+        placeholder="Type the solution text here"
+        labelPlacement="outside"
+        required
+        isRequired
+        radius="full"
+        {...registers.solutionText}
       />
       <ErrorMessage
         errors={errors}

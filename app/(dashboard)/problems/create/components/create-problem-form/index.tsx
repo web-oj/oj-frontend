@@ -11,6 +11,7 @@ export default function CreateProblemFormWrapper() {
         wrapper: "overflow-hidden",
       }}
       direction="column"
+      roundedMedium={false}
     >
       <CreateProblemForm />
     </LinearContainer>
