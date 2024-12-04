@@ -14,7 +14,6 @@ type AuthContextType = {
   user: User | null;
   login: (token: string) => void;
   logout: () => void;
-  loginWithGoogle: () => void;
   showCookieConsent: boolean;
   allowCookies: () => void;
 };
@@ -28,11 +27,10 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [showCookieConsent, setShowCookieConsent] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null>(null);
 
   const fetchUser = React.useCallback(async () => {
     try {
-      const token = Cookies.get("token");
-
       if (!token) {
         return;
       }
@@ -43,10 +41,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } catch (error) {
       console.error("Failed to fetch user", error);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     const token = Cookies.get("token");
+    if (token) {
+      setToken(token);
+    }
     const cookieConsent = Cookies.get("cookieConsent");
 
     if (!cookieConsent) {
@@ -58,13 +59,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (user === null) {
       fetchUser();
     }
-  }, [user, fetchUser]);
+  }, [user, fetchUser, token]);
 
   const login = (token: string) => {
     if (!token) {
       throw new Error("Token is required");
     }
     Cookies.set("token", token);
+    setToken(token);
   };
 
   const logout = () => {
@@ -72,7 +74,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   };
 
-  const loginWithGoogle = () => {};
 
   const allowCookies = () => {
     Cookies.set("cookieConsent", "true");
@@ -85,7 +86,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         user,
         login,
         logout,
-        loginWithGoogle,
         showCookieConsent,
         allowCookies,
       }}
