@@ -7,6 +7,7 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     isCenteredX?: boolean;
     isCenteredY?: boolean;
     title?: string;
+    label?: React.ReactNode;
 }
 export function PageContainer(props: PageContainerProps) {
     const {
@@ -14,6 +15,7 @@ export function PageContainer(props: PageContainerProps) {
         isCenteredX = false,
         isCenteredY = false,
         title,
+        label,
         className,
         ...rest
     } = props;
@@ -28,6 +30,7 @@ export function PageContainer(props: PageContainerProps) {
         )} >
 
             {title && <h1 className="text-4xl font-bold text-foreground">{title}</h1>}
+            {label}
             {props.children}
         </div>
     );

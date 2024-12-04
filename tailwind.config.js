@@ -24,17 +24,17 @@ module.exports = {
         extend: "light",
         colors: {
           primary: {
-            DEFAULT: "#21F733",
+            DEFAULT: "#A4F226",
             foreground: "#011903",
-            50: "#E6FEE8",
-            100: "#B5FCBB",
-            200: "#84FB8D",
-            300: "#52F960",
-            400: "#21F733",
-            500: "#08DE19",
-            600: "#06AD14",
-            700: "#047B0E",
-            800: "#034A08",
+            50: "#F5FEE7",
+            100: "#E1FBB7",
+            200: "#B8F557",
+            300: "#A4F226",
+            400: "#8AD90D",
+            500: "#6CA80A",
+            600: "#4D7807",
+            700: "#2E4804",
+            800: "#0F1801",
             900: "#011903",
           },
           secondary: {
@@ -52,13 +52,13 @@ module.exports = {
             900: "#161A00",
           },
           focus: {
-            DEFAULT: "#21F733",
+            DEFAULT: "#A4F226",
           },
           foreground: {
             DEFAULT: "#11181C"
           },
           background: {
-            DEFAULT: "#E0E3DF",
+            DEFAULT: "#EDF1ED",
           }
         }
       }

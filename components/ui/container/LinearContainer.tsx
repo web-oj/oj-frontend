@@ -9,10 +9,12 @@ export interface LinearContainerProps extends React.HTMLAttributes<HTMLDivElemen
     space?: "sm" | "md" | "lg";
     fullwidth?: boolean;
     fullheight?: boolean;
-    label?: string;
+    label?: React.ReactNode;
+    labelSize?: "sm" | "md" | "lg" | "2xl";
     classnames?: {
         wrapper?: string;
         container?: string;
+        label?: string;
     };
     roundedMedium?: boolean;
 }
@@ -33,12 +35,24 @@ export function LinearContainer(props: LinearContainerProps) {
     return (
         <div className={twMerge(
             "flex flex-col gap-2 h-fit",
-            roundedMedium && "rounded-md",
+            roundedMedium && "rounded-medium",
             fullWidth && "w-full",
             fullHeight && "h-full",
             twJoin(className, classNames?.wrapper)
         )}>
-            {props.label && <h3 className="text-sm font-medium text-foreground">{props.label}</h3>}
+            {
+                props.label &&
+                <h3 className={twMerge(
+                    "text-sm font-medium text-foreground",
+                    props.labelSize === "sm" && "text-sm",
+                    props.labelSize === "md" && "text-md",
+                    props.labelSize === "lg" && "text-lg",
+                    props.labelSize === "2xl" && "text-2xl font-semibold",
+                    classNames?.label
+                )}>
+                    {props.label}
+                </h3>
+            }
             <div
                 {...props}
                 className={clsx(

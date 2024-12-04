@@ -138,7 +138,7 @@ export default function ProblemsTable() {
             classNames={{
                 tbody: "h-full",
                 wrapper: "h-full justify-start",
-                base: "h-full",
+                base: "h-full overflow-hidden",
             }}
         >
             <TableHeader columns={columns}>
