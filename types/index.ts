@@ -45,6 +45,7 @@ export interface Problem {
   solutionText: string;
   createdAt: string;
   creatorId: string;
+  isPublished: boolean;
 }
 
 export interface User {
