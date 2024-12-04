@@ -29,6 +29,37 @@ export const Navbar = () => {
   const { user } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const UserAccordion = () => {
+    return (
+      <LinearContainer
+        fullwidth
+        direction="column"
+        className="bg-foreground-800 rounded-lg shadow-lg p-4"
+      >
+        <LinearContainer
+          fullwidth
+          direction="row"
+          className="justify-between items-center"
+        >
+          <User
+            avatarProps={{
+              showFallback: true,
+            }}
+            name={user?.userName}
+          />
+          <Button
+            as={NextLink}
+            className="font-medium shadow-sm shadow-neutral-50"
+            color="primary"
+            href="../login"
+            radius="full"
+          >
+            Logout
+          </Button>
+        </LinearContainer>
+      </LinearContainer>
+    )
+  };
 
   return (
     <NextUINavbar
@@ -58,7 +89,7 @@ export const Navbar = () => {
                     "text-foreground-500",
                     "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                     pathname.startsWith(item.href) &&
-                      "text-foreground bg-primary font-medium",
+                    "text-foreground bg-primary font-medium",
                   )}
                   color="foreground"
                   href={item.href}
@@ -135,7 +166,7 @@ export const Navbar = () => {
                 "text-foreground-100",
                 "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                 pathname.startsWith(item.href) &&
-                  "text-primary-foreground bg-primary font-medium",
+                "text-primary-foreground bg-primary font-medium",
               )}
               color="foreground"
               href={item.href}
@@ -165,15 +196,21 @@ export const Navbar = () => {
             direction="row"
             space="sm"
           >
-            <Button
-              fullWidth
-              as={NextLink}
-              color="primary"
-              href="../login"
-              radius="full"
-            >
-              Get started
-            </Button>
+            {
+              user ? (
+                <UserAccordion />
+              ) : (
+                <Button
+                  fullWidth
+                  as={NextLink}
+                  color="primary"
+                  href="../login"
+                  radius="full"
+                >
+                  Get started
+                </Button>
+              )
+            }
           </LinearContainer>
         </NavbarMenuItem>
       </NavbarMenu>
