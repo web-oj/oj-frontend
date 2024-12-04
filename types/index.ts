@@ -21,18 +21,6 @@ export type ObjectContextType<T> = {
 *                       SDK
 * ========================================================
 * */
-
-export interface Contest {
-  organizerId: string;
-  id: string;
-  title: string;
-  scoringRule: string;
-  ruleText?: string;
-  startTime: Date;
-  endTime: Date;
-  createdAt: string;
-
-}
 export interface Problem {
   id: string;
   title: string;
@@ -63,11 +51,11 @@ export interface Contest {
   contestId: number;
   title: string;
   description: string;
-  startTime: string;
-  endTime: string;
+  startTime: Date;
+  endTime: Date;
   scoringRule: string;
   isPlagiarismCheckEnabled: boolean;
-  organizerId: string;
+  organizerId: number;
   isPublished: boolean;
 }
 

@@ -183,12 +183,23 @@ export async function searchProblems(
   }
 }
 
-export async function createContest(params: CreateContestParams) {
+export async function createContest(params: {
+  title: string;
+  description: string;
+  startTime: Date;
+  endTime: Date;
+  scoringRule: string;
+  ruleText: string;
+  isPlagiarismCheckEnabled: boolean;
+  organizerId: number;
+  isPublished: boolean;
+}): Promise<any> {
   try {
     const res = await api.post("/contest/create", params);
 
     return res.data;
   } catch (error) {
+    console.error("Failed to create contest", error);
     throw new Error("Failed to create contest");
   }
 }

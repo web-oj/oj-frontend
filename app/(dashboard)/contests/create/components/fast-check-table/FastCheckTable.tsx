@@ -4,11 +4,15 @@ import { useContest } from "../../../context";
 import { LinearContainer } from "@/components/ui";
 import { Field } from "@/components/ui";
 
-interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function FastCheckTable(props: FastCheckTableProps) {
   const { data } = useContest();
 
   const fields = [
+    {
+      label: "Organizer",
+      value: data ? data.organizerId : "N/A",
+    },
     {
       label: "Title",
       value: data ? data.title : "N/A",
@@ -26,8 +30,8 @@ export function FastCheckTable(props: FastCheckTableProps) {
       value: data ? data.scoringRule : "N/A",
     },
     {
-      label: "Organizer",
-      value: data ? data.organizerId : "N/A",
+      label: "Description",
+      value: data ? data.description : "N/A",
     },
   ];
 
@@ -49,7 +53,7 @@ export function FastCheckTable(props: FastCheckTableProps) {
           }}
           direction="row"
           label={field.label}
-          value={field.value}
+          value={field.value as string}
         />
       ))}
     </LinearContainer>

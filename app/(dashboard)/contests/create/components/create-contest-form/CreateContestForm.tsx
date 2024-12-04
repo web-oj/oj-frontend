@@ -8,16 +8,20 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useContest } from "../../../context";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
+import { createContest } from "@/fetch-functions";
+import { useAuth } from "@/app/context";
+import { toast } from "react-toastify";
 
 interface CreateContestFormProps
-  extends React.HTMLAttributes<HTMLFormElement> {}
+  extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateContestFormValues = {
   title: string;
-  startTime: string;
-  endTime: string;
-  scoringRule: string;
-  isPublished: boolean;
+  startTime: Date;
+  endTime: Date;
   description: string;
+  scoringRule: string;
+  ruleText: string;
+  isPublished: boolean;
   isPlagiarismCheckEnabled: boolean;
 };
 
@@ -29,16 +33,44 @@ export function CreateContestForm(props: CreateContestFormProps) {
     watch,
   } = useForm<CreateContestFormValues>();
   const { data, setData } = useContest();
+  const { user } = useAuth();
 
-  const onSubmit: SubmitHandler<CreateContestFormValues> = (data) => {
-    console.log(data);
+  if (!user) return null;
+
+  const onSubmit: SubmitHandler<CreateContestFormValues> = async (data) => {
+    console.log({
+      title: data.title,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      organizerId: user.userId,
+      ruleText: data.ruleText,
+      scoringRule: data.scoringRule,
+      isPublished: data.isPublished,
+      description: data.description,
+      isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
+    });
+    try {
+      await createContest({
+        title: data.title,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        organizerId: user.userId,
+        ruleText: data.ruleText,
+        scoringRule: data.scoringRule,
+        isPublished: data.isPublished,
+        description: data.description,
+        isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
+      });
+      toast.success("Contest created successfully");
+    } catch (error) {
+      toast.error("Failed to create contest");
+    }
   };
 
   const onInvalid: SubmitErrorHandler<CreateContestFormValues> = (
     errors,
     e,
   ) => {
-    console.log(errors);
   };
 
   const registers = {
@@ -54,6 +86,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
     scoringRule: register("scoringRule", {
       required: "Scoring rule is required",
     }),
+    ruleText: register("ruleText", { required: "Rule text is required" }),
     isPublished: register("isPublished"),
     isPlagiarismCheckEnabled: register("isPlagiarismCheckEnabled"),
     description: register("description"),
@@ -65,14 +98,16 @@ export function CreateContestForm(props: CreateContestFormProps) {
     <form
       {...props}
       className="flex flex-col gap-4 lg:min-w-[48ch]"
-      id="create-problem-form"
+      id="create-contest-form"
       onBlur={() => {
         setData({
           ...data,
+          organizerId: user.userId,
           title: watchedFields.title,
           startTime: watchedFields.startTime,
           endTime: watchedFields.endTime,
           scoringRule: watchedFields.scoringRule,
+          description: watchedFields.description,
         });
       }}
       onSubmit={handleSubmit(onSubmit, onInvalid)}
@@ -132,6 +167,22 @@ export function CreateContestForm(props: CreateContestFormProps) {
       <Textarea
         isRequired
         required
+        label="Rule Text"
+        labelPlacement="outside"
+        placeholder="Type the rule text here"
+        radius="full"
+        {...registers.ruleText}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="ruleText"
+        render={({ message }) => (
+          <p className="text-red-500 text-sm">{message}</p>
+        )}
+      />
+      <Textarea
+        isRequired
+        required
         classNames={{
           base: "max-h-[200ch]",
         }}
@@ -148,10 +199,20 @@ export function CreateContestForm(props: CreateContestFormProps) {
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
-      <Input type="checkbox" {...registers.isPublished} />
-      <label htmlFor="isPublished">Published</label>
-      <Input type="checkbox" {...registers.isPlagiarismCheckEnabled} />
-      <label htmlFor="isPlagiarismCheckEnabled">Plagiarism Check Enabled</label>
+      <Input
+        isRequired
+        label="Published"
+        labelPlacement="outside"
+        type="checkbox"
+        {...registers.isPublished}
+      />
+      <Input
+        isRequired
+        label="Plagiarism Check"
+        labelPlacement="outside"
+        type="checkbox"
+        {...registers.isPlagiarismCheckEnabled}
+      />
       <Textarea
         isRequired
         required
