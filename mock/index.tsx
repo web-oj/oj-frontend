@@ -42,3 +42,90 @@ export const mockTestCase: TestCase = {
   expected_output: "Mock output",
   is_hidden: false,
 };
+
+export const mockSubmission: Submission = {
+  submission_id: 1,
+  user_id: 1,
+  problem_id: 1,
+  contest_id: 1,
+  submitted_at: "2023-01-01T00:00:00Z",
+  source_code_language: "javascript",
+  source_code_file: "console.log('Hello, world!');",
+  status: "pending",
+  compiler_message: "No errors",
+  id: "",
+  source_code_lang: ""
+};
+export const mockAchievement: Achievement = {
+  achievement_id: 1,
+  title: "Mock Achievement",
+  user_id: 1,
+  attachment: "attachment_url",
+  is_verified: true,
+};
+export const mockNotification: Notification = {
+  notification_id: 1,
+  receive_id: 1,
+  content: "This is a mock notification.",
+  send_at: "2023-01-01T00:00:00Z",
+};
+export const mockDiscussionMessage: DiscussionMessage = {
+  message_id: 1,
+  user_id: 1,
+  contest_id: 1,
+  problem_id: 1,
+  content: "This is a mock discussion message.",
+  send_at: "2023-01-01T00:00:00Z",
+  parent_id: undefined,
+};
+export const mockTag: Tag = {
+  tag_id: 1,
+  tag_name: "Mock Tag",
+  tag_type: "type1",
+  is_selected: false,
+};
+export const mockTaggedProblem: TaggedProblem = {
+  tag_id: 1,
+  problem_id: 1,
+};
+export const mockPlagiarismReport: PlagiarismReport = {
+  report_id: 1,
+  submission_id: 1,
+  moss_dump_file: "moss_dump_file_url",
+};
+export const mockSubmissionResult: SubmissionResult = {
+  submission_id: 1,
+  test_case_id: 1,
+  time_elapsed: 100,
+  memory_used: 256,
+  output: "Mock output",
+  judge_message: "Accepted",
+  status: "accepted",
+  judged_at: "2023-01-01T00:00:00Z",
+};
+export const mockContestParticipated: ContestParticipated = {
+  user_id: 1,
+  contest_id: 1,
+};
+export const mockProblemSolved: ProblemSolved = {
+  user_id: 1,
+  problem_id: 1,
+};
+export const mockContestProblem: ContestProblem = {
+  contest_id: 1,
+  problem_id: 1,
+  point: 100,
+};
+export const mockSubmissionSimple: Submission = {
+  id: "1",
+  problem_id: 1,
+  source_code_lang: "javascript",
+  submitted_at: "2023-01-01T00:00:00Z",
+  submission_id: 0,
+  user_id: 0,
+  contest_id: 0,
+  source_code_language: "",
+  source_code_file: "",
+  status: "",
+  compiler_message: ""
+};
