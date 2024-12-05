@@ -8,6 +8,7 @@ interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function FastCheckTable(props: FastCheckTableProps) {
   const { data } = useProblem();
 
+<<<<<<< HEAD
   const fields = [
     {
       label: "Title",
@@ -30,6 +31,30 @@ export function FastCheckTable(props: FastCheckTableProps) {
       value: data ? data?.tags?.join(", ") : "N/A",
     },
   ];
+=======
+    const fields = [
+        {
+            label: "Title",
+            value: data ? data.title : "N/A"
+        },
+        {
+            label: "Difficulty",
+            value: data ? data.difficulty : "N/A"
+        },
+        {
+            label: "Time Limit",
+            value: data ? data.timeLimit : "N/A"
+        },
+        {
+            label: "Memory Limit",
+            value: data ? data.memoryLimit : "N/A"
+        },
+        {
+            label: "Tags",
+            value: data ? data?.tags?.join(", ") : "N/A"
+        }
+    ]
+>>>>>>> feat/types
 
   return (
     <LinearContainer
