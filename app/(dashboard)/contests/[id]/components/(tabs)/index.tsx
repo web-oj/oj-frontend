@@ -26,7 +26,7 @@ export const tabs = [
     }
 ]
 
-export default function ProblemTabs() {
+export default function ContestTabs() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
