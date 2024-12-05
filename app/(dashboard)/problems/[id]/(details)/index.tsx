@@ -9,9 +9,9 @@ export default function ProblemArea(props: ProblemAreaProps) {
         <LinearContainer
             direction="column"
             space="lg"
-            fullWidth
-            fullHeight
-            classNames={{
+            fullwidth
+            fullheight
+            classnames={{
                 wrapper: "overflow-y-auto bg-foreground-100 rounded-large p-6",
             }}
         >

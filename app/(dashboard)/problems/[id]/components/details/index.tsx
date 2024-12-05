@@ -6,7 +6,7 @@ export interface ProblemDetailsProps extends React.HTMLAttributes<HTMLDivElement
 }
 export default function ProblemDetails(props: ProblemDetailsProps) {
     return (
-        <LinearContainer direction="column" space="lg" fullWidth fullHeight>
+        <LinearContainer direction="column" space="lg" fullwidth fullheight>
             <Statement />
             <Format />
         </LinearContainer>

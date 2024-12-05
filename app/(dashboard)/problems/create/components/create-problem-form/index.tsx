@@ -3,7 +3,9 @@ import { CreateProblemForm } from "./CreateProblemForm";
 
 export default function CreateProblemFormWrapper() {
     return (
-        <LinearContainer direction="column" fullWidth fullHeight>
+        <LinearContainer direction="column" classnames={{
+            wrapper: "overflow-hidden"
+        }} fullwidth fullheight>
             <CreateProblemForm />
         </LinearContainer>
     )

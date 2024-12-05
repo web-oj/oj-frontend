@@ -6,13 +6,20 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     isCenteredY?: boolean;
 }
 export function PageContainer(props: PageContainerProps) {
+    const {
+        isCentered = false,
+        isCenteredX = false,
+        isCenteredY = false,
+        className,
+        ...rest
+    } = props;
     return (
         <div {...props} className={clsx(
             "w-full h-full flex",
-            props.isCentered && "justify-center items-center",
-            props.isCenteredX && "justify-center",
-            props.isCenteredY && "items-center",
-            props.className
+            isCentered && "justify-center items-center",
+            isCenteredX && "justify-center",
+            isCenteredY && "items-center",
+            className
         )} >
             {props.children}
         </div>

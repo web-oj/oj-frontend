@@ -1,10 +1,12 @@
 "use client";
 
 import { Input, Textarea } from "@nextui-org/input";
-import { useForm } from "react-hook-form";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import React from "react";
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { toast } from "react-toastify";
+import { useContest } from "../../../context";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface CreateContestFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateContestFormValues = {
@@ -12,7 +14,6 @@ type CreateContestFormValues = {
     start_time: string;
     end_time: string;
     scoring_rule: string;
-    organizer: string;
 };
 
 export function CreateContestForm(props: CreateContestFormProps) {
@@ -22,11 +23,15 @@ export function CreateContestForm(props: CreateContestFormProps) {
         formState: { errors, isValid },
         watch,
     } = useForm<CreateContestFormValues>();
+    const { data, setData } = useContest();
 
-
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit: SubmitHandler<CreateContestFormValues> = (data) => {
         console.log(data);
-    });
+    }
+
+    const onInvalid: SubmitErrorHandler<CreateContestFormValues> = (errors, e) => {
+        console.log(errors);
+    }
 
     const registers = {
         title: register("title", {
@@ -41,16 +46,20 @@ export function CreateContestForm(props: CreateContestFormProps) {
         scoringRule: register("scoring_rule", { required: "Scoring rule is required" }),
     }
 
-    React.useEffect(() => {
-        if (!isValid) {
-            toast.error("Please fill all the required fields");
-        }
-    }, [isValid]);
-
+    const watchedFields = watch();
     return (
         <form
             {...props}
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            onBlur={() => {
+                setData({
+                    ...data,
+                    title: watchedFields.title,
+                    start_time: watchedFields.start_time,
+                    end_time: watchedFields.end_time,
+                    scoring_rule: watchedFields.scoring_rule,
+                });
+            }}
             className="flex flex-col gap-4 lg:min-w-[48ch]"
             id="create-problem-form"
         >
@@ -64,6 +73,11 @@ export function CreateContestForm(props: CreateContestFormProps) {
                 radius="full"
                 isRequired
                 {...registers.title}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="title"
+                render={({ message }) => <p className="text-red-500 text-sm">{message}</p>}
             />
             <LinearContainer direction="column">
                 <Input
@@ -85,6 +99,16 @@ export function CreateContestForm(props: CreateContestFormProps) {
                     {...registers.endTime}
                 />
             </LinearContainer>
+            <ErrorMessage
+                errors={errors}
+                name="start_time"
+                render={({ message }) => <p className="text-red-500 text-sm">{message}</p>}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="end_time"
+                render={({ message }) => <p className="text-red-500 text-sm">{message}</p>}
+            />
             <Textarea
                 label="Scoring Rule"
                 isRequired
@@ -96,6 +120,11 @@ export function CreateContestForm(props: CreateContestFormProps) {
                     base: "max-h-[200ch]"
                 }}
                 {...registers.scoringRule}
+            />
+            <ErrorMessage
+                errors={errors}
+                name="scoring_rule"
+                render={({ message }) => <p className="text-red-500 text-sm">{message}</p>}
             />
         </form>
     );

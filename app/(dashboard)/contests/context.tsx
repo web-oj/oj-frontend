@@ -7,10 +7,10 @@ const ContestContext = createContext<ContestContextType>({} as ContestContextTyp
 
 interface ContestProviderProps {
     children: ReactNode;
-    contest: Contest;
+    contest?: Contest;
 }
 export const ContestProvider = ({ children, contest }: ContestProviderProps) => {
-    const [data, setData] = useState<Contest>(contest);
+    const [data, setData] = useState<Contest>(contest as Contest);
 
     return (
         <ContestContext.Provider value={{ data, setData }}>

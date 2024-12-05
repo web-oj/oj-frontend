@@ -42,7 +42,7 @@ export default function ProblemTabs() {
     )
 
     return (
-        <LinearContainer direction="column" fullWidth fullHeight>
+        <LinearContainer direction="column" fullwidth fullheight>
             <Tabs
                 radius="full"
                 variant="light"
