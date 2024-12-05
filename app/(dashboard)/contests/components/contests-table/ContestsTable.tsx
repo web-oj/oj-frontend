@@ -79,9 +79,9 @@ export default function ContestsTable() {
             <Link href={`/contests/${contest.contest_id}`}>{cellValue}</Link>
           );
         case "start_time":
-          return new Date(contest.start_time).toLocaleString();
+          return new Date(contest.startTime).toLocaleString();
         case "end_time":
-          return new Date(contest.end_time).toLocaleString();
+          return new Date(contest.endTime).toLocaleString();
 
         default:
           return cellValue;

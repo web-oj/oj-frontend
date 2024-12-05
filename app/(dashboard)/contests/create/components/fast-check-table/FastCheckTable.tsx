@@ -15,19 +15,19 @@ export function FastCheckTable(props: FastCheckTableProps) {
     },
     {
       label: "Start Time",
-      value: data ? data.start_time : "N/A",
+      value: data ? data.startTime : "N/A",
     },
     {
       label: "End Time",
-      value: data ? data.end_time : "N/A",
+      value: data ? data.endTime : "N/A",
     },
     {
       label: "Scoring Rule",
-      value: data ? data.scoring_rule : "N/A",
+      value: data ? data.scoringRule : "N/A",
     },
     {
       label: "Organizer",
-      value: data ? data.organizer_id : "N/A",
+      value: data ? data.organizerId : "N/A",
     },
   ];
 
