@@ -1,4 +1,11 @@
+import { Language } from "@/components/ide/editor/data";
 import { SVGProps } from "react";
+
+/*
+* ========================================================
+*                       REACT
+* ========================================================
+* */
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;

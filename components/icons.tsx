@@ -11,16 +11,15 @@ export const Logo: React.FC<IconSvgProps> = ({
   <svg
     fill="none"
     height={size || height}
-    viewBox="0 0 32 32"
+    viewBox="0 0 16 16"
     width={size || width}
     {...props}
   >
-    <path
-      clipRule="evenodd"
-      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-      fill="currentColor"
-      fillRule="evenodd"
-    />
+    <rect x="4.54504" y="4" width="1" height="5.01345" rx="0.5" transform="rotate(45 4.54504 4)" fill="white" />
+    <rect x="5.25215" y="10.545" width="1" height="5.01345" rx="0.5" transform="rotate(135 5.25215 10.545)" fill="white" />
+    <rect x="10.455" y="11" width="1" height="5.01345" rx="0.5" transform="rotate(-135 10.455 11)" fill="#21F733" />
+    <rect x="9.74785" y="4.45496" width="1" height="5.01345" rx="0.5" transform="rotate(-45 9.74785 4.45496)" fill="#21F733" />
+    <rect x="8" y="11" width="0.999999" height="7" rx="0.5" transform="rotate(180 8 11)" fill="#ACF721" />
   </svg>
 );
 
