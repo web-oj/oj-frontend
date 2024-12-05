@@ -1,6 +1,6 @@
 import { LinearContainer } from "@/components/ui";
-import Header from "../components/header";
-import ProblemDetails from "../components/details";
+import Header from "../../header";
+import ProblemDetails from "../../details";
 
 export interface ProblemAreaProps extends React.HTMLAttributes<HTMLDivElement> {
 }
@@ -9,9 +9,9 @@ export default function ProblemArea(props: ProblemAreaProps) {
         <LinearContainer
             direction="column"
             space="lg"
-            fullWidth
-            fullHeight
-            classNames={{
+            fullwidth
+            fullheight
+            classnames={{
                 wrapper: "overflow-y-auto bg-foreground-100 rounded-large p-6",
             }}
         >

@@ -1,5 +1,5 @@
 import { LinearContainer, PageContainer } from "@/components/ui";
-import ProblemArea from "./(details)";
+import ProblemArea from "./components/(tabs)/details";
 import IDEArea from "./IDEArea";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import ProblemTabs from "./components/(tabs)";

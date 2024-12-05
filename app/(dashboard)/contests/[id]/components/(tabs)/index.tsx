@@ -2,29 +2,31 @@
 
 import { Tab, Tabs } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import ProblemArea from "./details";
 import React from "react";
-import Submissions from "./submissions";
 import { LinearContainer } from "@/components/ui";
+import DetailsArea from "./details";
+import ProblemsArea from "./problems";
+import RankingArea from "./ranking";
 
 export const tabs = [
     {
         label: "Details",
         value: "details",
-        component: <ProblemArea />,
+        component: <DetailsArea />
     },
     {
-        label: "Submissions",
-        value: "submissions",
-        component: <Submissions />,
+        label: "Problems",
+        value: "problems",
+        component: <ProblemsArea />
     },
     {
-        label: "Discussion",
-        value: "discussion",
+        label: "Ranking",
+        value: "ranking",
+        component: <RankingArea />
     }
 ]
 
-export default function ProblemTabs() {
+export default function ContestTabs() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();

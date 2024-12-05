@@ -125,9 +125,9 @@ export const Navbar = () => {
           <Button
             as={NextLink}
             href="../ide"
-            className="bg-primary-300 px-4 w-fit flex flex-row"
+            className="px-4 w-fit flex flex-row"
             radius="full"
-            color="primary"
+            color="secondary"
             startContent={<KeyboardIcon />}
           >
             Open IDE

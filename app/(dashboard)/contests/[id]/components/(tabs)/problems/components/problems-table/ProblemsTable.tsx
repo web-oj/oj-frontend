@@ -1,86 +1,45 @@
 
 import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, Tooltip, ChipProps, getKeyValue, User, Input, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection } from "@nextui-org/react";
-import { columns, statusOptions } from "./data";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, Tooltip, ChipProps, Input, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection } from "@nextui-org/react";
+import { columns } from "./data";
 import { ArrowDown01Icon, CircleIcon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
+import { Problem } from "@/types";
+import { mockProblems } from "@/mock";
+import Link from "next/link";
 
-const statusColorMap: Record<string, ChipProps["color"]> = {
-    accepted: "success",
-    error: "danger",
+const difficultyColorMap: Record<string, ChipProps["color"]> = {
+    1: "success",
+    2: "warning",
+    3: "danger",
 };
 
-type Submission = {
-    id: number;
-    created_at: string;
-    status: string;
-}
-
-export default function SubmissionsTable() {
-    const mockSubmissions: Submission[] = [
-        {
-            id: 1,
-            created_at: "2021-10-10",
-            status: "accepted",
-        },
-        {
-            id: 2,
-            created_at: "2021-10-11",
-            status: "error",
-        },
-        {
-            id: 3,
-            created_at: "2021-10-12",
-            status: "accepted",
-        },
-        {
-            id: 4,
-            created_at: "2021-10-13",
-            status: "error",
-        },
-        {
-            id: 5,
-            created_at: "2021-10-14",
-            status: "accepted",
-        },
-        {
-            id: 6,
-            created_at: "2021-10-15",
-            status: "error",
-        }
-    ];
-    const [submissions, setSubmissions] = React.useState<Submission[]>(mockSubmissions);
-    const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
+export default function ProblemsTable() {
+    const [problems, setProblems] = React.useState<Problem[]>(mockProblems);
+    const [difficultiesFilter, setDifficultiesFilter] = React.useState<Selection>("all");
     const [filterValue, setFilterValue] = React.useState("");
 
-    const list = useAsyncList<Submission>({
+    const list = useAsyncList<Problem>({
         async load({ signal }) {
-            // @todo: fetch submissions from the server
-            let items = mockSubmissions;
+            // @todo: fetch problems from the server
+            let items = mockProblems;
 
-            if (statusFilter !== "all") {
-                items = items.filter(submission => submission.status === Array.from(statusFilter).join(''));
+            if (difficultiesFilter !== "all") {
+                items = items.filter(problem => difficultiesFilter.has(problem.difficulty.toString()));
             }
             return {
-                items: mockSubmissions
+                items: mockProblems
             };
         },
         async sort({ items, sortDescriptor }) {
             return {
                 items: items.sort((a, b) => {
-                    let first = a[sortDescriptor.column as keyof Submission] as number;
-                    let second = b[sortDescriptor.column as keyof Submission] as number;
+                    let first = a[sortDescriptor.column as keyof Problem] as number;
+                    let second = b[sortDescriptor.column as keyof Problem] as number;
 
                     const cmp = first - second;
-
-                    if (sortDescriptor.column === "created_at") {
-                        first = new Date(a.created_at).getTime();
-                        second = new Date(b.created_at).getTime();
-
-                        return sortDescriptor.direction === "descending" ? first - second : second - first;
-                    }
 
                     return sortDescriptor.direction === "descending" ? cmp : -cmp;
                 }),
@@ -101,34 +60,31 @@ export default function SubmissionsTable() {
     }, []);
 
 
-    const renderCell = React.useCallback((submission: Submission, columnKey: React.Key) => {
-        const cellValue = submission[columnKey as keyof Submission];
+    const renderCell = React.useCallback((problem: Problem, columnKey: React.Key) => {
+        const cellValue = problem[columnKey as keyof Problem];
 
         switch (columnKey) {
             case "id":
                 return (
                     <Tooltip content="View submission">
-                        <a href={`/submissions/${submission.id}`}>{cellValue}</a>
+                        <a href={`/problems/${problem.id}`}>{cellValue}</a>
                     </Tooltip>
                 );
-            case "created_at":
-                return new Date(submission.created_at).toLocaleDateString();
-            case "status":
+            case "title":
+                return (
+                    <Link href={`/problems/${problem.id}`}>
+                        {cellValue}
+                    </Link>
+                );
+            case "difficulty":
                 return (
                     <Chip
-                        className="capitalize"
-                        classNames={{
-                            content: "text-foreground-700",
-                        }}
-                        color={statusColorMap[submission.status]}
-                        size="sm"
-                        variant="light"
-                        endContent={<CircleIcon fill="currentColor" size={14} />}
+                        color={difficultyColorMap[problem.difficulty.toString()]}
+                        radius="full"
                     >
-                        {cellValue}
+                        {problem.difficulty}
                     </Chip>
                 );
-
             default:
                 return cellValue;
         }
@@ -137,7 +93,7 @@ export default function SubmissionsTable() {
 
     const topContent = React.useMemo(() => {
         return (
-            <LinearContainer direction="row" space="sm" fullWidth>
+            <LinearContainer direction="row" space="sm" fullwidth>
                 <Input
                     fullWidth
                     isClearable
@@ -149,20 +105,20 @@ export default function SubmissionsTable() {
                     <Dropdown>
                         <DropdownTrigger className="hidden sm:flex">
                             <Button endContent={<ArrowDown01Icon className="text-small" />} variant="flat">
-                                Status
+                                Difficulty
                             </Button>
                         </DropdownTrigger>
                         <DropdownMenu
                             disallowEmptySelection
                             aria-label="Table Columns"
                             closeOnSelect={false}
-                            selectedKeys={statusFilter}
+                            selectedKeys={difficultiesFilter}
                             selectionMode="multiple"
-                            onSelectionChange={setStatusFilter}
+                            onSelectionChange={setDifficultiesFilter}
                         >
-                            {statusOptions.map((status) => (
-                                <DropdownItem key={status.uid} className="capitalize">
-                                    {status.name}
+                            {["1", "2", "3"].map(difficulty => (
+                                <DropdownItem key={difficulty}>
+                                    {difficulty}
                                 </DropdownItem>
                             ))}
                         </DropdownMenu>
@@ -173,7 +129,7 @@ export default function SubmissionsTable() {
     }, []);
     return (
         <Table
-            aria-label="Submissions Table"
+            aria-label="Problems Table"
             sortDescriptor={list.sortDescriptor}
             onSortChange={list.sort}
             topContent={topContent}
