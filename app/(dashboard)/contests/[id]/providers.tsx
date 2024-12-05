@@ -1,9 +1,14 @@
+"use client";
+
 import { PropsWithChildren } from "react";
+import { ContestProvider } from "../context";
+import { mockContest } from "@/mock";
 
 export default function Providers(props: PropsWithChildren) {
+
     return (
-        <div>
+        <ContestProvider contest={mockContest}>
             {props.children}
-        </div>
+        </ContestProvider>
     )
 }

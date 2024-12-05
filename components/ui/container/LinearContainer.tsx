@@ -28,7 +28,7 @@ export function LinearContainer(props: LinearContainerProps) {
     } = props;
     return (
         <div className={clsx(
-            "flex flex-col gap-2 h-fit",
+            "flex flex-col gap-2 h-fit rounded-medium",
             fullWidth && "w-full",
             fullHeight && "h-full",
             classNames?.wrapper

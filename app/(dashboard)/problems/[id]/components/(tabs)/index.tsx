@@ -2,9 +2,9 @@
 
 import { Tab, Tabs } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import ProblemArea from "../../(details)";
+import ProblemArea from "./details";
 import React from "react";
-import Submissions from "../../(submissions)";
+import Submissions from "./submissions";
 import { LinearContainer } from "@/components/ui";
 
 export const tabs = [
