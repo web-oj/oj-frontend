@@ -25,10 +25,10 @@ export type ObjectContextType<T> = {
 export interface Contest {
   id: string;
   title: string;
-  scoring_rule: string;
-  organizer_id: string;
-  start_time: string;
-  end_time: string;
+  scoringRule: string;
+  organizerId: string;
+  startTime: string;
+  endTime: string;
   createdAt: string;
 
 }
@@ -44,7 +44,7 @@ export interface Problem {
   outputFormat: string;
   solutionText: string;
   createdAt: string;
-  creator_id: string;
+  creatorId: string;
 }
 
 export interface User {
