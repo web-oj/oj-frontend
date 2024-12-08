@@ -9,12 +9,12 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+} from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { KeyboardIcon } from "hugeicons-react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { User } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 
