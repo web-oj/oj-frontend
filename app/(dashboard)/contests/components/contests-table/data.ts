@@ -1,7 +1,7 @@
 export const columns = [
   {
     name: "ID",
-    uid: "contest_id",
+    uid: "contestId",
     sortable: true,
   },
   {

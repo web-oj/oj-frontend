@@ -15,7 +15,6 @@ function FormatWrapper({ title, format }: { title: string; format: string }) {
 export default function Format() {
   const { data } = useProblem();
 
-<<<<<<< HEAD
   return (
     <LinearContainer
       fullwidth
@@ -25,24 +24,8 @@ export default function Format() {
       direction="column"
       space="lg"
     >
-      <FormatWrapper format={data?.input_format} title="Input Format" />
-      <FormatWrapper format={data?.output_format} title="Output Format" />
+      <FormatWrapper format={data?.inputFormat} title="Input Format" />
+      <FormatWrapper format={data?.outputFormat} title="Output Format" />
     </LinearContainer>
   );
 }
-=======
-    return (
-        <LinearContainer
-            direction="column"
-            space="lg"
-            classnames={{
-                wrapper: "bg-foreground-200 rounded-large p-6",
-            }}
-            fullwidth
-        >
-            <FormatWrapper title="Input Format" format={data?.inputFormat} />
-            <FormatWrapper title="Output Format" format={data?.outputFormat} />
-        </LinearContainer>
-    )
-}
->>>>>>> feat/types

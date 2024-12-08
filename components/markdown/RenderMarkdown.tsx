@@ -17,10 +17,11 @@ export function RenderMarkdown(props: RenderMarkdownProps) {
 
   return (
     <ReactMarkdown
-      children={data}
       className={"markdown "}
       rehypePlugins={[rehypeKatex, rehypeRaw, rehypeHighlight]}
       remarkPlugins={[remarkMath, remarkBreaks, remarkGfm]}
-    />
+    >
+      {data}
+    </ReactMarkdown>
   );
 }
