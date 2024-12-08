@@ -1,11 +1,12 @@
-import { Language } from "@/components/ide/editor/data";
 import { SVGProps } from "react";
 
+import { Language } from "@/components/ide/editor/data";
+
 /*
-* ========================================================
-*                       REACT
-* ========================================================
-* */
+ * ========================================================
+ *                       REACT
+ * ========================================================
+ * */
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -17,10 +18,10 @@ export type ObjectContextType<T> = {
 };
 
 /*
-* ========================================================
-*                       SDK
-* ========================================================
-* */
+ * ========================================================
+ *                       SDK
+ * ========================================================
+ * */
 
 export interface Contest {
   id: string;
@@ -30,7 +31,6 @@ export interface Contest {
   startTime: string;
   endTime: string;
   createdAt: string;
-
 }
 export interface Problem {
   id: string;

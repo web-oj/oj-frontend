@@ -25,7 +25,7 @@ export default function ContestsArea(props: Props) {
       labelSize="2xl"
     >
       {mockContests.slice(0, 4).map((contest) => (
-        <ContestCard key={contest.contest_id} contest={contest} />
+        <ContestCard key={contest.contestId} contest={contest} />
       ))}
     </LinearContainer>
   );

@@ -73,10 +73,11 @@ const StatementEditorInput = React.forwardRef<
                 }}
               />
               <ReactMarkdown
-                children={markdown.replace(/&nbsp;/g, "")}
                 rehypePlugins={[rehypeKatex, rehypeRaw]}
                 remarkPlugins={[remarkMath, remarkBreaks]}
-              />
+              >
+                {markdown.replace(/&nbsp;/g, "")}
+              </ReactMarkdown>
             </LinearContainer>
           </ModalBody>
           <ModalFooter>
@@ -89,5 +90,7 @@ const StatementEditorInput = React.forwardRef<
     </>
   );
 });
+
+StatementEditorInput.displayName = "StatementEditorInput";
 
 export default StatementEditorInput;

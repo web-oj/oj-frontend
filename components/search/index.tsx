@@ -50,7 +50,6 @@ export function Search() {
             transition={{ duration: 0.3 }}
           >
             <Input
-              autoFocus
               aria-label="Search"
               classNames={{
                 inputWrapper: "bg-default-100",
