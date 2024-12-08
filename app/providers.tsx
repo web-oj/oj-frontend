@@ -8,8 +8,9 @@ import { ThemeProviderProps } from "next-themes/dist/types";
 import { PrimeReactProvider } from "primereact/api";
 
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "./context";
 import { Suspense } from "react";
+
+import { AuthProvider } from "./context";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -22,11 +23,11 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <NextUIProvider navigate={router.push}>
       <Suspense fallback={<div>Loading...</div>}>
-      <PrimeReactProvider>
-        <NextThemesProvider {...themeProps}>
-          <AuthProvider>{children}</AuthProvider>
-        </NextThemesProvider>
-      </PrimeReactProvider>
+        <PrimeReactProvider>
+          <NextThemesProvider {...themeProps}>
+            <AuthProvider>{children}</AuthProvider>
+          </NextThemesProvider>
+        </PrimeReactProvider>
       </Suspense>
     </NextUIProvider>
   );

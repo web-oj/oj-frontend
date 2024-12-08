@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { Cancel01Icon } from "hugeicons-react";
 import React from "react";
 
