@@ -4,6 +4,7 @@ import { useProblem } from "../../../context";
 
 import { Field, LinearContainer } from "@/components/ui";
 import { Button } from "@nextui-org/react";
+import Submit from "./Submit";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
 export default function Header(props: HeaderProps) {
@@ -15,15 +16,7 @@ export default function Header(props: HeaderProps) {
       classnames={{
         wrapper: "relative"
       }} direction="column" space="sm">
-      <Button
-        color="primary"
-        className="absolute top-0 right-0"
-        radius="full"
-        type="submit"
-        form="submit-problem-form"
-      >
-        Submit
-      </Button>
+      <Submit />
       <h1 className="text-2xl font-bold text-foreground capitalize">{problem?.title}</h1>
       <LinearContainer
         direction="row"
