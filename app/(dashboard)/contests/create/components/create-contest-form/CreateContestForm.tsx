@@ -21,8 +21,8 @@ type CreateContestFormValues = {
   isPublished: boolean;
   isPlagiarismCheckEnabled: boolean;
   scoringRule: string;
-  endTime: string;
-  startTime: string;
+  endTime: number;
+  startTime: number;
   ruleText: string;
   description: string;
   title: string;
@@ -45,20 +45,23 @@ export function CreateContestForm(props: CreateContestFormProps) {
       toast.error("You must be logged in to create a contest");
       return;
     };
-
+    console.log(data);
     try {
       await createContest({
         organizerId: user?.id,
         isPublished: data.isPublished,
         isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
         scoringRule: data.scoringRule,
-        endTime: data.endTime,
-        startTime: data.startTime,
+        endTime: new Date(data.endTime).getTime(),
+        startTime: new Date(data.startTime).getTime(),
         ruleText: data.scoringRule,
         description: data.description,
         title: data.title,
       })
+
+      toast.success("Contest created successfully");
     } catch (error) {
+      toast.error("Failed to create contest");
     }
   };
 
@@ -86,6 +89,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
     scoringRule: register("scoringRule", {
       required: "Scoring Rule is required",
     }),
+    ruleText: register("ruleText", {
+      required: "Rule Text is required",
+    }),
     isPublished: register("isPublished"),
     isPlagiarismCheckEnabled: register("isPlagiarismCheckEnabled"),
     description: register("description", {
@@ -107,7 +113,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
           startTime: watchedFields.startTime,
           endTime: watchedFields.endTime,
           scoringRule: watchedFields.scoringRule,
-          description: watchedFields.description
+          description: watchedFields.description,
+          isPlagiarismCheckEnabled: watchedFields.isPlagiarismCheckEnabled,
+          isPublished: watchedFields.isPublished,
         });
       }}
       onSubmit={handleSubmit(onSubmit, onInvalid)}
@@ -130,7 +138,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
-      <LinearContainer direction="column">
+      <LinearContainer fullwidth direction="column">
         <Input
           isRequired
           label="Start Time"
@@ -138,7 +146,6 @@ export function CreateContestForm(props: CreateContestFormProps) {
           placeholder="Start Time"
           radius="full"
           type="datetime-local"
-          defaultValue={new Date((new Date()).getTime() + (7 * 60 * 60 * 1000)).toISOString().slice(0, 16)}
           {...registers.startTime}
         />
         <Input
@@ -184,21 +191,28 @@ export function CreateContestForm(props: CreateContestFormProps) {
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
-      <LinearContainer direction="row" space="sm" classnames={{
+      <Textarea
+        isRequired
+        required
+        classNames={{
+          base: "max-h-[200ch]",
+        }}
+        label="Rule Text"
+        labelPlacement="outside"
+        placeholder="Type the rule text here"
+        radius="full"
+        {...registers.ruleText}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="ruleText"
+        render={({ message }) => (
+          <p className="text-red-500 text-sm">{message}</p>
+        )}
+      />
+      <LinearContainer direction="row" fullwidth space="sm" classnames={{
         container: "justify-between",
       }}>
-        {/* <Input
-          type="checkbox"
-          label="Published"
-          labelPlacement="outside"
-          {...registers.isPublished}
-        />
-        <Input
-          type="checkbox"
-          labelPlacement="outside"
-          label="Plagiarism Check Enabled"
-          {...registers.isPlagiarismCheckEnabled}
-        /> */}
         <Checkbox
           {...registers.isPublished}
           onValueChange={(value) => {

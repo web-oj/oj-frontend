@@ -4,7 +4,7 @@ import { LinearContainer } from "@/components/ui";
 
 export default function FastCheckTableWrapper() {
   return (
-    <LinearContainer fullheight fullwidth>
+    <LinearContainer fullwidth>
       <FastCheckTable />
     </LinearContainer>
   );
