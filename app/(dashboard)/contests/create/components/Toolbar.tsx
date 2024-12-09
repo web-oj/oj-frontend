@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@nextui-org/react";
 import { Switch } from "@nextui-org/react";
 
