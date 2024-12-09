@@ -18,9 +18,6 @@ export default function Format() {
   return (
     <LinearContainer
       fullwidth
-      classnames={{
-        wrapper: "bg-foreground-200 rounded-large p-6",
-      }}
       direction="column"
       space="lg"
     >
