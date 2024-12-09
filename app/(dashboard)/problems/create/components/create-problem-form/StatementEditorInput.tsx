@@ -46,7 +46,7 @@ const StatementEditorInput = React.forwardRef<
         onClick={onOpen}
         {...register}
       />
-      <Modal isOpen={isOpen} size="5xl" onClose={onOpen}>
+      <Modal isOpen={isOpen} size="5xl" onClose={onClose}>
         <ModalContent>
           <ModalHeader>Statement Editor</ModalHeader>
           <ModalBody>
