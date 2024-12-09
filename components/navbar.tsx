@@ -73,13 +73,32 @@ export const Navbar = () => {
   };
 
   const Toolbar = () => {
-    return(
+    return (
       <LinearContainer
         fullwidth
         className="justify-center items-center"
         direction="row"
         space="sm"
       >
+        {true && <Button
+          as={NextLink}
+          className="font-medium shadow-sm shadow-neutral-50"
+          color="primary"
+          href="/problems/create"
+          radius="full"
+        >
+          Create Problem
+        </Button>
+        }
+        {true && <Button
+          as={NextLink}
+          className="font-medium shadow-sm shadow-neutral-50"
+          color="primary"
+          href="/contests/create"
+          radius="full"
+        >
+          Create Contest
+        </Button>}
       </LinearContainer>
     )
   };
@@ -146,12 +165,14 @@ export const Navbar = () => {
           </NavbarMenu>
         </div>
       </NavbarContent>
-
       {user ? (
-        <UserAccordion />
+        <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
+          <Toolbar />
+          <Search />
+          <UserAccordion />
+        </ul>
       ) : (
         <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
-          <Search />
           <Button
             isIconOnly
             as={NextLink}
