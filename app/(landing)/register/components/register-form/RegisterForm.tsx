@@ -7,8 +7,9 @@ import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
 
 import { signUp } from "@/fetch-functions";
+import { useRouter } from "next/navigation";
 
-interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> {}
+interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 type RegisterFormValues = {
   email: string;
   password: string;
@@ -21,11 +22,12 @@ export function RegisterForm(props: RegisterFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormValues>();
-
+  const router = useRouter();
   const onSubmit = handleSubmit(async (data) => {
     try {
       await signUp(data);
       toast.success("Registration successful");
+      router.push("/login");
     } catch (error) {
       toast.error("Registration failed");
     }
@@ -39,7 +41,6 @@ export function RegisterForm(props: RegisterFormProps) {
     password: register("password", { required: "Password is required" }),
     handle: register("handle", {
       required: "Handle is required",
-      // validate: (value) => value === data.password || "Passwords do not match"
     }),
   };
 

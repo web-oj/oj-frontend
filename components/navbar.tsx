@@ -47,7 +47,7 @@ export const Navbar = () => {
             avatarProps={{
               showFallback: true,
             }}
-            name={user?.userName}
+            name={user?.handle}
             className="cursor-pointer"
           />
         </DropdownTrigger>
@@ -148,12 +148,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       {user ? (
-        <User
-          avatarProps={{
-            showFallback: true,
-          }}
-          name={user.userName}
-        />
+        <UserAccordion />
       ) : (
         <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
           <Search />
