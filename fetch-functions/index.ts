@@ -245,12 +245,11 @@ export async function createContest(params: {
   title: string;
 }) {
   try {
-    const res = await api.post("/contest", {
-      params,
-    });
+    const res = await api.post("/contest", params);
 
     return res.data;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to create contest");
   }
 }
