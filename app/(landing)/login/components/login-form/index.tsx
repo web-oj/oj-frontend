@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@nextui-org/link";
+import { Link } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
 import { LoginForm } from "./LoginForm";
@@ -38,7 +38,7 @@ export default function LoginFormWrapper() {
         initial={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link className="text-primary" href={"./register"}>
           Sign up
         </Link>

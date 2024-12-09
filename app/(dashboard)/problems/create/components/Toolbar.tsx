@@ -1,5 +1,5 @@
-import { Button } from "@nextui-org/button";
-import { Switch } from "@nextui-org/switch";
+import { Button } from "@nextui-org/react";
+import { Switch } from "@nextui-org/react";
 
 import { Toolbar } from "@/components/ui";
 

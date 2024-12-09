@@ -156,7 +156,7 @@ export default function ProblemsTable() {
               aria-label="Table Columns"
               closeOnSelect={false}
               defaultSelectedKeys={["1"]}
-              selectionMode="multiple"
+              selectionMode="single"
               onSelectionChange={setDifficultiesFilter}
             >
               {["1", "2", "3"].map((difficulty) => (

@@ -9,20 +9,26 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  User,
+  Button,
+  Link,
+} from "@nextui-org/react";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
-import { Button } from "@nextui-org/button";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
+
+
+import { siteConfig } from "@/config/site";
+import { useAuth } from "@/app/context";
 
 import { Search } from "./search";
 import { LinearContainer } from "./ui";
 
-import { siteConfig } from "@/config/site";
-import { useAuth } from "@/app/context";
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -31,7 +37,9 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const UserAccordion = () => {
+
     const { logout } = useAuth();
+
     return (
       <Dropdown>
         <DropdownTrigger>
@@ -139,32 +147,35 @@ export const Navbar = () => {
         </div>
       </NavbarContent>
 
-      <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
-        <Search />
-        <Button
-          isIconOnly
-          as={NextLink}
-          href="../ide"
-          radius="full"
-          startContent={<KeyboardIcon className="text-foreground-500" />}
-          variant="light"
+      {user ? (
+        <User
+          avatarProps={{
+            showFallback: true,
+          }}
+          name={user.userName}
         />
-        {
-          user ? (
-            <UserAccordion />
-          ) : (
-            <Button
-              fullWidth
-              as={NextLink}
-              color="primary"
-              href="../login"
-              radius="full"
-            >
-              Get started
-            </Button>
-          )
-        }
-      </ul>
+      ) : (
+        <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
+          <Search />
+          <Button
+            isIconOnly
+            as={NextLink}
+            href="../ide"
+            radius="full"
+            startContent={<KeyboardIcon className="text-foreground-500" />}
+            variant="light"
+          />
+          <Button
+            as={NextLink}
+            className="font-medium shadow-sm shadow-neutral-50"
+            color="primary"
+            href="../login"
+            radius="full"
+          >
+            Get started
+          </Button>
+        </ul>
+      )}
       <NavbarMenuToggle
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         className="text-foreground-100 lg:hidden"

@@ -15,17 +15,17 @@ function FormatWrapper({ title, format }: { title: string; format: string }) {
 export default function Format() {
   const { data } = useProblem();
 
-    return (
-        <LinearContainer
-            direction="column"
-            space="lg"
-            classnames={{
-                wrapper: "bg-foreground-200 rounded-large p-6",
-            }}
-            fullwidth
-        >
-            <FormatWrapper title="Input Format" format={data?.inputFormat} />
-            <FormatWrapper title="Output Format" format={data?.outputFormat} />
-        </LinearContainer>
-    )
+  return (
+    <LinearContainer
+      fullwidth
+      classnames={{
+        wrapper: "bg-foreground-200 rounded-large p-6",
+      }}
+      direction="column"
+      space="lg"
+    >
+      <FormatWrapper format={data?.inputFormat} title="Input Format" />
+      <FormatWrapper format={data?.outputFormat} title="Output Format" />
+    </LinearContainer>
+  );
 }

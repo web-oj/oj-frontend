@@ -1,11 +1,10 @@
-import { Language } from "@/components/ide/editor/data";
 import { SVGProps } from "react";
 
 /*
-* ========================================================
-*                       REACT
-* ========================================================
-* */
+ * ========================================================
+ *                       REACT
+ * ========================================================
+ * */
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -17,25 +16,50 @@ export type ObjectContextType<T> = {
 };
 
 /*
-* ========================================================
-*                       SDK
-* ========================================================
-* */
+ * ========================================================
+ *                       SDK
+ * ========================================================
+ * */
 
-export interface Contest {
-  id: string;
-  title: string;
-  scoringRule: string;
-  organizerId: string;
-  startTime: string;
-  endTime: string;
+export interface User {
+  id: number;
   createdAt: string;
-
+  updatedAt: string;
+  deletedAt: string;
+  handle: string;
+  avatar_image: string;
+  bio: string;
+  email: string;
+  password: string;
+  role: string;
+  isBan: boolean;
+  lastTimeChangeHandle: number;
+  lastTimeChangeImage: number;
+  country: string;
+  submissions: Submission[];
+  organizedContests: Contest[];
+  contestParticipations: Contest[];
 }
+
+export interface Submission {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  owner: User;
+  problem: Problem;
+  contest: Contest;
+  code: string;
+  language: Language;
+  result: SubmissionResult[];
+}
+
 export interface Problem {
-  id: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
   title: string;
-  tags?: string[];
   statement: string;
   difficulty: number;
   timeLimit: number;
@@ -43,126 +67,90 @@ export interface Problem {
   inputFormat: string;
   outputFormat: string;
   solutionText: string;
-  createdAt: string;
-  creatorId: string;
-  isPublished?: boolean;
-}
-
-export interface User {
-  userId: number;
-  userName: string;
-  email: string;
-  password: string;
-  role: string;
-  createdAt: string;
-  rating: number;
+  createdBy: number;
+  submissions: Submission[];
+  testcases: TestCase[];
+  isPublished: boolean;
+  associatedContests: AssociatedContest[];
 }
 
 export interface Contest {
-  contestId: number;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
   title: string;
   description: string;
+  ruleText: string;
   startTime: string;
   endTime: string;
   scoringRule: string;
   isPlagiarismCheckEnabled: boolean;
-  organizerId: string;
   isPublished: boolean;
+  organizer: User;
+  participations: ContestParticipation[];
+  problemsInContest: Problem[];
+  submissions: Submission[];
+}
+
+export interface ContestParticipation {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  userId: number;
+  contestId: number;
+  user: User;
+  contest: Contest;
+  score: number;
+}
+
+export interface AssociatedContest {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  problemId: number;
+  contestId: number;
+  problem: Problem;
+  contest: Contest;
+  score: number;
+}
+
+export interface ProblemInContest {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  problemId: number;
+  contestId: number;
+  problem: Problem;
+  contest: Contest;
+  score: number;
+}
+
+export enum Language {
+  CPP = "CPP",
+  C = "C",
+  JAVA = "JAVA",
+  PYTHON = "PYTHON"
 }
 
 export interface TestCase {
-  testCaseId: number;
-  problemId: number;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  problem: Problem;
+  submissionResult: SubmissionResult;
   input: string;
-  expectedOutput: string;
-  isHidden: boolean;
-}
-
-export interface Submission {
-  submissionId: number;
-  userId: number;
-  problemId: number;
-  contestId: number;
-  submittedAt: string;
-  sourceCodeLanguage: string;
-  sourceCodeFile: string;
-  status: string;
-  compilerMessage: string;
-}
-
-export interface Achievement {
-  achievementId: number;
-  title: string;
-  userId: number;
-  attachment: string;
-  isVerified: boolean;
-}
-
-export interface Notification {
-  notificationId: number;
-  receiveId: number;
-  content: string;
-  sendAt: string;
-}
-
-export interface DiscussionMessage {
-  messageId: number;
-  userId: number;
-  contestId: number;
-  problemId: number;
-  content: string;
-  sendAt: string;
-  parentId?: number;
-}
-
-export interface Tag {
-  tagId: number;
-  tagName: string;
-  tagType: string;
-  isSelected: boolean;
-}
-
-export interface TaggedProblem {
-  tagId: number;
-  problemId: number;
-}
-
-export interface PlagiarismReport {
-  reportId: number;
-  submissionId: number;
-  mossDumpFile: string;
+  output: string;
 }
 
 export interface SubmissionResult {
-  submissionId: number;
-  testCaseId: number;
-  timeElapsed: number;
-  memoryUsed: number;
-  output: string;
-  judgeMessage: string;
-  status: string;
-  judgedAt: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  submission: Submission;
+  testcase: TestCase;
+  result: string;
 }
 
-export interface ContestParticipated {
-  userId: number;
-  contestId: number;
-}
-
-export interface ProblemSolved {
-  userId: number;
-  problemId: number;
-}
-
-export interface ContestProblem {
-  contestId: number;
-  problemId: number;
-  point: number;
-}
-
-export interface Submission {
-  id: string;
-  problemId: number;
-  sourceCodeLang: Language | string;
-  submittedAt: string;
-}

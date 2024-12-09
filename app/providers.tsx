@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { NextUIProvider } from "@nextui-org/system";
+import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { PrimeReactProvider } from "primereact/api";
 
 import "react-toastify/dist/ReactToastify.css";
+import { Suspense } from "react";
+
 import { AuthProvider } from "./context";
 
 export interface ProvidersProps {
@@ -20,11 +22,13 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <NextUIProvider navigate={router.push}>
-      <PrimeReactProvider>
-        <NextThemesProvider {...themeProps}>
-          <AuthProvider>{children}</AuthProvider>
-        </NextThemesProvider>
-      </PrimeReactProvider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <PrimeReactProvider>
+          <NextThemesProvider {...themeProps}>
+            <AuthProvider>{children}</AuthProvider>
+          </NextThemesProvider>
+        </PrimeReactProvider>
+      </Suspense>
     </NextUIProvider>
   );
 }

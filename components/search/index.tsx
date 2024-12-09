@@ -1,8 +1,8 @@
 "use client";
 
-import { Input } from "@nextui-org/input";
-import { Kbd } from "@nextui-org/kbd";
-import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/react";
+import { Kbd } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
@@ -50,7 +50,6 @@ export function Search() {
             transition={{ duration: 0.3 }}
           >
             <Input
-              autoFocus
               aria-label="Search"
               classNames={{
                 inputWrapper: "bg-default-100",
