@@ -82,8 +82,8 @@ export interface Contest {
   title: string;
   description: string;
   ruleText: string;
-  startTime: string;
-  endTime: string;
+  startTime: number;
+  endTime: number;
   scoringRule: string;
   isPlagiarismCheckEnabled: boolean;
   isPublished: boolean;

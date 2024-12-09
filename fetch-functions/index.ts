@@ -1,4 +1,4 @@
-import type { User, Problem } from "@/types";
+import type { User, Problem, Contest } from "@/types";
 
 import { CreateContestParams } from "./types";
 
@@ -37,7 +37,7 @@ export async function getUserByToken() {
     const user = await getUserById({ id });
 
     return user;
-    
+
   } catch (error) {
     throw new Error("Failed to fetch user by token");
   }
@@ -238,19 +238,18 @@ export async function createContest(params: {
   isPublished: boolean;
   isPlagiarismCheckEnabled: boolean;
   scoringRule: string;
-  endTime: string;
-  startTime: string;
+  endTime: number;
+  startTime: number;
   ruleText: string;
   description: string;
   title: string;
 }) {
   try {
-    const res = await api.post("/contest", {
-      params,
-    });
+    const res = await api.post("/contest", params);
 
     return res.data;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to create contest");
   }
 }
@@ -267,10 +266,10 @@ export async function getContestById(params: { id: number }) {
 
 export async function searchContests(params: {
   searchKeyword?: string;
-  startTimeLow?: string;
-  startTimeHigh?: string;
-  endTimeLow?: string;
-  endTimeHigh?: string;
+  startTimeLow?: number;
+  startTimeHigh?: number;
+  endTimeLow?: number;
+  endTimeHigh?: number;
   offset?: number;
   limit?: number;
 }) {
@@ -289,7 +288,7 @@ export async function searchContests(params: {
 
 export async function updateContest(params: {
   id: number;
-  data: Partial<CreateContestParams>;
+  data: Partial<Contest>;
 }) {
   try {
     const res = await api.patch(`/contest/${params.id}`, params.data);

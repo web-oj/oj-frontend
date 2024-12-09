@@ -1,6 +1,5 @@
 import ContestsArea from "./components/ContestsArea";
 import ProblemsArea from "./components/ProblemsArea";
-import LeaderboardArea from "./components/LeaderboardArea";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
 

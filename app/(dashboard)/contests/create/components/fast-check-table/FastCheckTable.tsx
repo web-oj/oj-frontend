@@ -1,12 +1,11 @@
 "use client";
-import { useContest } from "../../../context";
-
 import { LinearContainer } from "@/components/ui";
 import { Field } from "@/components/ui";
+import { useContestTrack } from "../../context";
 
-interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function FastCheckTable(props: FastCheckTableProps) {
-  const { data } = useContest();
+  const { data } = useContestTrack();
 
   const fields = [
     {
@@ -26,9 +25,17 @@ export function FastCheckTable(props: FastCheckTableProps) {
       value: data ? data.scoringRule : "N/A",
     },
     {
-      label: "Organizer",
-      value: data ? data.organizerId : "N/A",
+      label: "Plagiarism Check",
+      value: data ? data.isPlagiarismCheckEnabled : "N/A",
     },
+    {
+      label: "Published",
+      value: data ? data.isPublished : "N/A",
+    },
+    {
+      label: "Description",
+      value: data ? data.description : "N/A",
+    }
   ];
 
   return (
