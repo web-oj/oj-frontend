@@ -10,7 +10,7 @@ export default function ContestsArea(props: Props) {
       fullheight
       fullwidth
       classnames={{
-        container: "overflow-x-auto py-4",
+        wrapper: "flex-1 overlow-hidden",
       }}
       direction="row"
       label={

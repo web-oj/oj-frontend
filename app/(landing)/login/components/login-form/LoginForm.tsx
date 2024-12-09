@@ -1,9 +1,9 @@
 "use client";
 
-import { Input } from "@nextui-org/input";
+import { Input } from "@nextui-org/react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import React from "react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
 import { toast } from "react-toastify";

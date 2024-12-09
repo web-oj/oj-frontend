@@ -140,7 +140,7 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
     outputFormat: "This is the output format.",
     solutionText: "This is the solution text.",
     createdAt: "2021-10-10",
-    creatorId: ""
+    creatorId: "",
   };
 
   return (

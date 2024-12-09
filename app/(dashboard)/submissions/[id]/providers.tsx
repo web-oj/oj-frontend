@@ -2,8 +2,6 @@
 
 import { PropsWithChildren } from "react";
 
-
-import { IDEProvider } from "@/components/ide/context";
 import { Problem } from "@/types";
 
 export default function Providers({ children }: PropsWithChildren<{}>) {
@@ -141,8 +139,5 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
         creatorId: ""
     };
 
-  return (
-   <>
-   </>
-  );
+  return <></>;
 }

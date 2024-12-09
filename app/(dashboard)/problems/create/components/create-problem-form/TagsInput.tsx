@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import { Cancel01Icon } from "hugeicons-react";
 import React from "react";
 
@@ -56,6 +56,7 @@ export function TagsInput(props: TagsInputProps) {
     >
       {tags.map((tag, index) => (
         <Button
+          key={index}
           className="bg-foreground-50 shadow"
           endContent={<Cancel01Icon className="text-danger" size={16} />}
           size="sm"
