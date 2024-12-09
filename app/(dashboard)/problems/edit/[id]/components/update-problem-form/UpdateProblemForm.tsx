@@ -51,17 +51,20 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
     React.useState<UpdateProblemFormValues["statement"]>(data.statement);
 
   const onSubmit: SubmitHandler<UpdateProblemFormValues> = async (data) => {
+    const { title, statement, difficulty, timeLimit, memoryLimit, inputFormat, outputFormat, solutionText } = data;
     try {
       await updateProblem({
         id: 10,
         data: {
-          title: data.title,
-          statement: data.statement,
-          difficulty: data.difficulty,
-          timeLimit: data.timeLimit,
-          memoryLimit: data.memoryLimit,
-          inputFormat: data.inputFormat,
-          outputFormat: data.outputFormat
+          ...data,
+          title,
+          statement,
+          difficulty,
+          timeLimit,
+          memoryLimit,
+          inputFormat,
+          outputFormat,
+          solutionText
         }
       })
       toast.success("Problem created successfully");
