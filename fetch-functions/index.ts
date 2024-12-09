@@ -1,4 +1,4 @@
-import type { User, Problem } from "@/types";
+import type { User, Problem, Contest } from "@/types";
 
 import { CreateContestParams } from "./types";
 
@@ -235,8 +235,8 @@ export async function createContest(params: {
   isPublished: boolean;
   isPlagiarismCheckEnabled: boolean;
   scoringRule: string;
-  endTime: string;
-  startTime: string;
+  endTime: number;
+  startTime: number;
   ruleText: string;
   description: string;
   title: string;
@@ -264,10 +264,10 @@ export async function getContestById(params: { id: number }) {
 
 export async function searchContests(params: {
   searchKeyword?: string;
-  startTimeLow?: string;
-  startTimeHigh?: string;
-  endTimeLow?: string;
-  endTimeHigh?: string;
+  startTimeLow?: number;
+  startTimeHigh?: number;
+  endTimeLow?: number;
+  endTimeHigh?: number;
   offset?: number;
   limit?: number;
 }) {
@@ -286,7 +286,7 @@ export async function searchContests(params: {
 
 export async function updateContest(params: {
   id: number;
-  data: Partial<CreateContestParams>;
+  data: Partial<Contest>;
 }) {
   try {
     const res = await api.patch(`/contest/${params.id}`, params.data);
