@@ -3,11 +3,14 @@
 import { PropsWithChildren } from "react";
 
 import { ContestProvider } from "../context";
+import { Contest } from "@/types";
 
-import { mockContest } from "@/mock";
+interface Props extends PropsWithChildren {
+  contest: Contest;
+}
+export default function Providers(props: Props) {
 
-export default function Providers(props: PropsWithChildren) {
   return (
-    <ContestProvider contest={mockContest}>{props.children}</ContestProvider>
+    <ContestProvider contest={props.contest}>{props.children}</ContestProvider>
   );
 }

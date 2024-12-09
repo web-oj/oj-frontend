@@ -37,7 +37,7 @@ export async function getUserByToken() {
     const user = await getUserById({ id });
 
     return user;
-    
+
   } catch (error) {
     throw new Error("Failed to fetch user by token");
   }
@@ -259,7 +259,7 @@ export async function getContestById(params: { id: number }) {
   try {
     const res = await api.get(`/contest/${params.id}`);
 
-    return res.data;
+    return res.data.payload;
   } catch (error) {
     throw new Error("Failed to get contest by ID");
   }
