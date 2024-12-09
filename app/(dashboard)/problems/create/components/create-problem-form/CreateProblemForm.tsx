@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@nextui-org/react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import React from "react";

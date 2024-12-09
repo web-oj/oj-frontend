@@ -9,8 +9,8 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+} from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
