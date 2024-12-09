@@ -3,15 +3,27 @@ import { Clock01Icon, FireIcon, UsbMemory01Icon } from "hugeicons-react";
 import { useProblem } from "../../../context";
 
 import { Field, LinearContainer } from "@/components/ui";
+import { Button } from "@nextui-org/react";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
 export default function Header(props: HeaderProps) {
   const { data: problem } = useProblem();
 
   return (
-    <LinearContainer classnames={{
-      wrapper: "!flex-0"
-    }} direction="column" space="sm">
+    <LinearContainer
+      fullwidth
+      classnames={{
+        wrapper: "relative"
+      }} direction="column" space="sm">
+      <Button
+        color="primary"
+        className="absolute top-0 right-0"
+        radius="full"
+        type="submit"
+        form="submit-problem-form"
+      >
+        Submit
+      </Button>
       <h1 className="text-2xl font-bold text-foreground capitalize">{problem?.title}</h1>
       <LinearContainer
         direction="row"
