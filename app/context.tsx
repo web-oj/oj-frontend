@@ -1,3 +1,5 @@
+"use client";
+
 import React, {
   createContext,
   useContext,
@@ -34,15 +36,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (!token) {
         return;
       }
-      const id = await getUserByToken();
-      const user = await getUserById({ id });
+      const user = await getUserByToken();
 
       setUser(user);
+      console.log("Fetched user", user);
     } catch (error) {
       console.error("Failed to fetch user", error);
     }
   }, [token]);
-
+  
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
