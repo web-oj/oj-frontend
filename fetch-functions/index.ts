@@ -363,3 +363,56 @@ export async function registerForContest(params: {
     throw new Error("Failed to register for contest");
   }
 }
+
+export async function unregisterForContest(params: {
+  userId: number;
+  contestId: number;
+}) {
+  try {
+    const res = await api.delete(`/contest/${params.contestId}/register`, {
+      data: {
+        id: params.userId,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to unregister for contest");
+  }
+}
+
+export async function createSubmission(params: {
+  problemId: number;
+  contestId?: number;
+  code: string;
+}) {
+  try {
+    const res = await api.post(`/submission`, {
+      ...params,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to create submission");
+  }
+}
+
+export async function getSubmissionExecutionStatus(params: { id: number }) {
+  try {
+    const res = await api.get(`/submission/${params.id}/execute`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to get submission execution status");
+  }
+}
+
+export async function getSubmissionById(params: { id: number }) {
+  try {
+    const res = await api.get(`/submission/${params.id}`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to get submission by ID");
+  }
+}
