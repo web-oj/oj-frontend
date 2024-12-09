@@ -15,7 +15,7 @@ export default function SetterToolbar(props: Props) {
     const contest = useContest();
 
     const id = pathname.split("/").pop();
-    
+
     if (contest.data?.organizer.id !== user?.id) return null;
     if (user) return null;
 
