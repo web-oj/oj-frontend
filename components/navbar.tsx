@@ -135,12 +135,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       {user ? (
-        <User
-          avatarProps={{
-            showFallback: true,
-          }}
-          name={user.handle}
-        />
+        <UserAccordion />
       ) : (
         <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
           <Search />
