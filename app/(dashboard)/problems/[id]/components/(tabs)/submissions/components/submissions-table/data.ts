@@ -6,7 +6,7 @@ export const columns = [
   },
   {
     name: "Submission Time",
-    uid: "created_at",
+    uid: "createdAt",
     sortable: true,
   },
   {

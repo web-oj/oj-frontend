@@ -13,9 +13,9 @@ import {
 import { Link } from "@nextui-org/link";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { KeyboardIcon } from "hugeicons-react";
+import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
 import { Button } from "@nextui-org/button";
-import { User } from "@nextui-org/react";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 
 import { Search } from "./search";
@@ -29,6 +29,37 @@ export const Navbar = () => {
   const { user } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const UserAccordion = () => {
+    const { logout } = useAuth();
+    return (
+      <Dropdown>
+        <DropdownTrigger>
+          <User
+            avatarProps={{
+              showFallback: true,
+            }}
+            name={user?.userName}
+            className="cursor-pointer"
+          />
+        </DropdownTrigger>
+        <DropdownMenu>
+          <DropdownItem
+            startContent={
+              <UserIcon className="text-foreground-500" />
+            }
+          >
+            <NextLink href="/profile">Profile</NextLink>
+          </DropdownItem>
+          <DropdownItem
+            startContent={<LogoutCircle01Icon className="text-foreground-500" />}
+            onClick={logout}
+          >
+            Logout
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    )
+  };
 
   return (
     <NextUINavbar
@@ -58,7 +89,7 @@ export const Navbar = () => {
                     "text-foreground-500",
                     "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                     pathname.startsWith(item.href) &&
-                      "text-foreground bg-primary font-medium",
+                    "text-foreground bg-primary font-medium",
                   )}
                   color="foreground"
                   href={item.href}
@@ -135,7 +166,7 @@ export const Navbar = () => {
                 "text-foreground-100",
                 "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                 pathname.startsWith(item.href) &&
-                  "text-primary-foreground bg-primary font-medium",
+                "text-primary-foreground bg-primary font-medium",
               )}
               color="foreground"
               href={item.href}
@@ -165,15 +196,21 @@ export const Navbar = () => {
             direction="row"
             space="sm"
           >
-            <Button
-              fullWidth
-              as={NextLink}
-              color="primary"
-              href="../login"
-              radius="full"
-            >
-              Get started
-            </Button>
+            {
+              user ? (
+                <UserAccordion />
+              ) : (
+                <Button
+                  fullWidth
+                  as={NextLink}
+                  color="primary"
+                  href="../login"
+                  radius="full"
+                >
+                  Get started
+                </Button>
+              )
+            }
           </LinearContainer>
         </NavbarMenuItem>
       </NavbarMenu>

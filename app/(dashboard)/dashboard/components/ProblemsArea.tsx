@@ -9,6 +9,9 @@ export default function ProblemsArea(props: Props) {
   return (
     <LinearContainer
       fullwidth
+      classnames={{
+        wrapper: "overflow-hidden flex-1",
+      }}
       label={
         <div className="gap-0 flex flex-row justify-between w-full">
           <h1 className="text-2xl font-bold text-foreground">Problems</h1>

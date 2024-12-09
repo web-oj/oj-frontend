@@ -125,19 +125,19 @@ Much more info is available in the
 
 A component by [Espen Hovlandsdal](https://espen.codes/)
 `;
-  const mockProblem: Problem = {
-    id: "1",
-    title: "Sample Problem",
-    statement: markdownString,
-    difficulty: 1,
-    timeLimit: 0,
-    memoryLimit: 0,
-    inputFormat: "This is the input format.",
-    outputFormat: "This is the output format.",
-    solutionText: "This is the solution text.",
-    createdAt: "2021-10-10",
-    creatorId: "",
-  };
+    const mockProblem: Problem = {
+        id: "1",
+        title: "Sample Problem",
+        statement: markdownString,
+        difficulty: 1,
+        timeLimit: 0,
+        memoryLimit: 0,
+        inputFormat: "This is the input format.",
+        outputFormat: "This is the output format.",
+        solutionText: "This is the solution text.",
+        createdAt: "2021-10-10",
+        creatorId: ""
+    };
 
   return <></>;
 }

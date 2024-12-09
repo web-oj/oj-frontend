@@ -15,7 +15,7 @@ import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { createProblem } from "@/fetch-functions";
 
 interface CreateProblemFormProps
-  extends React.HTMLAttributes<HTMLFormElement> {}
+  extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateProblemFormValues = {
   title: string;
   statement: string;
@@ -107,8 +107,6 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
   return (
     <form
       {...props}
-      className="flex flex-col gap-4 lg:min-w-[48ch] h-full overflow-y-auto pr-4"
-      id="create-problem-form"
       onBlur={() => {
         setData({
           ...data,
