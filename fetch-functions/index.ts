@@ -37,7 +37,7 @@ export async function getUserByToken() {
     const user = await getUserById({ id });
 
     return user;
-    
+
   } catch (error) {
     throw new Error("Failed to fetch user by token");
   }
@@ -88,13 +88,10 @@ export async function updateUser(params: Partial<User>) {
 // Problem functions
 
 export async function createProblem(params: {
+  isPublished: Problem["isPublished"],
   title: Problem["title"];
   difficulty: Problem["difficulty"];
   statement: Problem["statement"];
-  /**
-   * @ignore: tags are not implemented yet
-   */
-  // tags: string[];
   timeLimit: Problem["timeLimit"];
   memoryLimit: Problem["memoryLimit"];
   inputFormat: Problem["inputFormat"];
@@ -102,7 +99,19 @@ export async function createProblem(params: {
   solutionText: Problem["solutionText"];
 }) {
   try {
-    const res = await api.post("/problem", params);
+    const statementString = JSON.stringify(params.statement);
+
+    const res = await api.post("/problem", {
+      isPublished: params.isPublished || true,
+      title: params.title,
+      difficulty: 1,
+      statement: statementString,
+      timeLimit: params.timeLimit as number,
+      memoryLimit: params.memoryLimit as number,
+      inputFormat: params.inputFormat,
+      outputFormat: params.outputFormat,
+      solutionText: params.solutionText,
+    });
 
     return res.data;
   } catch (error) {

@@ -17,19 +17,14 @@ import { createProblem } from "@/fetch-functions";
 interface CreateProblemFormProps
   extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateProblemFormValues = {
-  title: string;
-  statement: string;
-  difficulty: number;
-  tags?: string[];
-  timeLimit: number;
-  memoryLimit: number;
-  inputFormat: string;
-  outputFormat: string;
   solutionText: string;
-  testCases: {
-    input: string;
-    output: string;
-  }[];
+  outputFormat: string;
+  inputFormat: string;
+  memoryLimit: number;
+  timeLimit: number;
+  difficulty: number;
+  statement: string;
+  title: string
 };
 
 export function CreateProblemForm(props: CreateProblemFormProps) {
@@ -43,16 +38,13 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
   });
   const { data, setData } = useProblem();
 
-  const [testCases, setTestCases] = React.useState<
-    CreateProblemFormValues["testCases"]
-  >([]);
-  const [tags, setTags] = React.useState<CreateProblemFormValues["tags"]>([]);
   const [statement, setStatement] =
     React.useState<CreateProblemFormValues["statement"]>("");
 
-  const onSubmit: SubmitHandler<CreateProblemFormValues> = (data) => {
+  const onSubmit: SubmitHandler<CreateProblemFormValues> = async (data) => {
     try {
-      createProblem({
+      await createProblem({
+        isPublished: true,
         title: data.title,
         statement: data.statement,
         difficulty: data.difficulty,
@@ -85,11 +77,26 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
       },
     }),
     statement: register("statement", { required: "Statement is required" }),
-    difficulty: register("difficulty", { required: "Difficulty is required" }),
-    tags: register("tags", { required: false }),
-    timeLimit: register("timeLimit", { required: "Time limit is required" }),
+    difficulty: register("difficulty", {
+      required: "Difficulty is required",
+      min: {
+        value: 1,
+        message: "Difficulty must be at least 1",
+      },
+    }),
+    timeLimit: register("timeLimit", {
+      required: "Time limit is required",
+      min: {
+        value: 1,
+        message: "Time limit must be at least 1 millisecond",
+      },
+    }),
     memoryLimit: register("memoryLimit", {
       required: "Memory limit is required",
+      min: {
+        value: 1,
+        message: "Memory limit must be at least 1 byte",
+      },
     }),
     inputFormat: register("inputFormat", {
       required: "Input format is required",
@@ -99,8 +106,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
     }),
     solutionText: register("solutionText", {
       required: "Solution text is required",
-    }),
-    testCases: register("testCases", { required: false }),
+    })
   };
   const watchedFields = watch();
 
@@ -113,13 +119,14 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
           title: watchedFields.title,
           statement: watchedFields.statement,
           difficulty: watchedFields.difficulty as any,
-          tags: watchedFields.tags,
           timeLimit: watchedFields.timeLimit,
           memoryLimit: watchedFields.memoryLimit,
           inputFormat: watchedFields.inputFormat,
           outputFormat: watchedFields.outputFormat,
+          solutionText: watchedFields.solutionText,
         });
       }}
+      id="create-problem-form"
       onSubmit={handleSubmit(onSubmit, onInvalid)}
     >
       <Input
@@ -140,31 +147,18 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
           <p className="text-sm text-danger">{message.message}</p>
         )}
       />
-      {/* @todo implement TagInput */}
-      {/* <TagsInput
-                tags={tags}
-                onTagsChange={setTags}
-                className="mb-4"
-            /> */}
-      <Select
+      <Input
+        fullWidth
         isRequired
-        aria-label="Difficulty"
-        classNames={{
-          base: "items-center",
-          trigger: "rounded-l-none",
-          label:
-            "rounded-r-none rounded-l-full h-full bg-secondary text-secondary-foreground flex items-center justify-center px-4 ",
-        }}
+        required
+        description="Difficulty level of the problem"
         label="Difficulty"
-        labelPlacement="outside-left"
-        placeholder="Select difficulty"
+        labelPlacement="outside"
+        placeholder="Difficulty"
         radius="full"
+        type="number"
         {...registers.difficulty}
-      >
-        <SelectItem key="easy">Easy</SelectItem>
-        <SelectItem key="medium">Medium</SelectItem>
-        <SelectItem key="hard">Hard</SelectItem>
-      </Select>
+      />
       <ErrorMessage
         errors={errors}
         name="difficulty"
@@ -236,6 +230,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         placeholder="Type the output format here"
         radius="full"
         {...registers.outputFormat}
+      />
+      <Textarea
+        isRequired
+        required
+        description="Describe the solution"
+        label="Solution Text"
+        labelPlacement="outside"
+        placeholder="Type the solution text here"
+        radius="full"
+        {...registers.solutionText}
       />
       <ErrorMessage
         errors={errors}

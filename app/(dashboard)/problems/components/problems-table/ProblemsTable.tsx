@@ -110,11 +110,11 @@ export default function ProblemsTable() {
         case "id":
           return (
             <Tooltip content="View submission">
-              <a href={`/problems/${problem.id}`}>{cellValue}</a>
+              <a href={`/problems/${problem.id}`}>{problem.id}</a>
             </Tooltip>
           );
         case "title":
-          return <Link href={`/problems/${problem.id}`}>{cellValue}</Link>;
+          return <Link href={`/problems/${problem.id}`}>{cellValue.toString()}</Link>;
         case "difficulty":
           return (
             <div
