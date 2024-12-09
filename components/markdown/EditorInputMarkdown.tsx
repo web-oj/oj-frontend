@@ -25,6 +25,8 @@ export interface EditorInputMarkdownProps
   markdown: string;
   setMarkdown: (markdown: string) => void;
   register: any;
+  label?: string;
+  placeholder?: string;
 }
 const EditorInputMarkdown = React.forwardRef<
   HTMLDivElement,
@@ -43,15 +45,15 @@ const EditorInputMarkdown = React.forwardRef<
             Support <b>markdown</b> and <b>latex</b> syntax
           </p>
         }
-        label="Statement"
+        label={props.label}
         labelPlacement="outside"
-        placeholder="Click here to write the statement"
+        placeholder={props.placeholder}
         radius="full"
         value={markdown}
         onClick={onOpen}
         {...register}
       />
-      <Modal isOpen={isOpen} size="5xl" onClose={onOpen}>
+      <Modal isOpen={isOpen} size="5xl" onClose={onClose} ref={ref}>
         <ModalContent>
           <ModalHeader>Statement Editor</ModalHeader>
           <ModalBody>
