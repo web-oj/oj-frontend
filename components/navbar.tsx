@@ -29,6 +29,7 @@ export const Navbar = () => {
   const { user } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
   const UserAccordion = () => {
     const { logout } = useAuth();
     return (
@@ -44,6 +45,7 @@ export const Navbar = () => {
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem
+            key={"profile"}
             startContent={
               <UserIcon className="text-foreground-500" />
             }
@@ -51,6 +53,7 @@ export const Navbar = () => {
             <NextLink href="/profile">Profile</NextLink>
           </DropdownItem>
           <DropdownItem
+            key={"logout"}
             startContent={<LogoutCircle01Icon className="text-foreground-500" />}
             onClick={logout}
           >
@@ -58,6 +61,18 @@ export const Navbar = () => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
+    )
+  };
+
+  const Toolbar = () => {
+    return(
+      <LinearContainer
+        fullwidth
+        className="justify-center items-center"
+        direction="row"
+        space="sm"
+      >
+      </LinearContainer>
     )
   };
 
