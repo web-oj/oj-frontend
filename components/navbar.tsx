@@ -9,20 +9,26 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  User,
+  Button,
+  Link,
 } from "@nextui-org/react";
-import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
-import { Button } from "@nextui-org/button";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
+
+
+import { siteConfig } from "@/config/site";
+import { useAuth } from "@/app/context";
 
 import { Search } from "./search";
 import { LinearContainer } from "./ui";
 
-import { siteConfig } from "@/config/site";
-import { useAuth } from "@/app/context";
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -30,7 +36,9 @@ export const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const UserAccordion = () => {
+
     const { logout } = useAuth();
+
     return (
       <Dropdown>
         <DropdownTrigger>
@@ -44,6 +52,7 @@ export const Navbar = () => {
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem
+            key={"profile"}
             startContent={
               <UserIcon className="text-foreground-500" />
             }
@@ -51,6 +60,7 @@ export const Navbar = () => {
             <NextLink href="/profile">Profile</NextLink>
           </DropdownItem>
           <DropdownItem
+            key={"logout"}
             startContent={<LogoutCircle01Icon className="text-foreground-500" />}
             onClick={logout}
           >
