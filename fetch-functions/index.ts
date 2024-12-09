@@ -12,7 +12,7 @@ export async function signUp(params: {
   handle: string; // username
 }) {
   try {
-    const res = await api.post("/user/sign_up", params);
+    const res = await api.post("/user", params);
 
     return res.data;
   } catch (error) {
@@ -32,7 +32,7 @@ export async function login(params: { email: string; password: string }) {
 }
 export async function getUserByToken() {
   try {
-    const res = await api.get<number>("/user/get-user-id-from-token");
+    const res = await api.get<number>("/user/id");
 
     return res.data;
   } catch (error) {
@@ -99,12 +99,44 @@ export async function createProblem(params: {
   solutionText: Problem["solutionText"];
 }) {
   try {
-    const res = await api.post("/problem/create_problem", params);
+    const res = await api.post("/problem", params);
 
     return res.data;
   } catch (error) {
     console.log(error);
     throw new Error("Failed to create problem");
+  }
+}
+
+export async function addTestcaseToProblem(params: {
+  problemId: number;
+  input: string;
+  output: string;
+}) {
+  try {
+    const res = await api.post(`/problem/${params.problemId}/testcase`, {
+      input: params.input,
+      output: params.output,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to add testcase to problem");
+  }
+}
+
+export async function addTestcasesToProblem(params: {
+  problemId: number;
+  testcases: { input: string; output: string }[];
+}) {
+  try {
+    const res = await api.post(`/problem/${params.problemId}/testcases`, {
+      testcases: params.testcases,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to add testcases to problem");
   }
 }
 
@@ -131,16 +163,6 @@ export async function getProblemById(params: { id: number }): Promise<Problem> {
   }
 }
 
-export async function deleteProblemById(params: { id: number }) {
-  try {
-    const res = await api.delete(`/problem/id/${params.id}`);
-
-    return res.data;
-  } catch (error) {
-    throw new Error("Failed to delete problem by ID");
-  }
-}
-
 export async function getProblemByTitle(params: {
   title: string;
 }): Promise<Problem[]> {
@@ -150,6 +172,16 @@ export async function getProblemByTitle(params: {
     return res.data;
   } catch (error) {
     throw new Error("Failed to fetch problem by title");
+  }
+}
+
+export async function deleteProblemById(params: { id: number }) {
+  try {
+    const res = await api.delete(`/problem/id/${params.id}`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to delete problem by ID");
   }
 }
 
@@ -166,15 +198,31 @@ export async function getAllProblems(
   }
 }
 
-export async function searchProblems(
+export async function searchProblems(params: {
   searchKeyword?: string,
   difficultyLow?: number,
   difficultyHigh?: number,
   offset?: number,
   limit?: number,
-): Promise<Problem[]> {
+}): Promise<Problem[]> {
+  const {
+    searchKeyword = "",
+    difficultyLow = 0,
+    difficultyHigh = 10,
+    offset = 0,
+    limit = 10,
+  } = params;
+
   try {
-    const res = await api.get<Problem[]>(`/problem`);
+    const res = await api.get<Problem[]>(`/problem/search`, {
+      params: {
+        searchKeyword,
+        difficultyLow,
+        difficultyHigh,
+        offset,
+        limit,
+      },
+    });
 
     return res.data;
   } catch (error) {
@@ -182,12 +230,136 @@ export async function searchProblems(
   }
 }
 
-export async function createContest(params: CreateContestParams) {
+export async function createContest(params: {
+  organizerId: number;
+  isPublished: boolean;
+  isPlagiarismCheckEnabled: boolean;
+  scoringRule: string;
+  endTime: string;
+  startTime: string;
+  ruleText: string;
+  description: string;
+  title: string;
+}) {
   try {
-    const res = await api.post("/contest/create", params);
+    const res = await api.post("/contest", {
+      params,
+    });
 
     return res.data;
   } catch (error) {
     throw new Error("Failed to create contest");
+  }
+}
+
+export async function getContestById(params: { id: number }) {
+  try {
+    const res = await api.get(`/contest/${params.id}`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to get contest by ID");
+  }
+}
+
+export async function searchContests(params: {
+  searchKeyword?: string;
+  startTimeLow?: string;
+  startTimeHigh?: string;
+  endTimeLow?: string;
+  endTimeHigh?: string;
+  offset?: number;
+  limit?: number;
+}) {
+  try {
+    const res = await api.get(`/contest/search`, {
+      params: {
+        ...params,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to search contests");
+  }
+}
+
+export async function updateContest(params: {
+  id: number;
+  data: Partial<CreateContestParams>;
+}) {
+  try {
+    const res = await api.patch(`/contest/${params.id}`, params.data);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to update contest");
+  }
+}
+
+export async function deleteContest(params: { id: number }) {
+  try {
+    const res = await api.delete(`/contest/${params.id}`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to delete contest");
+  }
+}
+
+export async function addProblemToContest(params: {
+  contestId: number;
+  problemId: number;
+}) {
+  try {
+    const res = await api.post(`/contest/${params.contestId}/problem`, {
+      problemId: params.problemId,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to add problem to contest");
+  }
+}
+
+export async function removeProblemFromContest(params: {
+  contestId: number;
+  problemId: number;
+}) {
+  try {
+    const res = await api.delete(`/contest/${params.contestId}/problem`, {
+      data: {
+        problemId: params.problemId,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to remove problem from contest");
+  }
+}
+
+export async function getProblemsInContest(params: { contestId: number }) {
+  try {
+    const res = await api.get(`/contest/${params.contestId}/problem`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to get problems in contest");
+  }
+}
+
+export async function registerForContest(params: {
+  userId: number;
+  contestId: number;
+}) {
+  try {
+    const res = await api.post(`/contest/${params.contestId}/register`, {
+      id: params.userId,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to register for contest");
   }
 }
