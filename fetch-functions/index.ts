@@ -25,16 +25,19 @@ export async function login(params: { email: string; password: string }) {
   try {
     const res = await api.post("/user/login", params);
 
-    return res.data;
+    return res.data.token;
   } catch (error) {
     throw new Error("Failed to sign in");
   }
 }
 export async function getUserByToken() {
   try {
-    const res = await api.get<number>("/user/id");
+    const res = await api.get("/user/id");
+    const id = res.data.id;
+    const user = await getUserById({ id });
 
-    return res.data;
+    return user;
+    
   } catch (error) {
     throw new Error("Failed to fetch user by token");
   }
