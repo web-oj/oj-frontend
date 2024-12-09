@@ -37,7 +37,7 @@ export async function getUserByToken() {
     const user = await getUserById({ id });
 
     return user;
-    
+
   } catch (error) {
     throw new Error("Failed to fetch user by token");
   }
@@ -238,19 +238,18 @@ export async function createContest(params: {
   isPublished: boolean;
   isPlagiarismCheckEnabled: boolean;
   scoringRule: string;
-  endTime: string;
-  startTime: string;
+  endTime: number;
+  startTime: number;
   ruleText: string;
   description: string;
   title: string;
 }) {
   try {
-    const res = await api.post("/contest", {
-      params,
-    });
+    const res = await api.post("/contest", params);
 
     return res.data;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to create contest");
   }
 }
