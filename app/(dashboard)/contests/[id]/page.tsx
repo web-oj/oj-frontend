@@ -7,6 +7,7 @@ import { PageContainer } from "@/components/ui";
 import { getContestById } from "@/fetch-functions";
 import { notFound } from "next/navigation";
 import { ContestProvider } from "../context";
+import SetterToolbar from "./components/SetterToolbar";
 
 interface Props {
   params: {
@@ -22,7 +23,7 @@ export default async function Home({ params }: Props) {
     notFound();
   }
   console.log(contest);
-  
+
   return (
     <ContestProvider contest={contest}>
       <PageContainer>
@@ -35,6 +36,7 @@ export default async function Home({ params }: Props) {
           </SplitterPanel>
         </Splitter>
       </PageContainer>
+      <SetterToolbar />
     </ContestProvider>
   );
 }
