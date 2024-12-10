@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/react";
+import { Checkbox, Input, Textarea } from "@nextui-org/react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import React from "react";
 import { ErrorMessage } from "@hookform/error-message";
@@ -8,17 +8,24 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useContest } from "../../../context";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
+import { createContest } from "@/fetch-functions";
+import { useAuth } from "@/app/context";
+import { toast } from "react-toastify";
+import { useContestTrack } from "../../context";
 
 interface CreateContestFormProps
-  extends React.HTMLAttributes<HTMLFormElement> {}
+  extends React.HTMLAttributes<HTMLFormElement> { }
+
 type CreateContestFormValues = {
-  title: string;
-  startTime: string;
-  endTime: string;
-  scoringRule: string;
+  organizerId: number;
   isPublished: boolean;
-  description: string;
   isPlagiarismCheckEnabled: boolean;
+  scoringRule: string;
+  endTime: number;
+  startTime: number;
+  ruleText: string;
+  description: string;
+  title: string;
 };
 
 export function CreateContestForm(props: CreateContestFormProps) {
@@ -27,11 +34,35 @@ export function CreateContestForm(props: CreateContestFormProps) {
     handleSubmit,
     formState: { errors, isValid },
     watch,
-  } = useForm<CreateContestFormValues>();
-  const { data, setData } = useContest();
+  } = useForm<CreateContestFormValues>({
+    mode: "onBlur",
+  });
+  const { data, setData } = useContestTrack();
 
-  const onSubmit: SubmitHandler<CreateContestFormValues> = (data) => {
+  const { user } = useAuth();
+  const onSubmit: SubmitHandler<CreateContestFormValues> = async (data) => {
+    if (!user) {
+      toast.error("You must be logged in to create a contest");
+      return;
+    };
     console.log(data);
+    try {
+      await createContest({
+        organizerId: user?.id,
+        isPublished: data.isPublished,
+        isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
+        scoringRule: data.scoringRule,
+        endTime: new Date(data.endTime).getTime(),
+        startTime: new Date(data.startTime).getTime(),
+        ruleText: data.scoringRule,
+        description: data.description,
+        title: data.title,
+      })
+
+      toast.success("Contest created successfully");
+    } catch (error) {
+      toast.error("Failed to create contest");
+    }
   };
 
   const onInvalid: SubmitErrorHandler<CreateContestFormValues> = (
@@ -49,14 +80,23 @@ export function CreateContestForm(props: CreateContestFormProps) {
         message: "Title must be less than 200 characters",
       },
     }),
-    startTime: register("startTime", { required: "Start time is required" }),
-    endTime: register("endTime", { required: "End time is required" }),
+    startTime: register("startTime", {
+      required: "Start Time is required",
+    }),
+    endTime: register("endTime", {
+      required: "End Time is required",
+    }),
     scoringRule: register("scoringRule", {
-      required: "Scoring rule is required",
+      required: "Scoring Rule is required",
+    }),
+    ruleText: register("ruleText", {
+      required: "Rule Text is required",
     }),
     isPublished: register("isPublished"),
     isPlagiarismCheckEnabled: register("isPlagiarismCheckEnabled"),
-    description: register("description"),
+    description: register("description", {
+      required: "Description is required",
+    }),
   };
 
   const watchedFields = watch();
@@ -64,8 +104,8 @@ export function CreateContestForm(props: CreateContestFormProps) {
   return (
     <form
       {...props}
-      className="flex flex-col gap-4 lg:min-w-[48ch]"
-      id="create-problem-form"
+      className="flex flex-col gap-4 lg:min-w-[48ch] overflow-auto"
+      id="create-contest-form"
       onBlur={() => {
         setData({
           ...data,
@@ -73,6 +113,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
           startTime: watchedFields.startTime,
           endTime: watchedFields.endTime,
           scoringRule: watchedFields.scoringRule,
+          description: watchedFields.description,
+          isPlagiarismCheckEnabled: watchedFields.isPlagiarismCheckEnabled,
+          isPublished: watchedFields.isPublished,
         });
       }}
       onSubmit={handleSubmit(onSubmit, onInvalid)}
@@ -95,7 +138,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
-      <LinearContainer direction="column">
+      <LinearContainer fullwidth direction="column">
         <Input
           isRequired
           label="Start Time"
@@ -148,10 +191,45 @@ export function CreateContestForm(props: CreateContestFormProps) {
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
-      <Input type="checkbox" {...registers.isPublished} />
-      <label htmlFor="isPublished">Published</label>
-      <Input type="checkbox" {...registers.isPlagiarismCheckEnabled} />
-      <label htmlFor="isPlagiarismCheckEnabled">Plagiarism Check Enabled</label>
+      <Textarea
+        isRequired
+        required
+        classNames={{
+          base: "max-h-[200ch]",
+        }}
+        label="Rule Text"
+        labelPlacement="outside"
+        placeholder="Type the rule text here"
+        radius="full"
+        {...registers.ruleText}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="ruleText"
+        render={({ message }) => (
+          <p className="text-red-500 text-sm">{message}</p>
+        )}
+      />
+      <LinearContainer direction="row" fullwidth space="sm" classnames={{
+        container: "justify-between",
+      }}>
+        <Checkbox
+          {...registers.isPublished}
+          onValueChange={(value) => {
+            registers.isPublished.onChange({ target: { value } });
+          }}
+        >
+          Published
+        </Checkbox>
+        <Checkbox
+          {...registers.isPlagiarismCheckEnabled}
+          onValueChange={(value) => {
+            registers.isPlagiarismCheckEnabled.onChange({ target: { value } });
+          }}
+        >
+          Plagiarism Check Enabled
+        </Checkbox>
+      </LinearContainer>
       <Textarea
         isRequired
         required
