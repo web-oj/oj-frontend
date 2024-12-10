@@ -1,12 +1,15 @@
-import { ContestsTableWrapper } from "./components/contests-table";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
+import ContestsTable from "./components/contests-table/ContestsTable";
+import { getAllContests } from "@/fetch-functions";
 
-export default function Page() {
+export default async function Page() {
+  const contests = await getAllContests();
+  
   return (
     <PageContainer title="Contests">
       <LinearContainer fullheight fullwidth className="overflow-hidden">
-        <ContestsTableWrapper />
+        <ContestsTable contests={contests} />
       </LinearContainer>
     </PageContainer>
   );

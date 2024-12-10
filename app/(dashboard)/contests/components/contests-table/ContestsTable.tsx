@@ -22,24 +22,25 @@ import {
 
 import { columns } from "./data";
 
-import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Contest } from "@/types";
-import { mockContests } from "@/mock";
 import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 
-export default function ContestsTable() {
-  const [contests, setContests] = React.useState<Contest[]>(mockContests);
+interface Props {
+  contests: Contest[];
+}
+export default function ContestsTable(props: Props) {
+  const [contests, setContests] = React.useState<Contest[]>(props.contests);
   const [startTimesFilter, setStartTimesFilter] = React.useState<Selection>("all");
   const [endTimesFilter, setEndTimesFilter] = React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
 
   const list = useAsyncList<Contest>({
     async load({ signal }) {
-      let items = mockContests;
+      let items = contests;
 
       return {
-        items: mockContests,
+        items: contests,
       };
     },
     async sort({ items, sortDescriptor }) {
@@ -71,18 +72,17 @@ export default function ContestsTable() {
 
   const renderCell = React.useCallback(
     (contest: Contest, columnKey: React.Key) => {
-      const cellValue = contest[columnKey as keyof Contest];
 
       switch (columnKey) {
         case "contestId":
           return (
             <Tooltip content="View contest">
-              <a href={`/contests/${contest.contestId}`}>{cellValue}</a>
+              <a href={`/contests/${contest.id}`}>{contest.id}</a>
             </Tooltip>
           );
         case "title":
           return (
-            <Link href={`/contests/${contest.contestId}`}>{cellValue}</Link>
+            <Link href={`/contests/${contest.id}`}>{contest.title}</Link>
           );
         case "startTime":
           return new Date(contest.startTime).toLocaleString();
@@ -90,7 +90,7 @@ export default function ContestsTable() {
           return new Date(contest.endTime).toLocaleString();
 
         default:
-          return cellValue;
+          return "-";
       }
     },
     [],
