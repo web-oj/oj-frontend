@@ -7,10 +7,10 @@ import { LinearContainer, PageContainer } from "@/components/ui";
 export default function Page() {
   return (
     <PageContainer>
-      <LinearContainer fullwidth direction="column">
+      <LinearContainer fullwidth fullheight direction="column" className="overflow-hidden">
         <h1 className="text-3xl font-bold">Create Contest</h1>
         <FormToolbar />
-        <LinearContainer fullheight fullwidth direction="row" space="lg">
+        <LinearContainer fullheight fullwidth direction="row" space="lg" className="overflow-hidden">
           <CreateContestFormWrapper />
           <FastCheckTableWrapper />
         </LinearContainer>
