@@ -1,6 +1,9 @@
+import ActivitiesArea from "./components/ActivitiesArea";
+import ContactsArea from "./components/ContactsArea";
+import { ProfileArea } from "./components/ProfileArea";
 import Providers from "./providers";
-import { UserHeader } from "./components/header";
-import ContactsArea from "./components/contacts-area";
+
+
 
 import { LinearContainer, PageContainer } from "@/components/ui";
 export default function Page() {
@@ -9,14 +12,16 @@ export default function Page() {
       <PageContainer isCenteredX>
         <LinearContainer
           fullwidth
+          fullheight
           classnames={{
             wrapper:
-              "overflow-y-auto bg-foreground-100 rounded-large p-4 max-w-screen-sm",
+              "overflow-y-auto",
           }}
-          direction="column"
+          direction="row"
           space="lg"
         >
-          <UserHeader />
+          <ProfileArea />
+          <ActivitiesArea />
           <ContactsArea />
         </LinearContainer>
       </PageContainer>
