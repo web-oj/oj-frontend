@@ -11,14 +11,9 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
-import ReactMarkdown from "react-markdown";
-import rehypeKatex from "rehype-katex";
-import remarkMath from "remark-math";
-import rehypeRaw from "rehype-raw";
-import remarkBreaks from "remark-breaks";
-
 import { LinearContainer } from "@/components/ui/container";
 import "katex/dist/katex.min.css";
+import { RenderMarkdown } from "@/components/markdown";
 
 export interface StatementEditorInputProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -51,7 +46,7 @@ const StatementEditorInput = React.forwardRef<
         onClick={onOpen}
         {...register}
       />
-      <Modal isOpen={isOpen} size="5xl" onClose={onOpen}>
+      <Modal isOpen={isOpen} size="5xl" onClose={onClose}>
         <ModalContent>
           <ModalHeader>Statement Editor</ModalHeader>
           <ModalBody>
@@ -72,12 +67,7 @@ const StatementEditorInput = React.forwardRef<
                   setMarkdown(value as string);
                 }}
               />
-              <ReactMarkdown
-                rehypePlugins={[rehypeKatex, rehypeRaw]}
-                remarkPlugins={[remarkMath, remarkBreaks]}
-              >
-                {markdown.replace(/&nbsp;/g, "")}
-              </ReactMarkdown>
+              <RenderMarkdown data={markdown} />
             </LinearContainer>
           </ModalBody>
           <ModalFooter>

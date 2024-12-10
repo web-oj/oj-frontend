@@ -8,7 +8,7 @@ export default function CreateProblemFormWrapper() {
       fullheight
       fullwidth
       classnames={{
-        wrapper: "overflow-hidden",
+        wrapper: "overflow-auto",
       }}
       direction="column"
     >

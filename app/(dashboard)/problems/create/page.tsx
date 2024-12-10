@@ -1,4 +1,4 @@
-import CreateContestFormWrapper from "./components/create-problem-form";
+import CreateProblemFormWrapper from "./components/create-problem-form";
 import FastCheckTableWrapper from "./components/fast-check-table";
 import FormToolbar from "./components/Toolbar";
 
@@ -14,13 +14,13 @@ export default function Page() {
           fullheight
           fullwidth
           classnames={{
-            wrapper: "overflow-hidden",
+            wrapper: "overflow-auto",
           }}
           direction="row"
           roundedMedium={false}
           space="lg"
         >
-          <CreateContestFormWrapper />
+          <CreateProblemFormWrapper />
           <FastCheckTableWrapper />
         </LinearContainer>
       </LinearContainer>

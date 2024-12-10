@@ -8,18 +8,8 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Chip,
   Tooltip,
-  ChipProps,
-  Input,
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Selection,
 } from "@nextui-org/react";
-import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 import Link from "next/link";
 

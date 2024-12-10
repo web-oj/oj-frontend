@@ -1,4 +1,5 @@
 "use client";
+
 import { useProblem } from "../../../context";
 
 import { LinearContainer } from "@/components/ui";
@@ -24,10 +25,6 @@ export function FastCheckTable(props: FastCheckTableProps) {
     {
       label: "Memory Limit",
       value: data ? data.memoryLimit : "N/A"
-    },
-    {
-      label: "Tags",
-      value: data ? data?.tags?.join(", ") : "N/A"
     }
   ]
 

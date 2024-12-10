@@ -92,13 +92,10 @@ export async function updateUser(params: Partial<User>) {
 // Problem functions
 
 export async function createProblem(params: {
+  isPublished: Problem["isPublished"],
   title: Problem["title"];
   difficulty: Problem["difficulty"];
   statement: Problem["statement"];
-  /**
-   * @ignore: tags are not implemented yet
-   */
-  // tags: string[];
   timeLimit: Problem["timeLimit"];
   memoryLimit: Problem["memoryLimit"];
   inputFormat: Problem["inputFormat"];
