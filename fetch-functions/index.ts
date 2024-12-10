@@ -1,9 +1,13 @@
-import type { User, Problem, Contest } from "@/types";
+import { type User, type Problem, type Contest, Submission } from "@/types";
 
-import { CreateContestParams } from "./types";
 
 import { api } from "@/utils/api";
-
+interface ApiResponse<T> {
+  error: string;
+  data: T;
+  status: number;
+  message: string;
+}
 // User functions
 
 export async function signUp(params: {
@@ -12,9 +16,9 @@ export async function signUp(params: {
   handle: string; // username
 }) {
   try {
-    const res = await api.post("/user", params);
+    const res = await api.post<ApiResponse<User>>("/user", params);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error("Failed to sign up", error);
     throw new Error("Failed to sign up");
@@ -23,21 +27,18 @@ export async function signUp(params: {
 
 export async function login(params: { email: string; password: string }) {
   try {
-    const res = await api.post("/user/login", params);
+    const res = await api.post<ApiResponse<{ token: string }>>("/user/login", params);
 
-    return res.data.token;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to sign in");
   }
 }
 export async function getUserByToken() {
   try {
-    const res = await api.get("/user/id");
-    const id = res.data.id;
-    const user = await getUserById({ id });
+    const res = await api.get<ApiResponse<number>>("/user/id");
 
-    return user;
-
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch user by token");
   }
@@ -45,9 +46,9 @@ export async function getUserByToken() {
 
 export async function getUserById(params: { id: number }): Promise<User> {
   try {
-    const res = await api.get<User>(`/user/id/${params.id}`);
+    const res = await api.get<ApiResponse<User>>(`/user/id/${params.id}`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch user by ID");
   }
@@ -57,9 +58,9 @@ export async function getUserByHandle(params: {
   handle: string;
 }): Promise<User> {
   try {
-    const res = await api.get<User>(`/user/handle/${params.handle}`);
+    const res = await api.get<ApiResponse<User>>(`/user/handle/${params.handle}`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch user by handle");
   }
@@ -67,7 +68,7 @@ export async function getUserByHandle(params: {
 
 export async function deleteUser(params: { id: number }) {
   try {
-    const res = await api.delete(`/user/${params.id}`);
+    const res = await api.delete<ApiResponse<null>>(`/user/${params.id}`);
 
     return res.data;
   } catch (error) {
@@ -77,7 +78,7 @@ export async function deleteUser(params: { id: number }) {
 
 export async function updateUser(params: Partial<User>) {
   try {
-    const res = await api.patch(`/user`, params);
+    const res = await api.patch<ApiResponse<null>>(`/user`, params);
 
     return res.data;
   } catch (error) {
@@ -102,7 +103,7 @@ export async function createProblem(params: {
   solutionText: Problem["solutionText"];
 }) {
   try {
-    const res = await api.post("/problem", params);
+    const res = await api.post<ApiResponse<null>>("/problem", params);
 
     return res.data;
   } catch (error) {
@@ -117,7 +118,7 @@ export async function addTestcaseToProblem(params: {
   output: string;
 }) {
   try {
-    const res = await api.post(`/problem/${params.problemId}/testcase`, {
+    const res = await api.post<ApiResponse<null>>(`/problem/${params.problemId}/testcase`, {
       input: params.input,
       output: params.output,
     });
@@ -133,7 +134,7 @@ export async function addTestcasesToProblem(params: {
   testcases: { input: string; output: string }[];
 }) {
   try {
-    const res = await api.post(`/problem/${params.problemId}/testcases`, {
+    const res = await api.post<ApiResponse<null>>(`/problem/${params.problemId}/testcases`, {
       testcases: params.testcases,
     });
 
@@ -148,7 +149,7 @@ export async function updateProblem(params: {
   data: Partial<Problem>;
 }) {
   try {
-    const res = await api.patch(`/problem/id/${params.id}`, params.data);
+    const res = await api.patch<ApiResponse<null>>(`/problem/id/${params.id}`, params.data);
 
     return res.data;
   } catch (error: any) {
@@ -158,9 +159,9 @@ export async function updateProblem(params: {
 
 export async function getProblemById(params: { id: number }): Promise<Problem> {
   try {
-    const res = await api.get<Problem>(`/problem/id/${params.id}`);
+    const res = await api.get<ApiResponse<Problem>>(`/problem/id/${params.id}`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch problem by ID");
   }
@@ -170,9 +171,9 @@ export async function getProblemByTitle(params: {
   title: string;
 }): Promise<Problem[]> {
   try {
-    const res = await api.get<Problem[]>(`/problem/title/${params.title}`);
+    const res = await api.get<ApiResponse<Problem[]>>(`/problem/title/${params.title}`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch problem by title");
   }
@@ -180,7 +181,7 @@ export async function getProblemByTitle(params: {
 
 export async function deleteProblemById(params: { id: number }) {
   try {
-    const res = await api.delete(`/problem/id/${params.id}`);
+    const res = await api.delete<ApiResponse<null>>(`/problem/id/${params.id}`);
 
     return res.data;
   } catch (error) {
@@ -193,9 +194,9 @@ export async function getAllProblems(
   offset?: number,
 ): Promise<Problem[]> {
   try {
-    const res = await api.get<Problem[]>(`/problem`);
+    const res = await api.get<ApiResponse<Problem[]>>(`/problem`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch all problems");
   }
@@ -217,7 +218,7 @@ export async function searchProblems(params: {
   } = params;
 
   try {
-    const res = await api.get<Problem[]>(`/problem/search`, {
+    const res = await api.get<ApiResponse<Problem[]>>(`/problem/search`, {
       params: {
         searchKeyword,
         difficultyLow,
@@ -227,7 +228,7 @@ export async function searchProblems(params: {
       },
     });
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to fetch all problems");
   }
@@ -245,7 +246,9 @@ export async function createContest(params: {
   title: string;
 }) {
   try {
-    const res = await api.post("/contest", params);
+    const res = await api.post<ApiResponse<null>>("/contest", {
+      params,
+    });
 
     return res.data;
   } catch (error) {
@@ -256,9 +259,9 @@ export async function createContest(params: {
 
 export async function getContestById(params: { id: number }) {
   try {
-    const res = await api.get(`/contest/${params.id}`);
+    const res = await api.get<ApiResponse<Contest>>(`/contest/${params.id}`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to get contest by ID");
   }
@@ -274,13 +277,13 @@ export async function searchContests(params: {
   limit?: number;
 }) {
   try {
-    const res = await api.get(`/contest/search`, {
+    const res = await api.get<ApiResponse<Contest[]>>(`/contest/search`, {
       params: {
         ...params,
       },
     });
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to search contests");
   }
@@ -291,7 +294,7 @@ export async function updateContest(params: {
   data: Partial<Contest>;
 }) {
   try {
-    const res = await api.patch(`/contest/${params.id}`, params.data);
+    const res = await api.patch<ApiResponse<null>>(`/contest/${params.id}`, params.data);
 
     return res.data;
   } catch (error) {
@@ -301,7 +304,7 @@ export async function updateContest(params: {
 
 export async function deleteContest(params: { id: number }) {
   try {
-    const res = await api.delete(`/contest/${params.id}`);
+    const res = await api.delete<ApiResponse<null>>(`/contest/${params.id}`);
 
     return res.data;
   } catch (error) {
@@ -314,7 +317,7 @@ export async function addProblemToContest(params: {
   problemId: number;
 }) {
   try {
-    const res = await api.post(`/contest/${params.contestId}/problem`, {
+    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
       problemId: params.problemId,
     });
 
@@ -329,7 +332,7 @@ export async function removeProblemFromContest(params: {
   problemId: number;
 }) {
   try {
-    const res = await api.delete(`/contest/${params.contestId}/problem`, {
+    const res = await api.delete<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
       data: {
         problemId: params.problemId,
       },
@@ -343,9 +346,9 @@ export async function removeProblemFromContest(params: {
 
 export async function getProblemsInContest(params: { contestId: number }) {
   try {
-    const res = await api.get(`/contest/${params.contestId}/problem`);
+    const res = await api.get<ApiResponse<Problem[]>>(`/contest/${params.contestId}/problem`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to get problems in contest");
   }
@@ -356,11 +359,11 @@ export async function registerForContest(params: {
   contestId: number;
 }) {
   try {
-    const res = await api.post(`/contest/${params.contestId}/register`, {
+    const res = await api.post<ApiResponse<Contest>>(`/contest/${params.contestId}/register`, {
       id: params.userId,
     });
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to register for contest");
   }
@@ -371,7 +374,7 @@ export async function unregisterForContest(params: {
   contestId: number;
 }) {
   try {
-    const res = await api.delete(`/contest/${params.contestId}/register`, {
+    const res = await api.delete<ApiResponse<null>>(`/contest/${params.contestId}/register`, {
       data: {
         id: params.userId,
       },
@@ -389,7 +392,7 @@ export async function createSubmission(params: {
   code: string;
 }) {
   try {
-    const res = await api.post(`/submission`, {
+    const res = await api.post<ApiResponse<null>>(`/submission`, {
       ...params,
     });
 
@@ -411,9 +414,9 @@ export async function getSubmissionExecutionStatus(params: { id: number }) {
 
 export async function getSubmissionById(params: { id: number }) {
   try {
-    const res = await api.get(`/submission/${params.id}`);
+    const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error("Failed to get submission by ID");
   }
