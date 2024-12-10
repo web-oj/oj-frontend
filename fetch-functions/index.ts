@@ -29,27 +29,30 @@ export async function login(params: { email: string; password: string }) {
   try {
     const res = await api.post<ApiResponse<{ token: string }>>("/user/login", params);
 
-    return res.data.data;
+    return res.data.data.token;
   } catch (error) {
     throw new Error("Failed to sign in");
   }
 }
 export async function getUserByToken() {
   try {
-    const res = await api.get<ApiResponse<number>>("/user/id");
+    const res1 = await api.get<ApiResponse<User>>("/user/id");
+    const user = await getUserById({ id: res1.data.data.id });
 
-    return res.data.data;
+    return user;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to fetch user by token");
   }
 }
 
 export async function getUserById(params: { id: number }): Promise<User> {
   try {
-    const res = await api.get<ApiResponse<User>>(`/user/id/${params.id}`);
+    const res = await api.get<ApiResponse<User>>(`/user/${params.id}`);
 
     return res.data.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to fetch user by ID");
   }
 }
