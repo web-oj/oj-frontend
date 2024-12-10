@@ -270,6 +270,16 @@ export async function getContestById(params: { id: number }) {
   }
 }
 
+export async function getAllContests() {
+  try {
+    const res = await api.get<ApiResponse<Contest[]>>("/contest");
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error("Failed to get all contests");
+  }
+}
+
 export async function searchContests(params: {
   searchKeyword?: string;
   startTimeLow?: number;
