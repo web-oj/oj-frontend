@@ -22,12 +22,11 @@ import {
 
 import { columns } from "./data";
 
-import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Contest } from "@/types";
 import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+interface Props {
   contests: Contest[];
 }
 export default function ContestsTable(props: Props) {
@@ -38,10 +37,10 @@ export default function ContestsTable(props: Props) {
 
   const list = useAsyncList<Contest>({
     async load({ signal }) {
-      let items = props.contests;
+      let items = contests;
 
       return {
-        items: items,
+        items: contests,
       };
     },
     async sort({ items, sortDescriptor }) {
@@ -73,7 +72,6 @@ export default function ContestsTable(props: Props) {
 
   const renderCell = React.useCallback(
     (contest: Contest, columnKey: React.Key) => {
-      const cellValue = contest[columnKey as keyof Contest];
 
       switch (columnKey) {
         case "contestId":
