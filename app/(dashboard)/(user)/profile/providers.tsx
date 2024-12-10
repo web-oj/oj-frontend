@@ -1,11 +1,11 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import GuardWrapper from "./GuardWrapper";
 
-import { UserProvider } from "../context";
-
-import { mockUser } from "@/mock";
-
-export default function Providers(props: PropsWithChildren) {
-  return <UserProvider user={mockUser}>{props.children}</UserProvider>;
+interface Props extends React.PropsWithChildren {
+}
+export default function Providers(props: Props) {
+  return <GuardWrapper>
+    {props.children}
+  </GuardWrapper>
 }
