@@ -40,6 +40,30 @@ export function Search() {
   };
 
   return (
+    <Input
+      fullWidth
+      aria-label="Search"
+      classNames={{
+        inputWrapper: "bg-foreground-50 max-w-screen-sm",
+        input: "text-sm",
+      }}
+      endContent={
+        <Kbd className="hidden lg:inline-block" keys={["command"]}>
+          K
+        </Kbd>
+      }
+      labelPlacement="outside"
+      placeholder="Search..."
+      radius="full"
+      startContent={
+        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+      }
+      type="search"
+      onBlur={handleBlur}
+      onChange={(e) => handleSearch(e.target.value)}
+    />
+  )
+  return (
     <div className="relative">
       <AnimatePresence>
         {isExpanded ? (
