@@ -36,8 +36,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (!token) {
         return;
       }
+      
       const user = await getUserByToken();
-
+      
       setUser(user);
       console.log("Fetched user", user);
     } catch (error) {
