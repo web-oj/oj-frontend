@@ -1,3 +1,6 @@
+"use client";
+
+import { Tooltip } from "@nextui-org/react";
 import { twMerge } from "tailwind-merge";
 
 interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -36,7 +39,9 @@ export function Field(props: FieldProps) {
         classNames?.wrapper,
       )}
     >
-      {icon}
+      <Tooltip content={label} placement="top">
+        {icon}
+      </Tooltip>
       {showLabel && (
         <div
           className={twMerge(
