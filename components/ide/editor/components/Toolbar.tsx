@@ -63,7 +63,9 @@ export default function Toolbar() {
   }, [editorThemeKey, languagekey]);
 
   return (
-    <LinearContainer direction="row" space="md">
+    <LinearContainer fullwidth direction="row" space="md" classnames={{
+      container: "justify-end",
+    }}>
       <Select
         shouldFlip
         aria-label="Select theme"

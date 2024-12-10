@@ -411,6 +411,7 @@ export async function createSubmission(params: {
 
     return res.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to create submission");
   }
 }

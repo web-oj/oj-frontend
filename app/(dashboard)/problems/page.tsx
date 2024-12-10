@@ -1,12 +1,15 @@
-import { ProblemsTableWrapper } from "./components/problems-table";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
+import ProblemsTable from "./components/problems-table/ProblemsTable";
+import { getAllProblems } from "@/fetch-functions";
 
-export default function Page() {
+export default async function Page() {
+  const problems = await getAllProblems();
+
   return (
     <PageContainer title="Problems">
       <LinearContainer fullheight fullwidth className="overflow-hidden">
-        <ProblemsTableWrapper />
+        <ProblemsTable problems={problems} />
       </LinearContainer>
     </PageContainer>
   );
