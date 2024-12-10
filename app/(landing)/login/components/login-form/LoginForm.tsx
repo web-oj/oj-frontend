@@ -33,7 +33,7 @@ export function LoginForm(props: LoginFormProps) {
       console.log("Login successful", token);
       authLogin(token);
       toast.success("Login successful");
-      // router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       toast.error("Login failed");
       console.error("Login failed", error);
