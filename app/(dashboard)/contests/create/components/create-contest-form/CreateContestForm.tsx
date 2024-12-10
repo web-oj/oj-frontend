@@ -12,6 +12,7 @@ import { createContest } from "@/fetch-functions";
 import { useAuth } from "@/app/context";
 import { toast } from "react-toastify";
 import { useContestTrack } from "../../context";
+import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 
 interface CreateContestFormProps
   extends React.HTMLAttributes<HTMLFormElement> { }
@@ -38,14 +39,15 @@ export function CreateContestForm(props: CreateContestFormProps) {
     mode: "onBlur",
   });
   const { data, setData } = useContestTrack();
-
   const { user } = useAuth();
+
+  const [description, setDescription] = React.useState<string>("");
+
   const onSubmit: SubmitHandler<CreateContestFormValues> = async (data) => {
     if (!user) {
       toast.error("You must be logged in to create a contest");
       return;
     };
-    console.log(data);
     try {
       await createContest({
         organizerId: user?.id,
@@ -134,6 +136,21 @@ export function CreateContestForm(props: CreateContestFormProps) {
       <ErrorMessage
         errors={errors}
         name="title"
+        render={({ message }) => (
+          <p className="text-red-500 text-sm">{message}</p>
+        )}
+      />
+
+      <EditorInputMarkdown
+        label="Description"
+        placeholder="Type the description here"
+        markdown={description}
+        setMarkdown={setDescription}
+        register={registers.description}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="description"
         render={({ message }) => (
           <p className="text-red-500 text-sm">{message}</p>
         )}
@@ -230,15 +247,6 @@ export function CreateContestForm(props: CreateContestFormProps) {
           Plagiarism Check Enabled
         </Checkbox>
       </LinearContainer>
-      <Textarea
-        isRequired
-        required
-        label="Description"
-        labelPlacement="outside"
-        placeholder="Type the description here"
-        radius="full"
-        {...registers.description}
-      />
     </form>
   );
 }

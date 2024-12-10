@@ -4,7 +4,7 @@ import { LinearContainer } from "@/components/ui/container/LinearContainer";
 
 export default function CreateContestFormWrapper() {
   return (
-    <LinearContainer fullwidth direction="column">
+    <LinearContainer fullwidth fullheight direction="column">
       <CreateContestForm />
     </LinearContainer>
   );
