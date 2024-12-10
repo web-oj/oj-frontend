@@ -22,8 +22,7 @@ export default async function Home({ params }: Props) {
   if (!contest) {
     notFound();
   }
-  console.log(contest);
-
+  
   return (
     <ContestProvider contest={contest}>
       <PageContainer>

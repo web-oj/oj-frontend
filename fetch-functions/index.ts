@@ -266,6 +266,7 @@ export async function getContestById(params: { id: number }) {
 
     return res.data.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to get contest by ID");
   }
 }
