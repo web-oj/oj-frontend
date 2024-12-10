@@ -1,14 +1,17 @@
 import Link from "next/link";
 
-import { ProblemsTableWrapper } from "../../problems/components/problems-table";
-
 import { LinearContainer } from "@/components/ui";
+import { Problem } from "@/types";
+import ProblemsTable from "../../problems/components/problems-table/ProblemsTable";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {}
-export default function ProblemsArea(props: Props) {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  problems: Problem[];
+}
+export default async function ProblemsArea(props: Props) {
   return (
     <LinearContainer
       fullwidth
+      fullheight
       classnames={{
         wrapper: "overflow-hidden flex-1",
       }}
@@ -22,7 +25,7 @@ export default function ProblemsArea(props: Props) {
       }
       labelSize="2xl"
     >
-      <ProblemsTableWrapper />
+      <ProblemsTable problems={props.problems} />
     </LinearContainer>
   );
 }

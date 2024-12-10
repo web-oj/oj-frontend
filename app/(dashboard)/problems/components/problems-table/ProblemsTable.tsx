@@ -28,7 +28,6 @@ import { columns } from "./data";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
-import { mockProblems } from "@/mock";
 
 // const difficultyColorMap = {
 //   1: "#5BFF4F",
@@ -41,8 +40,12 @@ const difficultyColorMap = [
   "#FFB031",
   "#FF3131",
 ]
-export default function ProblemsTable() {
-  const [problems, setProblems] = React.useState<Problem[]>(mockProblems);
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  problems: Problem[];
+}
+
+export default function ProblemsTable(props: Props) {
+  const [problems, setProblems] = React.useState<Problem[]>(props.problems);
   const [difficultiesFilter, setDifficultiesFilter] =
     React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
@@ -50,7 +53,7 @@ export default function ProblemsTable() {
   const list = useAsyncList<Problem>({
     async load({ signal }) {
       // @todo: fetch problems from the server
-      let items = mockProblems;
+      let items = problems;
 
       if (difficultiesFilter !== "all") {
         items = items.filter((problem) =>
@@ -59,7 +62,7 @@ export default function ProblemsTable() {
       }
 
       return {
-        items: mockProblems,
+        items: items,
       };
     },
     async sort({ items, sortDescriptor }) {
@@ -90,8 +93,8 @@ export default function ProblemsTable() {
   }, []);
 
   const renderCell = React.useCallback(
-    (problem: Problem, columnKey: React.Key) => {
-      const cellValue = problem[columnKey as keyof Problem];
+      (problem: Problem, columnKey: React.Key): React.ReactNode => {
+        const cellValue = problem[columnKey as keyof Problem];
 
       const convertDifficulty = (difficulty: number) => {
         switch (difficulty) {
@@ -110,24 +113,19 @@ export default function ProblemsTable() {
         case "id":
           return (
             <Tooltip content="View submission">
-              <a href={`/problems/${problem.id}`}>{cellValue}</a>
+              <a href={`/problems/${problem.id}`}>{problem.id}</a>
             </Tooltip>
           );
         case "title":
-          return <Link href={`/problems/${problem.id}`}>{cellValue}</Link>;
+          return <Link href={`/problems/${problem.id}`}>{problem.title}</Link>;
         case "difficulty":
           return (
-            <div
-              className="flex items-center gap-1 p-1 w-fit rounded-full text-foreground-700"
-              style={{
-                backgroundColor: difficultyColorMap[problem.difficulty],
-              }}
-            >
-              {convertDifficulty(problem.difficulty)}
-            </div>
+            <p className="p-1 w-fit rounded-full text-foreground-700">
+              {problem.difficulty}
+            </p>
           );
         default:
-          return cellValue;
+          return "-";
       }
     },
     [],

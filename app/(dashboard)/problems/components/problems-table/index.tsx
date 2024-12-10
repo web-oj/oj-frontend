@@ -5,7 +5,6 @@ interface ProblemsTableWrapperProps
 export function ProblemsTableWrapper(props: ProblemsTableWrapperProps) {
   return (
     <>
-      <ProblemsTable />
     </>
   );
 }

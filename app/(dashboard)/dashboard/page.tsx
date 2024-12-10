@@ -1,9 +1,13 @@
+import { getAllContests, getAllProblems } from "@/fetch-functions";
 import ContestsArea from "./components/ContestsArea";
 import ProblemsArea from "./components/ProblemsArea";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
 
-export default function Page() {
+export default async function Page() {
+  const problems = await getAllProblems();
+  const contests = await getAllContests();
+
   return (
     <PageContainer
       className="flex-1 overflow-hidden"
@@ -22,8 +26,8 @@ export default function Page() {
         }}
         direction="row"
       >
-          <ContestsArea />
-          <ProblemsArea />
+        <ContestsArea contests={contests} />
+        <ProblemsArea problems={problems} />
       </LinearContainer>
     </PageContainer>
   );
