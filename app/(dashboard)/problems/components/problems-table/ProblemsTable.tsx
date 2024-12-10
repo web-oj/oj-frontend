@@ -19,45 +19,34 @@ import {
   DropdownTrigger,
   Selection,
 } from "@nextui-org/react";
-import { ArrangeByNumbers19Icon, ArrowDown01Icon } from "hugeicons-react";
+import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 import Link from "next/link";
 
 import { columns } from "./data";
 
-import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
+import { useSearchParams } from "next/navigation";
 
-// const difficultyColorMap = {
-//   1: "#5BFF4F",
-//   2: "#FFB031",
-//   3: "#FF3131",
-// };
-
-const difficultyColorMap = [
-  "#5BFF4F",
-  "#FFB031",
-  "#FF3131",
-]
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   problems: Problem[];
 }
 
 export default function ProblemsTable(props: Props) {
+  const searchParams = useSearchParams();
+  const searchKey = searchParams.get("search") || "";
+
   const [problems, setProblems] = React.useState<Problem[]>(props.problems);
-  const [difficultiesFilter, setDifficultiesFilter] =
-    React.useState<Selection>("all");
-  const [filterValue, setFilterValue] = React.useState("");
 
   const list = useAsyncList<Problem>({
     async load({ signal }) {
       // @todo: fetch problems from the server
       let items = problems;
 
-      if (difficultiesFilter !== "all") {
+      if (searchKey) {
         items = items.filter((problem) =>
-          difficultiesFilter.has(problem.difficulty.toString()),
+          problem.title.toLowerCase().includes(searchKey.toLowerCase()),
         );
       }
 
@@ -65,6 +54,7 @@ export default function ProblemsTable(props: Props) {
         items: items,
       };
     },
+
     async sort({ items, sortDescriptor }) {
       return {
         items: items.sort((a, b) => {
@@ -78,37 +68,9 @@ export default function ProblemsTable(props: Props) {
       };
     },
   });
-  const filteredItems = React.useMemo(() => {
-    return list.items.filter((submission) =>
-      submission.id.toString().includes(filterValue),
-    );
-  }, [list.items, filterValue]);
-
-  const onSearchChange = React.useCallback((value?: string) => {
-    if (value) {
-      setFilterValue(value);
-    } else {
-      setFilterValue("");
-    }
-  }, []);
 
   const renderCell = React.useCallback(
-      (problem: Problem, columnKey: React.Key): React.ReactNode => {
-        const cellValue = problem[columnKey as keyof Problem];
-
-      const convertDifficulty = (difficulty: number) => {
-        switch (difficulty) {
-          case 0:
-            return "Easy";
-          case 1:
-            return "Medium";
-          case 2:
-            return "Hard";
-          default:
-            return "Unknown";
-        }
-      };
-
+    (problem: Problem, columnKey: React.Key): React.ReactNode => {
       switch (columnKey) {
         case "id":
           return (
@@ -135,7 +97,7 @@ export default function ProblemsTable(props: Props) {
     return (
       <LinearContainer fullwidth direction="row" space="sm">
         <div className="flex gap-3">
-          <Dropdown
+          {/* <Dropdown
             classNames={{
               trigger: "bg-foreground-50 shadow-sm",
             }}
@@ -146,7 +108,7 @@ export default function ProblemsTable(props: Props) {
                 endContent={<ArrowDown01Icon size={16} className="text-small" />}
                 variant="flat"
               >
-                Difficulty
+                {list.sortDescriptor?.direction || "Difficulty"}
               </Button>
             </DropdownTrigger>
             <DropdownMenu
@@ -157,21 +119,21 @@ export default function ProblemsTable(props: Props) {
               selectionMode="single"
               onSelectionChange={setDifficultiesFilter}
             >
-              {["1", "2", "3"].map((difficulty) => (
-                <DropdownItem key={difficulty}>{
-                  difficulty === "1" ? "Easy" : difficulty === "2" ? "Medium" : "Hard"
-                }</DropdownItem>
-              ))}
+              <DropdownItem key="ascending" startContent={<ArrowUp01Icon />} >Ascending</DropdownItem>
+              <DropdownItem key="descending" startContent={<ArrowDown01Icon />} >Descending</DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </LinearContainer>
     );
   }, []);
 
+  React.useEffect(() => {
+    list.reload();
+  }, [searchKey]);
+
   return (
     <LinearContainer fullheight fullwidth direction="column">
-      {topContent}
       <Table
         aria-label="Problems Table"
         classNames={{
@@ -194,7 +156,7 @@ export default function ProblemsTable(props: Props) {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody isLoading={list.isLoading} items={filteredItems}>
+        <TableBody isLoading={list.isLoading} items={list.items} emptyContent="No problems found">
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

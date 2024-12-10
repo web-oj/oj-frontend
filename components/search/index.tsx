@@ -14,6 +14,7 @@ export function Search() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const [currentSearch, setCurrentSearch] = React.useState(searchParams.get("search") || "");
   const createQueryString = React.useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -26,6 +27,7 @@ export function Search() {
   );
   const handleSearch = React.useCallback(
     (query: string) => {
+      setCurrentSearch(query);
       router.push(`${pathname}?${createQueryString("search", query)}`);
     },
     [router],
@@ -55,6 +57,7 @@ export function Search() {
       labelPlacement="outside"
       placeholder="Search..."
       radius="full"
+      defaultValue={currentSearch}
       startContent={
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
