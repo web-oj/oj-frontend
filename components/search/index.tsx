@@ -14,7 +14,9 @@ export function Search() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isExpanded, setIsExpanded] = React.useState(false);
-  const [currentSearch, setCurrentSearch] = React.useState(searchParams.get("search") || "");
+  const [currentSearch, setCurrentSearch] = React.useState(
+    searchParams.get("search") || "",
+  );
   const createQueryString = React.useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -49,6 +51,7 @@ export function Search() {
         inputWrapper: "bg-foreground-50 max-w-screen-sm",
         input: "text-sm",
       }}
+      defaultValue={currentSearch}
       endContent={
         <Kbd className="hidden lg:inline-block" keys={["command"]}>
           K
@@ -57,7 +60,6 @@ export function Search() {
       labelPlacement="outside"
       placeholder="Search..."
       radius="full"
-      defaultValue={currentSearch}
       startContent={
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
@@ -65,7 +67,8 @@ export function Search() {
       onBlur={handleBlur}
       onChange={(e) => handleSearch(e.target.value)}
     />
-  )
+  );
+
   return (
     <div className="relative">
       <AnimatePresence>

@@ -4,18 +4,17 @@ import { Checkbox, Input, Textarea } from "@nextui-org/react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import React from "react";
 import { ErrorMessage } from "@hookform/error-message";
+import { toast } from "react-toastify";
 
-import { useContest } from "../../../context";
+import { useContestTrack } from "../../context";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { createContest } from "@/fetch-functions";
 import { useAuth } from "@/app/context";
-import { toast } from "react-toastify";
-import { useContestTrack } from "../../context";
 import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 
 interface CreateContestFormProps
-  extends React.HTMLAttributes<HTMLFormElement> { }
+  extends React.HTMLAttributes<HTMLFormElement> {}
 
 type CreateContestFormValues = {
   organizerId: number;
@@ -46,8 +45,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
   const onSubmit: SubmitHandler<CreateContestFormValues> = async (data) => {
     if (!user) {
       toast.error("You must be logged in to create a contest");
+
       return;
-    };
+    }
     try {
       await createContest({
         organizerId: user?.id,
@@ -59,7 +59,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
         ruleText: data.scoringRule,
         description: data.description,
         title: data.title,
-      })
+      });
 
       toast.success("Contest created successfully");
     } catch (error) {
@@ -143,10 +143,10 @@ export function CreateContestForm(props: CreateContestFormProps) {
 
       <EditorInputMarkdown
         label="Description"
-        placeholder="Type the description here"
         markdown={description}
-        setMarkdown={setDescription}
+        placeholder="Type the description here"
         register={registers.description}
+        setMarkdown={setDescription}
       />
       <ErrorMessage
         errors={errors}
@@ -227,9 +227,14 @@ export function CreateContestForm(props: CreateContestFormProps) {
           <p className="text-red-500 text-sm">{message}</p>
         )}
       />
-      <LinearContainer direction="row" fullwidth space="sm" classnames={{
-        container: "justify-between",
-      }}>
+      <LinearContainer
+        fullwidth
+        classnames={{
+          container: "justify-between",
+        }}
+        direction="row"
+        space="sm"
+      >
         <Checkbox
           {...registers.isPublished}
           onValueChange={(value) => {

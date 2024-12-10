@@ -43,16 +43,16 @@ export default function TopCard({ level, user, ...rest }: Props) {
       >
         <UserUI
           avatarProps={{
-            alt: user.userName,
+            alt: user.handle,
             showFallback: true,
           }}
           className="justify-start"
           classNames={{
             name: "text-lg font-semibold",
           }}
-          name={user.userName}
+          name={user.handle}
         />
-        <p className="text-4xl text-foreground-900 font-bold">{user.rating}</p>
+        <p className="text-4xl text-foreground-900 font-bold">{user.bio}</p>
       </LinearContainer>
       {getRankIcon(level)}
     </LinearContainer>

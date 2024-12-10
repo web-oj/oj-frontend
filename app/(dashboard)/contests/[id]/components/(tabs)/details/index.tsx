@@ -1,14 +1,14 @@
 "use client";
 
 import { Calendar03Icon } from "hugeicons-react";
+import React from "react";
 
 import { useContest } from "../../../../context";
 
 import { RenderMarkdown } from "@/components/markdown";
 import { Field, LinearContainer } from "@/components/ui";
-import React from "react";
 
-interface DetailsAreaProps extends React.HTMLAttributes<HTMLDivElement> { }
+interface DetailsAreaProps extends React.HTMLAttributes<HTMLDivElement> {}
 export default function DetailsArea(props: DetailsAreaProps) {
   const { data: contest } = useContest();
 

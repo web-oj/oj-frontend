@@ -24,12 +24,12 @@ const CookieConsent: React.FC<CookieConsentProps> = () => {
     <Modal
       hideCloseButton
       backdrop="transparent"
-      isOpen={showCookieConsent && !isOpen}
-      placement="bottom"
-      size="2xl"
       classNames={{
         wrapper: "pointer-events-none",
       }}
+      isOpen={showCookieConsent && !isOpen}
+      placement="bottom"
+      size="2xl"
     >
       <ModalContent className="pointer-events-auto">
         <ModalBody className="flex flex-row py-4">

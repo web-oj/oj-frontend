@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { login } from "@/fetch-functions";
 import { useAuth } from "@/app/context";
 
-interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> { }
+interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 type LoginFormValues = {
   email: string;
   password: string;
@@ -30,6 +30,7 @@ export function LoginForm(props: LoginFormProps) {
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
       const token = await login(data);
+
       console.log("Login successful", token);
       authLogin(token);
       toast.success("Login successful");

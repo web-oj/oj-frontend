@@ -6,9 +6,5 @@ import React from "react";
 import { ContestTrackProvider } from "./context";
 
 export default function Providers(props: PropsWithChildren) {
-  return (
-    <ContestTrackProvider>
-      {props.children}
-    </ContestTrackProvider>
-  )
+  return <ContestTrackProvider>{props.children}</ContestTrackProvider>;
 }

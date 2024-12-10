@@ -6,12 +6,12 @@ export const columns = [
   },
   {
     name: "Coder",
-    uid: "userName",
+    uid: "handle",
     sortable: true,
   },
   {
-    name: "Rating",
-    uid: "rating",
+    name: "bio",
+    uid: "bio",
     sortable: true,
   },
 ];

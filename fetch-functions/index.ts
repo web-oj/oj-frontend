@@ -1,6 +1,4 @@
 import { type User, type Problem, type Contest, Submission } from "@/types";
-
-
 import { api } from "@/utils/api";
 interface ApiResponse<T> {
   error: string;
@@ -13,7 +11,7 @@ interface ApiResponse<T> {
 export async function signUp(params: {
   email: string;
   password: string;
-  handle: string; // username
+  handle: string; // handle
 }) {
   try {
     const res = await api.post<ApiResponse<User>>("/user", params);
@@ -27,7 +25,10 @@ export async function signUp(params: {
 
 export async function login(params: { email: string; password: string }) {
   try {
-    const res = await api.post<ApiResponse<{ token: string }>>("/user/login", params);
+    const res = await api.post<ApiResponse<{ token: string }>>(
+      "/user/login",
+      params,
+    );
 
     return res.data.data.token;
   } catch (error) {
@@ -61,7 +62,9 @@ export async function getUserByHandle(params: {
   handle: string;
 }): Promise<User> {
   try {
-    const res = await api.get<ApiResponse<User>>(`/user/handle/${params.handle}`);
+    const res = await api.get<ApiResponse<User>>(
+      `/user/handle/${params.handle}`,
+    );
 
     return res.data.data;
   } catch (error) {
@@ -92,7 +95,7 @@ export async function updateUser(params: Partial<User>) {
 // Problem functions
 
 export async function createProblem(params: {
-  isPublished: Problem["isPublished"],
+  isPublished: Problem["isPublished"];
   title: Problem["title"];
   difficulty: Problem["difficulty"];
   statement: Problem["statement"];
@@ -118,10 +121,13 @@ export async function addTestcaseToProblem(params: {
   output: string;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>(`/problem/${params.problemId}/testcase`, {
-      input: params.input,
-      output: params.output,
-    });
+    const res = await api.post<ApiResponse<null>>(
+      `/problem/${params.problemId}/testcase`,
+      {
+        input: params.input,
+        output: params.output,
+      },
+    );
 
     return res.data;
   } catch (error) {
@@ -134,9 +140,12 @@ export async function addTestcasesToProblem(params: {
   testcases: { input: string; output: string }[];
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>(`/problem/${params.problemId}/testcases`, {
-      testcases: params.testcases,
-    });
+    const res = await api.post<ApiResponse<null>>(
+      `/problem/${params.problemId}/testcases`,
+      {
+        testcases: params.testcases,
+      },
+    );
 
     return res.data;
   } catch (error) {
@@ -149,7 +158,10 @@ export async function updateProblem(params: {
   data: Partial<Problem>;
 }) {
   try {
-    const res = await api.patch<ApiResponse<null>>(`/problem/id/${params.id}`, params.data);
+    const res = await api.patch<ApiResponse<null>>(
+      `/problem/id/${params.id}`,
+      params.data,
+    );
 
     return res.data;
   } catch (error: any) {
@@ -172,7 +184,9 @@ export async function getProblemByTitle(params: {
   title: string;
 }): Promise<Problem[]> {
   try {
-    const res = await api.get<ApiResponse<Problem[]>>(`/problem/title/${params.title}`);
+    const res = await api.get<ApiResponse<Problem[]>>(
+      `/problem/title/${params.title}`,
+    );
 
     return res.data.data;
   } catch (error) {
@@ -204,11 +218,11 @@ export async function getAllProblems(
 }
 
 export async function searchProblems(params: {
-  searchKeyword?: string,
-  difficultyLow?: number,
-  difficultyHigh?: number,
-  offset?: number,
-  limit?: number,
+  searchKeyword?: string;
+  difficultyLow?: number;
+  difficultyHigh?: number;
+  offset?: number;
+  limit?: number;
 }): Promise<Problem[]> {
   const {
     searchKeyword = "",
@@ -306,7 +320,10 @@ export async function updateContest(params: {
   data: Partial<Contest>;
 }) {
   try {
-    const res = await api.patch<ApiResponse<null>>(`/contest/${params.id}`, params.data);
+    const res = await api.patch<ApiResponse<null>>(
+      `/contest/${params.id}`,
+      params.data,
+    );
 
     return res.data;
   } catch (error) {
@@ -325,13 +342,16 @@ export async function deleteContest(params: { id: number }) {
 }
 
 export async function addProblemToContest(params: {
-  contestId: number;
+  id: number;
   problemId: number;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
-      problemId: params.problemId,
-    });
+    const res = await api.post<ApiResponse<null>>(
+      `/contest/${params.id}/problem`,
+      {
+        problemId: params.problemId,
+      },
+    );
 
     return res.data;
   } catch (error) {
@@ -340,15 +360,18 @@ export async function addProblemToContest(params: {
 }
 
 export async function removeProblemFromContest(params: {
-  contestId: number;
+  id: number;
   problemId: number;
 }) {
   try {
-    const res = await api.delete<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
-      data: {
-        problemId: params.problemId,
+    const res = await api.delete<ApiResponse<null>>(
+      `/contest/${params.id}/problem`,
+      {
+        data: {
+          problemId: params.problemId,
+        },
       },
-    });
+    );
 
     return res.data;
   } catch (error) {
@@ -356,9 +379,11 @@ export async function removeProblemFromContest(params: {
   }
 }
 
-export async function getProblemsInContest(params: { contestId: number }) {
+export async function getProblemsInContest(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<Problem[]>>(`/contest/${params.contestId}/problem`);
+    const res = await api.get<ApiResponse<Problem[]>>(
+      `/contest/${params.id}/problem`,
+    );
 
     return res.data.data;
   } catch (error) {
@@ -368,12 +393,15 @@ export async function getProblemsInContest(params: { contestId: number }) {
 
 export async function registerForContest(params: {
   userId: number;
-  contestId: number;
+  id: number;
 }) {
   try {
-    const res = await api.post<ApiResponse<Contest>>(`/contest/${params.contestId}/register`, {
-      id: params.userId,
-    });
+    const res = await api.post<ApiResponse<Contest>>(
+      `/contest/${params.id}/register`,
+      {
+        id: params.userId,
+      },
+    );
 
     return res.data.data;
   } catch (error) {
@@ -383,14 +411,17 @@ export async function registerForContest(params: {
 
 export async function unregisterForContest(params: {
   userId: number;
-  contestId: number;
+  id: number;
 }) {
   try {
-    const res = await api.delete<ApiResponse<null>>(`/contest/${params.contestId}/register`, {
-      data: {
-        id: params.userId,
+    const res = await api.delete<ApiResponse<null>>(
+      `/contest/${params.id}/register`,
+      {
+        data: {
+          id: params.userId,
+        },
       },
-    });
+    );
 
     return res.data;
   } catch (error) {
@@ -400,7 +431,7 @@ export async function unregisterForContest(params: {
 
 export async function createSubmission(params: {
   problemId: number;
-  contestId?: number;
+  id?: number;
   code: string;
 }) {
   try {
@@ -427,7 +458,9 @@ export async function getSubmissionExecutionStatus(params: { id: number }) {
 
 export async function getSubmissionById(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
+    const res = await api.get<ApiResponse<Submission>>(
+      `/submission/${params.id}`,
+    );
 
     return res.data.data;
   } catch (error) {

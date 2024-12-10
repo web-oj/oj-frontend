@@ -11,7 +11,6 @@ import {
   TableRow,
   TableCell,
   Tooltip,
-  Input,
   Selection,
   Button,
   Dropdown,
@@ -19,19 +18,24 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
+import {
+  ArrangeByNumbers19Icon,
+  ArrowDown01Icon,
+  ArrowUp01Icon,
+} from "hugeicons-react";
 
 import { columns } from "./data";
 
 import { LinearContainer } from "@/components/ui";
 import { Contest } from "@/types";
-import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 
 interface Props {
   contests: Contest[];
 }
 export default function ContestsTable(props: Props) {
   const [contests, setContests] = React.useState<Contest[]>(props.contests);
-  const [startTimesFilter, setStartTimesFilter] = React.useState<Selection>("all");
+  const [startTimesFilter, setStartTimesFilter] =
+    React.useState<Selection>("all");
   const [endTimesFilter, setEndTimesFilter] = React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
 
@@ -72,18 +76,15 @@ export default function ContestsTable(props: Props) {
 
   const renderCell = React.useCallback(
     (contest: Contest, columnKey: React.Key) => {
-
       switch (columnKey) {
-        case "contestId":
+        case "id":
           return (
             <Tooltip content="View contest">
               <a href={`/contests/${contest.id}`}>{contest.id}</a>
             </Tooltip>
           );
         case "title":
-          return (
-            <Link href={`/contests/${contest.id}`}>{contest.title}</Link>
-          );
+          return <Link href={`/contests/${contest.id}`}>{contest.title}</Link>;
         case "startTime":
           return new Date(contest.startTime).toLocaleString();
         case "endTime":
@@ -107,8 +108,12 @@ export default function ContestsTable(props: Props) {
           >
             <DropdownTrigger className="hidden sm:flex">
               <Button
-                startContent={<ArrangeByNumbers19Icon className="text-foreground-500" />}
-                endContent={<ArrowDown01Icon size={16} className="text-small" />}
+                endContent={
+                  <ArrowDown01Icon className="text-small" size={16} />
+                }
+                startContent={
+                  <ArrangeByNumbers19Icon className="text-foreground-500" />
+                }
                 variant="flat"
               >
                 Start Time
@@ -121,8 +126,12 @@ export default function ContestsTable(props: Props) {
               selectionMode="single"
               onSelectionChange={setStartTimesFilter}
             >
-              <DropdownItem startContent={<ArrowDown01Icon />} key="all">Decending</DropdownItem>
-              <DropdownItem startContent={<ArrowUp01Icon />} key="ascending">Ascending</DropdownItem>
+              <DropdownItem key="all" startContent={<ArrowDown01Icon />}>
+                Decending
+              </DropdownItem>
+              <DropdownItem key="ascending" startContent={<ArrowUp01Icon />}>
+                Ascending
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>

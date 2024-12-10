@@ -31,14 +31,14 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   error: "danger",
 };
 
-
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   submission: Submission;
 }
 
 export default function SubmissionsTable(props: Props) {
-  const [submissionResults, setSubmissions] =
-    React.useState<SubmissionResult[]>(props.submission.result);
+  const [submissionResults, setSubmissions] = React.useState<
+    SubmissionResult[]
+  >(props.submission.result);
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
 
@@ -60,8 +60,12 @@ export default function SubmissionsTable(props: Props) {
     async sort({ items, sortDescriptor }) {
       return {
         items: items.sort((a, b) => {
-          let first = a[sortDescriptor.column as keyof SubmissionResult] as number;
-          let second = b[sortDescriptor.column as keyof SubmissionResult] as number;
+          let first = a[
+            sortDescriptor.column as keyof SubmissionResult
+          ] as number;
+          let second = b[
+            sortDescriptor.column as keyof SubmissionResult
+          ] as number;
 
           const cmp = first - second;
 
@@ -99,15 +103,19 @@ export default function SubmissionsTable(props: Props) {
         case "id":
           return (
             <Tooltip content="View submissionResult">
-              <a href={`/submissions/${submissionResult.id}`}>{submissionResult.id}</a>
+              <a href={`/submissions/${submissionResult.id}`}>
+                {submissionResult.id}
+              </a>
             </Tooltip>
           );
         case "createdAt":
           return new Date(submissionResult.createdAt).toLocaleDateString();
-        case 'testcase':
+        case "testcase":
           return (
             <Tooltip content="View testcase">
-              <a href={`/testcases/${submissionResult.testcase}`}>{submissionResult.testcase.id}</a>
+              <a href={`/testcases/${submissionResult.testcase}`}>
+                {submissionResult.testcase.id}
+              </a>
             </Tooltip>
           );
 

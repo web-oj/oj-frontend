@@ -22,13 +22,11 @@ import clsx from "clsx";
 import { KeyboardIcon, LogoutCircle01Icon, UserIcon } from "hugeicons-react";
 import { usePathname } from "next/navigation";
 
-
-import { siteConfig } from "@/config/site";
-import { useAuth } from "@/app/context";
-
 import { Search } from "./search";
 import { LinearContainer } from "./ui";
 
+import { siteConfig } from "@/config/site";
+import { useAuth } from "@/app/context";
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -37,7 +35,6 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const UserAccordion = () => {
-
     const { logout } = useAuth();
 
     return (
@@ -47,29 +44,29 @@ export const Navbar = () => {
             avatarProps={{
               showFallback: true,
             }}
-            name={user?.handle}
             className="cursor-pointer"
+            name={user?.handle}
           />
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem
             key={"profile"}
-            startContent={
-              <UserIcon className="text-foreground-500" />
-            }
+            startContent={<UserIcon className="text-foreground-500" />}
           >
             <NextLink href="/profile">Profile</NextLink>
           </DropdownItem>
           <DropdownItem
             key={"logout"}
-            startContent={<LogoutCircle01Icon className="text-foreground-500" />}
+            startContent={
+              <LogoutCircle01Icon className="text-foreground-500" />
+            }
             onClick={logout}
           >
             Logout
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-    )
+    );
   };
 
   const Toolbar = () => {
@@ -79,25 +76,28 @@ export const Navbar = () => {
         direction="row"
         space="md"
       >
-        {true && <Button
-          as={NextLink}
-          className="font-medium shadow-sm dark"
-          href="/problems/create"
-          radius="full"
-        >
-          + Problem
-        </Button>
-        }
-        {true && <Button
-          as={NextLink}
-          className="font-medium shadow-sm dark"
-          href="/contests/create"
-          radius="full"
-        >
-          + Contest
-        </Button>}
+        {true && (
+          <Button
+            as={NextLink}
+            className="font-medium shadow-sm dark"
+            href="/problems/create"
+            radius="full"
+          >
+            + Problem
+          </Button>
+        )}
+        {true && (
+          <Button
+            as={NextLink}
+            className="font-medium shadow-sm dark"
+            href="/contests/create"
+            radius="full"
+          >
+            + Contest
+          </Button>
+        )}
       </LinearContainer>
-    )
+    );
   };
 
   return (
@@ -127,7 +127,7 @@ export const Navbar = () => {
                   "text-foreground-500",
                   "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                   pathname.startsWith(item.href) &&
-                  "text-foreground bg-primary font-medium",
+                    "text-foreground bg-primary font-medium",
                 )}
                 color="foreground"
                 href={item.href}
@@ -212,7 +212,7 @@ export const Navbar = () => {
                 "text-foreground-100",
                 "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                 pathname.startsWith(item.href) &&
-                "text-primary-foreground bg-primary font-medium",
+                  "text-primary-foreground bg-primary font-medium",
               )}
               color="foreground"
               href={item.href}
@@ -242,21 +242,19 @@ export const Navbar = () => {
             direction="row"
             space="sm"
           >
-            {
-              user ? (
-                <UserAccordion />
-              ) : (
-                <Button
-                  fullWidth
-                  as={NextLink}
-                  color="primary"
-                  href="../login"
-                  radius="full"
-                >
-                  Get started
-                </Button>
-              )
-            }
+            {user ? (
+              <UserAccordion />
+            ) : (
+              <Button
+                fullWidth
+                as={NextLink}
+                color="primary"
+                href="../login"
+                radius="full"
+              >
+                Get started
+              </Button>
+            )}
           </LinearContainer>
         </NavbarMenuItem>
       </NavbarMenu>

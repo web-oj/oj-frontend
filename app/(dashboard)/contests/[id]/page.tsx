@@ -1,18 +1,19 @@
 import { Splitter, SplitterPanel } from "primereact/splitter";
+import { notFound } from "next/navigation";
+
+import { ContestProvider } from "../context";
 
 import ContestGeneralArea from "./ContestGeneralArea";
 import RankingArea from "./RankingArea";
+import SetterToolbar from "./components/SetterToolbar";
 
 import { PageContainer } from "@/components/ui";
 import { getContestById } from "@/fetch-functions";
-import { notFound } from "next/navigation";
-import { ContestProvider } from "../context";
-import SetterToolbar from "./components/SetterToolbar";
 
 interface Props {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 export default async function Home({ params }: Props) {
   const { id } = params;
@@ -22,7 +23,7 @@ export default async function Home({ params }: Props) {
   if (!contest) {
     notFound();
   }
-  
+
   return (
     <ContestProvider contest={contest}>
       <PageContainer>

@@ -12,12 +12,12 @@ import {
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 import { columns } from "./data";
 
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
-import { useSearchParams } from "next/navigation";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   problems: Problem[];
@@ -146,7 +146,11 @@ export default function ProblemsTable(props: Props) {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody isLoading={list.isLoading} items={list.items} emptyContent="No problems found">
+        <TableBody
+          emptyContent="No problems found"
+          isLoading={list.isLoading}
+          items={list.items}
+        >
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

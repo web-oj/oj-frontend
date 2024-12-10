@@ -1,8 +1,9 @@
 import Link from "next/link";
 
+import ContestsTable from "../../contests/components/contests-table/ContestsTable";
+
 import { LinearContainer } from "@/components/ui";
 import { Contest } from "@/types";
-import ContestsTable from "../../contests/components/contests-table/ContestsTable";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   contests: Contest[];

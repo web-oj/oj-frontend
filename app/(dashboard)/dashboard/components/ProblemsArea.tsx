@@ -1,17 +1,18 @@
 import Link from "next/link";
 
+import ProblemsTable from "../../problems/components/problems-table/ProblemsTable";
+
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
-import ProblemsTable from "../../problems/components/problems-table/ProblemsTable";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   problems: Problem[];
 }
-export default async function ProblemsArea(props: Props) {
+export default function ProblemsArea(props: Props) {
   return (
     <LinearContainer
-      fullwidth
       fullheight
+      fullwidth
       classnames={{
         wrapper: "overflow-hidden flex-1",
       }}
