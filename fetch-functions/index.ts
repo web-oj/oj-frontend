@@ -153,6 +153,7 @@ export async function updateProblem(params: {
 
     return res.data;
   } catch (error: any) {
+    console.error(error);
     throw new Error("Failed to update problem");
   }
 }
