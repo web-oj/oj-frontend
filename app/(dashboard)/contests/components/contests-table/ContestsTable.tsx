@@ -79,12 +79,12 @@ export default function ContestsTable(props: Props) {
       switch (columnKey) {
         case "id":
           return (
-            <Tooltip content="View contest">
-              <a href={`/contests/${contest.id}`}>{contest.id}</a>
-            </Tooltip>
+            <p className="font-semibold">{contest.id}</p>
           );
         case "title":
-          return <Link href={`/contests/${contest.id}`}>{contest.title}</Link>;
+          return (
+            <p className="font-semibold">{contest.title}</p>
+          );
         case "startTime":
           return new Date(contest.startTime).toLocaleString();
         case "endTime":
@@ -166,7 +166,12 @@ export default function ContestsTable(props: Props) {
         </TableHeader>
         <TableBody isLoading={list.isLoading} items={filteredItems}>
           {(item) => (
-            <TableRow key={item.id}>
+            <TableRow
+              key={item.id}
+              as={Link}
+              href={`/contests/${item.id}`}
+              className="cursor-pointer hover:scale-[101%] hover:bg-foreground-50 ease-in-out transition-transform"
+            >
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>
               )}
