@@ -14,17 +14,17 @@ import { LinearContainer } from "../ui";
 
 import { useAuth } from "@/app/context";
 
-interface CookieConsentProps {}
+interface CookieConsentProps { }
 
 const CookieConsent: React.FC<CookieConsentProps> = () => {
-  const { showCookieConsent, allowCookies } = useAuth();
-  const { onClose, isOpen } = useDisclosure();
+  const { showCookieConsent, allowCookies, declineCookies } = useAuth();
+  const { isOpen } = useDisclosure();
 
   return (
     <Modal
       hideCloseButton
       backdrop="transparent"
-      isOpen={showCookieConsent && !isOpen}
+      isOpen={showCookieConsent}
       placement="bottom"
       size="2xl"
       classNames={{
@@ -39,7 +39,7 @@ const CookieConsent: React.FC<CookieConsentProps> = () => {
             agree to our use of cookies.
           </p>
           <LinearContainer>
-            <Button radius="full" variant="bordered" onClick={onClose}>
+            <Button radius="full" variant="bordered" onClick={declineCookies}>
               Decline
             </Button>
             <Button color="primary" radius="full" onClick={allowCookies}>
