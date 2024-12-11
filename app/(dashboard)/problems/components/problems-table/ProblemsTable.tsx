@@ -74,12 +74,16 @@ export default function ProblemsTable(props: Props) {
       switch (columnKey) {
         case "id":
           return (
-            <Tooltip content="View submission">
-              <a href={`/problems/${problem.id}`}>{problem.id}</a>
-            </Tooltip>
+            <p className="font-semibold">
+              {problem.id}
+            </p>
           );
         case "title":
-          return <Link href={`/problems/${problem.id}`}>{problem.title}</Link>;
+          return (
+            <p className="font-semibold">
+              {problem.title}
+            </p>
+          )
         case "difficulty":
           return (
             <p className="p-1 w-fit rounded-full text-foreground-700">
@@ -158,7 +162,12 @@ export default function ProblemsTable(props: Props) {
         </TableHeader>
         <TableBody isLoading={list.isLoading} items={list.items} emptyContent="No problems found">
           {(item) => (
-            <TableRow key={item.id}>
+            <TableRow
+              key={item.id}
+              as={Link}
+              href={`/problems/${item.id}`}
+              className="cursor-pointer hover:scale-[101%] hover:bg-foreground-50 ease-in-out transition-transform"
+            >
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>
               )}

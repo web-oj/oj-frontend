@@ -4,16 +4,17 @@ export const columns = [
     uid: "id",
     sortable: true,
   },
+
+  {
+    name: "Language",
+    uid: "language",
+    sortable: true,
+  },
   {
     name: "Submission Time",
     uid: "createdAt",
     sortable: true,
-  },
-  {
-    name: "Status",
-    uid: "status",
-    sortable: false,
-  },
+  }
 ];
 
 export const statusOptions = [

@@ -5,13 +5,13 @@ export const columns = [
     sortable: true,
   },
   {
-    name: "Submission Time",
-    uid: "createdAt",
+    name: "Testcase",
+    uid: "id",
     sortable: true,
   },
   {
-    name: "Status",
-    uid: "status",
+    name: "Result",
+    uid: "result",
     sortable: false,
   },
 ];
