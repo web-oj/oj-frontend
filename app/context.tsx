@@ -18,6 +18,7 @@ type AuthContextType = {
   logout: () => void;
   showCookieConsent: boolean;
   allowCookies: () => void;
+  declineCookies: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -83,6 +84,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setShowCookieConsent(false);
   };
 
+  const declineCookies = () => {
+    Cookies.set("cookieConsent", "false");
+    setShowCookieConsent(false);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -91,6 +97,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         logout,
         showCookieConsent,
         allowCookies,
+        declineCookies,
       }}
     >
       {children}
