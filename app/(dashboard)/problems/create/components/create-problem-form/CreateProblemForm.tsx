@@ -12,9 +12,11 @@ import StatementEditorInput from "./StatementEditorInput";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { createProblem } from "@/fetch-functions";
+import { encodeBase64 } from "@/libs";
+import { useAuth } from "@/app/context";
 
 interface CreateProblemFormProps
-  extends React.HTMLAttributes<HTMLFormElement> {}
+  extends React.HTMLAttributes<HTMLFormElement> { }
 type CreateProblemFormValues = {
   solutionText: string;
   outputFormat: string;
@@ -36,11 +38,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
     mode: "onChange",
   });
   const { data, setData } = useProblem();
-
+  const { user } = useAuth();
   const [statement, setStatement] =
     React.useState<CreateProblemFormValues["statement"]>("");
 
   const onSubmit: SubmitHandler<CreateProblemFormValues> = async (data) => {
+    if (!user) {
+      toast.error("You must be logged in to create a problem");
+      return;
+    }
+
     try {
       await createProblem({
         isPublished: true,
@@ -53,7 +60,6 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         outputFormat: data.outputFormat,
         solutionText: data.solutionText,
       });
-      console.log(data);
       toast.success("Problem created successfully");
     } catch (error) {
       toast.error("Failed to create problem");
@@ -114,6 +120,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
       {...props}
       id="create-problem-form"
       onBlur={() => {
+        
         setData({
           ...data,
           title: watchedFields.title,
@@ -170,7 +177,7 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
         register={registers.statement}
         setMarkdown={setStatement}
       />
-      <LinearContainer direction="row">
+      <LinearContainer direction="row" fullwidth>
         <Input
           fullWidth
           isRequired
