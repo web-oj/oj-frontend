@@ -18,7 +18,6 @@ export default async function Page({ params }: Props) {
   const fetchProblem = async () => {
     try {
       const problem = await getProblemById({ id: parseInt(id) });
-
       return problem;
     } catch (error) {
       console.error("Failed to fetch problem", error);

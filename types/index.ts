@@ -32,6 +32,12 @@ export interface QueryParams {
  *                       SDK
  * ========================================================
  * */
+export enum Role {
+  Admin = 'ADMIN',
+  User = 'USER',
+  Organizer = 'ORGANIZER',
+  ProblemSetter = 'PROBLEM_SETTER',
+}
 
 export interface User {
   id: number;
@@ -43,7 +49,7 @@ export interface User {
   bio: string;
   email: string;
   password: string;
-  role: string;
+  role: Role;
   isBan: boolean;
   lastTimeChangeHandle: number;
   lastTimeChangeImage: number;
