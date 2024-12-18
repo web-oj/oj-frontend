@@ -1,5 +1,6 @@
 "use client";
 
+import { RenderMarkdown } from "@/components/markdown";
 import { useProblem } from "../../../context";
 
 import { LinearContainer } from "@/components/ui";
@@ -8,7 +9,7 @@ function FormatWrapper({ title, format }: { title: string; format: string }) {
   return (
     <LinearContainer fullwidth direction="column" space="sm">
       <h2 className="text-lg font-semibold text-foreground-900">{title}</h2>
-      <p className="text-foreground-700 text-base">{format}</p>
+      <RenderMarkdown data={format} />
     </LinearContainer>
   );
 }
