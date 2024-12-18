@@ -28,7 +28,7 @@ export default function OwnerToolbar(props: Props) {
                 <Edit01Icon />
             </ToolbarButton>
             <ToolbarButton
-                color={!    pathname.includes("edit") ? "primary" : "default"}
+                color={!pathname.includes("edit") ? "primary" : "default"}
                 as={Link}
                 href={`/problems/${problem.data.id}`}
             >
