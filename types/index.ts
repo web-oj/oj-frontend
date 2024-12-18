@@ -15,6 +15,18 @@ export type ObjectContextType<T> = {
   setData: (data: T) => void;
 };
 
+export interface ApiResponse<T> {
+  error: string;
+  data: T;
+  status: number;
+  message: string;
+}
+
+export interface QueryParams {
+  page?: number;
+  limit?: number;
+}
+
 /*
  * ========================================================
  *                       SDK
