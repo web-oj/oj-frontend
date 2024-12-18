@@ -17,7 +17,7 @@ export default function IDE(props: IDEProps) {
   return (
     <LinearContainer fullheight fullwidth direction="column" space="lg">
       <Toolbar />
-      <Splitter className="w-full h-full" layout={layout}>
+      <Splitter className="w-full h-full gap-1" layout={layout}>
         <SplitterPanel size={60}>
           <IDEEditor />
         </SplitterPanel>
