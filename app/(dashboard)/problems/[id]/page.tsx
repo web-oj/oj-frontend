@@ -7,6 +7,7 @@ import Providers from "./providers";
 
 import { PageContainer } from "@/components/ui";
 import { getProblemById } from "@/fetch-functions";
+import OwnerToolbar from "../components/OwnerToolbar";
 
 interface Props {
   params: {
@@ -41,6 +42,7 @@ export default async function Page({ params }: Props) {
             <IDEArea />
           </SplitterPanel>
         </Splitter>
+        <OwnerToolbar />
       </PageContainer>
     </Providers>
   );
