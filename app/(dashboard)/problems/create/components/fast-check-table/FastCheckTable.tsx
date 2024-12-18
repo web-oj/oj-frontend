@@ -4,8 +4,9 @@ import { useProblem } from "../../../context";
 
 import { LinearContainer } from "@/components/ui";
 import { Field } from "@/components/ui";
+import { Checkbox } from "@nextui-org/react";
 
-interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function FastCheckTable(props: FastCheckTableProps) {
   const { data } = useProblem();
 
@@ -27,7 +28,40 @@ export function FastCheckTable(props: FastCheckTableProps) {
       value: data ? data.memoryLimit : "N/A",
     },
   ];
-
+  const checkFields = [
+    {
+      label: "Title",
+      value: data && !!data.title,
+    },
+    {
+      label: "Difficulty",
+      value: data && !!data.difficulty,
+    },
+    {
+      label: "Statement",
+      value: data && !!data.statement,
+    },
+    {
+      label: "Time Limit",
+      value: data && !!data.timeLimit,
+    },
+    {
+      label: "Memory Limit",
+      value: data && !!data.memoryLimit,
+    },
+    {
+      label: "Input Format",
+      value: data && !!data.inputFormat,
+    },
+    {
+      label: "Output Format",
+      value: data && !!data.outputFormat,
+    },
+    {
+      label: "Solution Text",
+      value: data && !!data.solutionText,
+    }
+  ];
   return (
     <LinearContainer
       fullwidth
@@ -37,7 +71,7 @@ export function FastCheckTable(props: FastCheckTableProps) {
       direction="column"
       space="sm"
     >
-      {fields.map((field, index) => (
+      {checkFields.map((field, index) => (
         <Field
           key={index}
           fullWidth
@@ -46,7 +80,14 @@ export function FastCheckTable(props: FastCheckTableProps) {
           }}
           direction="row"
           label={field.label}
-          value={field.value}
+          value={
+            <Checkbox
+              isSelected={field.value}
+              color="primary"
+              disabled
+              radius="full"
+            />
+          }
         />
       ))}
     </LinearContainer>

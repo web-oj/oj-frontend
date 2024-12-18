@@ -14,6 +14,7 @@ import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { createProblem } from "@/fetch-functions";
 import { encodeBase64 } from "@/libs";
 import { useAuth } from "@/app/context";
+import DialogEditorInputMarkdown from "@/components/markdown/DialogEditorInputMarkdown";
 
 interface CreateProblemFormProps
   extends React.HTMLAttributes<HTMLFormElement> { }
@@ -41,6 +42,10 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
   const { user } = useAuth();
   const [statement, setStatement] =
     React.useState<CreateProblemFormValues["statement"]>("");
+  const [inputFormat, setInputFormat] =
+    React.useState<CreateProblemFormValues["inputFormat"]>("");
+  const [outputFormat, setOutputFormat] =
+    React.useState<CreateProblemFormValues["outputFormat"]>("");
 
   const onSubmit: SubmitHandler<CreateProblemFormValues> = async (data) => {
     if (!user) {
@@ -120,16 +125,16 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
       {...props}
       id="create-problem-form"
       onBlur={() => {
-        
+
         setData({
           ...data,
           title: watchedFields.title,
-          statement: watchedFields.statement,
+          statement: statement,
           difficulty: watchedFields.difficulty as any,
           timeLimit: watchedFields.timeLimit,
           memoryLimit: watchedFields.memoryLimit,
-          inputFormat: watchedFields.inputFormat,
-          outputFormat: watchedFields.outputFormat,
+          inputFormat: inputFormat,
+          outputFormat: outputFormat,
           solutionText: watchedFields.solutionText,
         });
       }}
@@ -217,25 +222,33 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
           <p className="text-sm text-danger">{message.message}</p>
         )}
       />
-      <Textarea
-        isRequired
-        required
-        description="Describe the input format"
-        label="Input Format"
-        labelPlacement="outside"
-        placeholder="Type the input format here"
-        radius="full"
-        {...registers.inputFormat}
+      <DialogEditorInputMarkdown
+        markdown={inputFormat}
+        register={registers.inputFormat}
+        setMarkdown={setInputFormat}
+        label={"Input Format"}
+        placeholder={"Type the input format here"}
       />
-      <Textarea
-        isRequired
-        required
-        description="Describe the output format"
-        label="Output Format"
-        labelPlacement="outside"
-        placeholder="Type the output format here"
-        radius="full"
-        {...registers.outputFormat}
+      <ErrorMessage
+        errors={errors}
+        name="inputFormat"
+        render={(message) => (
+          <p className="text-sm text-danger">{message.message}</p>
+        )}
+      />
+      <DialogEditorInputMarkdown
+        markdown={outputFormat}
+        register={registers.outputFormat}
+        setMarkdown={setOutputFormat}
+        label={"Output Format"}
+        placeholder={"Type the output format here"}
+      />
+      <ErrorMessage
+        errors={errors}
+        name="inputFormat"
+        render={(message) => (
+          <p className="text-sm text-danger">{message.message}</p>
+        )}
       />
       <Textarea
         isRequired
