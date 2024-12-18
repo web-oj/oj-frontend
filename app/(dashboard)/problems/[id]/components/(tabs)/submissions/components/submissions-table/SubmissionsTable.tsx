@@ -100,7 +100,7 @@ export default function SubmissionsTable(props: Props) {
           return <Field
             icon={<Image src={languageIcon[submission.language as keyof typeof languageIcon]} alt={submission.language} width={20} height={20} />}
             value={submission.language}
-            label="language"
+            label="Language"
             showLabel={false}
           />;
         case "createdAt":
