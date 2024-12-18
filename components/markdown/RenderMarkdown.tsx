@@ -7,6 +7,7 @@ import remarkMath from "remark-math";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import { twMerge } from "tailwind-merge";
 
 export interface RenderMarkdownProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -17,7 +18,8 @@ export function RenderMarkdown(props: RenderMarkdownProps) {
 
   return (
     <ReactMarkdown
-      className={"markdown "}
+      className={twMerge("markdown", className)}
+      {...props}
       rehypePlugins={[rehypeKatex, rehypeRaw, rehypeHighlight]}
       remarkPlugins={[remarkMath, remarkBreaks, remarkGfm]}
     >
