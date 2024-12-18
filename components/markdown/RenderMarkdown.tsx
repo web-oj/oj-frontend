@@ -17,7 +17,7 @@ export function RenderMarkdown(props: RenderMarkdownProps) {
 
   return (
     <ReactMarkdown
-      className={"markdown "}
+      className={"markdown"}
       rehypePlugins={[rehypeKatex, rehypeRaw, rehypeHighlight]}
       remarkPlugins={[remarkMath, remarkBreaks, remarkGfm]}
     >
