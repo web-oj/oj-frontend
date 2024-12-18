@@ -144,7 +144,7 @@ export default function ActivitiesArea(props: Props) {
     }
 
     const Participations = () => {
-        if (!user?.contestParticipations) return (
+        if (!user?.pảticipatedContest) return (
             <LinearContainer fullwidth fullheight direction="column" classnames={{
                 container: "items-center justify-center"
             }}>
@@ -162,7 +162,7 @@ export default function ActivitiesArea(props: Props) {
                 onClick={() => { router }}
             >
                 {
-                    user.contestParticipations.map((contest, index) => (
+                    user.pảticipatedContest.map((contest, index) => (
                         <LinearContainer
                             key={index}
                             fullwidth
