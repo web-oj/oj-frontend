@@ -20,6 +20,25 @@ module.exports = {
   plugins: [nextui({
     defaultTheme: "light",
     themes: {
+      dark: {
+        extend: "dark",
+        colors: {
+          primary: {
+            DEFAULT: "#A4F226",
+            foreground: "#011903",
+            50: "#F5FEE7",
+            100: "#E1FBB7",
+            200: "#B8F557",
+            300: "#A4F226",
+            400: "#8AD90D",
+            500: "#6CA80A",
+            600: "#4D7807",
+            700: "#2E4804",
+            800: "#0F1801",
+            900: "#011903",
+          }
+        }
+      },
       light: {
         extend: "light",
         colors: {
