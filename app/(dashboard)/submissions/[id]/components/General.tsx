@@ -18,6 +18,10 @@ export default function General(props: Props) {
     const [output, setOutput] = useState<string>();
 
     const fetchOutput = useCallback(async () => {
+        if (!firstFailedTestcase) {
+            return;
+        }
+
         try {
             const output = await runCode(submission.data.language.toLocaleLowerCase(), submission.data.code);
             return output.output;
@@ -42,6 +46,9 @@ export default function General(props: Props) {
 
     }, []);
 
+    if (!firstFailedTestcase) {
+        return null;
+    }
 
     return (
         <LinearContainer
