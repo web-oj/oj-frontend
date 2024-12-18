@@ -1,9 +1,13 @@
 import Link from "next/link";
 
-import { LinearContainer } from "@/components/ui";
-import { ContestsTableWrapper } from "../../contests/components/contests-table";
+import ContestsTable from "../../contests/components/contests-table/ContestsTable";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+import { LinearContainer } from "@/components/ui";
+import { Contest } from "@/types";
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  contests: Contest[];
+}
 export default function ContestsArea(props: Props) {
   return (
     <LinearContainer
@@ -23,7 +27,7 @@ export default function ContestsArea(props: Props) {
       }
       labelSize="2xl"
     >
-      <ContestsTableWrapper />
+      <ContestsTable contests={props.contests} />
     </LinearContainer>
   );
 }

@@ -2,6 +2,15 @@
 
 import { PropsWithChildren } from "react";
 
-export default function Providers(props: PropsWithChildren) {
-  return <>{props.children}</>;
+import { ProblemProvider } from "./context";
+
+import { Problem } from "@/types";
+
+interface Props extends React.PropsWithChildren {
+  problem?: Problem;
+}
+export default function Providers(props: PropsWithChildren<Props>) {
+  return (
+    <ProblemProvider problem={props.problem}>{props.children}</ProblemProvider>
+  );
 }

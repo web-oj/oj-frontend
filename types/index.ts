@@ -110,7 +110,7 @@ export interface ContestParticipation {
   updatedAt: string;
   deletedAt: string;
   userId: number;
-  contestId: number;
+  id: number;
   user: User;
   contest: Contest;
   score: number;
@@ -121,7 +121,7 @@ export interface AssociatedContest {
   updatedAt: string;
   deletedAt: string;
   problemId: number;
-  contestId: number;
+  id: number;
   problem: Problem;
   contest: Contest;
   score: number;
@@ -132,7 +132,7 @@ export interface ProblemInContest {
   updatedAt: string;
   deletedAt: string;
   problemId: number;
-  contestId: number;
+  id: number;
   problem: Problem;
   contest: Contest;
   score: number;
@@ -142,7 +142,7 @@ export enum Language {
   CPP = "CPP",
   C = "C",
   JAVA = "JAVA",
-  PYTHON = "PYTHON"
+  PYTHON = "PYTHON",
 }
 
 export interface TestCase {
@@ -165,4 +165,3 @@ export interface SubmissionResult {
   testcase: TestCase;
   result: string;
 }
-

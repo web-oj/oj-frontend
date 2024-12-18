@@ -1,5 +1,4 @@
 import { LeaderboardTableWrapper } from "./components/leaderboard-table";
-import Top3Area from "./components/Top3Area";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
 
@@ -14,7 +13,6 @@ export default function Page() {
         }}
         direction="column"
       >
-        <Top3Area />
         <LeaderboardTableWrapper />
       </LinearContainer>
     </PageContainer>

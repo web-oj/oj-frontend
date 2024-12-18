@@ -16,11 +16,7 @@ export default function Format() {
   const { data } = useProblem();
 
   return (
-    <LinearContainer
-      fullwidth
-      direction="column"
-      space="lg"
-    >
+    <LinearContainer fullwidth direction="column" space="lg">
       <FormatWrapper format={data?.inputFormat} title="Input Format" />
       <FormatWrapper format={data?.outputFormat} title="Output Format" />
     </LinearContainer>

@@ -17,7 +17,6 @@ import {
 import { columns } from "./data";
 
 import { User } from "@/types";
-import { mockUsers } from "@/mock";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 
@@ -26,10 +25,10 @@ export default function LeaderboardTable() {
 
   const list = useAsyncList<User>({
     async load({ signal }) {
-      let items = mockUsers;
+      let items = [] as User[];
 
       return {
-        items: mockUsers,
+        items: items,
       };
     },
     async sort({ items, sortDescriptor }) {
@@ -47,7 +46,7 @@ export default function LeaderboardTable() {
   });
   const filteredItems = React.useMemo(() => {
     return list.items.filter((user) =>
-      user.userId.toString().includes(filterValue),
+      user.id.toString().includes(filterValue),
     );
   }, [list.items, filterValue]);
 
@@ -65,23 +64,23 @@ export default function LeaderboardTable() {
     switch (columnKey) {
       case "standing":
         return <>{cellValue}</>;
-      case "userName":
+      case "handle":
         return (
           <UserUI
             avatarProps={{
               showFallback: true,
-              alt: user.userName,
+              alt: user.handle,
               size: "sm",
             }}
             name={
-              <Link href={`/profiles/${user.userId}`}>{user.userName}</Link>
+              <Link href={`/profiles/${user.id}`}>{user.handle}</Link>
             }
           />
         );
-      case "rating":
-        return <p>{cellValue}</p>;
+      case "bio":
+        return <p>{user.id}</p>;
       default:
-        return cellValue;
+        return "-";
     }
   }, []);
 
@@ -125,7 +124,7 @@ export default function LeaderboardTable() {
       </TableHeader>
       <TableBody isLoading={list.isLoading} items={filteredItems}>
         {(item) => (
-          <TableRow key={item.userId}>
+          <TableRow key={item.id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
-
-import { signUp } from "@/fetch-functions";
 import { useRouter } from "next/navigation";
 
-interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> { }
+import { signUp } from "@/fetch-functions";
+
+interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 type RegisterFormValues = {
   email: string;
   password: string;

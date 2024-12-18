@@ -1,9 +1,10 @@
 "use client";
-import { LinearContainer } from "@/components/ui";
-import { Field } from "@/components/ui";
 import { useContestTrack } from "../../context";
 
-interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> { }
+import { LinearContainer } from "@/components/ui";
+import { Field } from "@/components/ui";
+
+interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function FastCheckTable(props: FastCheckTableProps) {
   const { data } = useContestTrack();
 
@@ -35,7 +36,7 @@ export function FastCheckTable(props: FastCheckTableProps) {
     {
       label: "Description",
       value: data ? data.description : "N/A",
-    }
+    },
   ];
 
   return (

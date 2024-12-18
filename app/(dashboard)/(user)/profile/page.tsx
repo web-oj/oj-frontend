@@ -1,4 +1,3 @@
-import { useAuth } from "@/app/context";
 import ActivitiesArea from "./components/ActivitiesArea";
 import ContactsArea from "./components/ContactsArea";
 import { ProfileArea } from "./components/ProfileArea";
@@ -9,11 +8,10 @@ export default async function Page() {
   return (
     <PageContainer isCenteredX>
       <LinearContainer
-        fullwidth
         fullheight
+        fullwidth
         classnames={{
-          wrapper:
-            "overflow-y-auto",
+          wrapper: "overflow-y-auto",
         }}
         direction="row"
         space="lg"
