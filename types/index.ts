@@ -41,6 +41,7 @@ export enum Role {
 
 export interface User {
   id: number;
+  description?: string;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
@@ -56,7 +57,7 @@ export interface User {
   country: string;
   submissions: Submission[];
   organizedContests: Contest[];
-  contestParticipations: Contest[];
+  participatedContest: ContestParticipation[];
 }
 
 export interface Submission {
@@ -76,7 +77,7 @@ export interface Problem {
   id: number;
   createdAt: string;
   updatedAt: string;
-  deletedAt: string;
+  deletedAt: string | null;
   title: string;
   statement: string;
   difficulty: number;
@@ -85,10 +86,10 @@ export interface Problem {
   inputFormat: string;
   outputFormat: string;
   solutionText: string;
-  createdBy: number;
+  isPublished: boolean;
+  owner: User;
   submissions: Submission[];
   testcases: TestCase[];
-  isPublished: boolean;
   associatedContests: AssociatedContest[];
 }
 
@@ -112,11 +113,11 @@ export interface Contest {
 }
 
 export interface ContestParticipation {
+  id: number;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
   userId: number;
-  id: number;
   user: User;
   contest: Contest;
   score: number;
