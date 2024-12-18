@@ -15,6 +15,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Selection,
+  Image,
 } from "@nextui-org/react";
 import { ArrowDown01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
@@ -22,14 +23,15 @@ import { useAsyncList } from "@react-stately/data";
 import { columns, statusOptions } from "./data";
 
 import { SearchIcon } from "@/components/icons";
-import { LinearContainer } from "@/components/ui";
-import { Submission } from "@/types";
+import { Field, LinearContainer } from "@/components/ui";
+import { Language, Submission } from "@/types";
+import Link from "next/link";
 
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  accepted: "success",
-  error: "danger",
-};
-
+const languageIcon = {
+  [Language.CPP]: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+  [Language.JAVA]: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+  [Language.PYTHON]: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+}
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   submissions: Submission[];
 }
@@ -90,10 +92,17 @@ export default function SubmissionsTable(props: Props) {
       switch (columnKey) {
         case "id":
           return (
-            <Tooltip content="View submission">
-              <a href={`/submissions/${submission.id}`}>{submission.id}</a>
-            </Tooltip>
+            <p className="font-semibold">
+              {submission.id}
+            </p>
           );
+        case "language":
+          return <Field
+            icon={<Image src={languageIcon[submission.language as keyof typeof languageIcon]} alt={submission.language} width={20} height={20} />}
+            value={submission.language}
+            label="language"
+            showLabel={false}
+          />;
         case "createdAt":
           return new Date(submission.createdAt).toLocaleDateString();
         default:
@@ -168,7 +177,12 @@ export default function SubmissionsTable(props: Props) {
       </TableHeader>
       <TableBody isLoading={list.isLoading} items={filteredItems}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow
+            key={item.id}
+            as={Link}
+            href={`/submissions/${item.id}`}
+            className="cursor-pointer hover:scale-[101%] hover:bg-foreground-50 ease-in-out transition-transform"
+          >
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}
