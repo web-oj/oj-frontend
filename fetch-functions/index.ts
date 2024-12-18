@@ -454,6 +454,11 @@ export async function createSubmission(params: {
   contestId?: number;
   code: string;
 }) {
+  // code must be base64 encoded, if not, encode it
+  if (!btoa(params.code).includes(params.code)) {
+    params.code = btoa(params.code);
+  }
+
   try {
     const res = await api.post<ApiResponse<null>>(`/submission`, {
       ...params,
@@ -478,7 +483,9 @@ export async function getSubmissionExecutionStatus(params: { id: number }) {
 export async function getSubmissionById(params: { id: number }) {
   try {
     const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
-
+    // decode the code
+    res.data.data.code = atob(res.data.data.code);
+    
     return res.data.data;
   } catch (error) {
     throw new Error("Failed to get submission by ID");
