@@ -1,19 +1,20 @@
 "use client";
 
-import { useAuth } from "@/app/context";
 import { useRouter } from "next/navigation";
 
-interface Props extends React.PropsWithChildren {
-}
+import { useAuth } from "@/app/context";
+
+interface Props extends React.PropsWithChildren {}
 
 export default function GuardWrapper(props: Props) {
-    const router = useRouter();
-    const { user } = useAuth();
+  const router = useRouter();
+  const { user } = useAuth();
 
-    if (!user) {
-        router.push("/login");
-        return null;
-    }
+  if (!user) {
+    router.push("/login");
 
-    return <>{props.children}</>;
+    return null;
+  }
+
+  return <>{props.children}</>;
 }

@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
 
-import { getProblemById } from "@/fetch-functions";
 import Providers from "../../providers";
+
 import CreateProblemFormWrapper from "./components/update-problem-form";
 import FastCheckTableWrapper from "./components/fast-check-table";
 import FormToolbar from "./components/Toolbar";
+
+import { getProblemById } from "@/fetch-functions";
 import { LinearContainer, PageContainer } from "@/components/ui";
 
 interface Props {

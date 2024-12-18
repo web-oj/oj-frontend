@@ -14,7 +14,7 @@ export const columns = [
     name: "Submission Time",
     uid: "createdAt",
     sortable: true,
-  }
+  },
 ];
 
 export const statusOptions = [

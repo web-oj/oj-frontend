@@ -6,14 +6,13 @@ import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { toast } from "react-toastify";
 
-
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-import { createProblem, updateProblem } from "@/fetch-functions";
+import { updateProblem } from "@/fetch-functions";
 import { useProblem } from "@/app/(dashboard)/problems/context";
 import StatementEditorInput from "@/app/(dashboard)/problems/components/StatementEditorInput";
 
 interface CreateProblemFormProps
-  extends React.HTMLAttributes<HTMLFormElement> { }
+  extends React.HTMLAttributes<HTMLFormElement> {}
 type UpdateProblemFormValues = {
   solutionText: string;
   outputFormat: string;
@@ -22,7 +21,7 @@ type UpdateProblemFormValues = {
   timeLimit: number;
   difficulty: number;
   statement: string;
-  title: string
+  title: string;
 };
 
 export function UpdateProblemForm(props: CreateProblemFormProps) {
@@ -44,14 +43,25 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
       inputFormat: data.inputFormat,
       outputFormat: data.outputFormat,
       solutionText: data.solutionText,
-    }
+    },
   });
 
-  const [statement, setStatement] =
-    React.useState<UpdateProblemFormValues["statement"]>(data.statement);
+  const [statement, setStatement] = React.useState<
+    UpdateProblemFormValues["statement"]
+  >(data.statement);
 
   const onSubmit: SubmitHandler<UpdateProblemFormValues> = async (data) => {
-    const { title, statement, difficulty, timeLimit, memoryLimit, inputFormat, outputFormat, solutionText } = data;
+    const {
+      title,
+      statement,
+      difficulty,
+      timeLimit,
+      memoryLimit,
+      inputFormat,
+      outputFormat,
+      solutionText,
+    } = data;
+
     try {
       await updateProblem({
         id: 10,
@@ -64,9 +74,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           memoryLimit,
           inputFormat,
           outputFormat,
-          solutionText
-        }
-      })
+          solutionText,
+        },
+      });
       toast.success("Problem created successfully");
     } catch (error) {
       toast.error("Failed to create problem");
@@ -106,18 +116,16 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
         message: "Memory limit must be at least 1 byte",
       },
     }),
-    inputFormat: register("inputFormat", {
-    }),
-    outputFormat: register("outputFormat", {
-    }),
-    solutionText: register("solutionText", {
-    })
+    inputFormat: register("inputFormat", {}),
+    outputFormat: register("outputFormat", {}),
+    solutionText: register("solutionText", {}),
   };
   const watchedFields = watch();
 
   return (
     <form
       {...props}
+      id="update-problem-form"
       onBlur={() => {
         setData({
           ...data,
@@ -131,7 +139,6 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           solutionText: watchedFields.solutionText,
         });
       }}
-      id="update-problem-form"
       onSubmit={handleSubmit(onSubmit, onInvalid)}
     >
       <Input

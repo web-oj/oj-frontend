@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Table,
@@ -17,44 +19,42 @@ import {
   DropdownTrigger,
   Selection,
 } from "@nextui-org/react";
-import { ArrowDown01Icon } from "hugeicons-react";
+import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 import Link from "next/link";
 
 import { columns } from "./data";
 
-import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
-import { mockProblem, mockProblems } from "@/mock";
+import { useSearchParams } from "next/navigation";
 
-const difficultyColorMap: Record<string, ChipProps["color"]> = {
-  1: "success",
-  2: "warning",
-  3: "danger",
-};
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  problems: Problem[];
+}
 
-export default function ProblemsTable() {
-  const [problems, setProblems] = React.useState<Problem[]>([mockProblem]);
-  const [difficultiesFilter, setDifficultiesFilter] =
-    React.useState<Selection>("all");
-  const [filterValue, setFilterValue] = React.useState("");
+export default function ProblemsTable(props: Props) {
+  const searchParams = useSearchParams();
+  const searchKey = searchParams.get("search") || "";
+
+  const [problems, setProblems] = React.useState<Problem[]>(props.problems);
 
   const list = useAsyncList<Problem>({
     async load({ signal }) {
       // @todo: fetch problems from the server
-      let items = mockProblems;
+      let items = problems;
 
-      if (difficultiesFilter !== "all") {
+      if (searchKey) {
         items = items.filter((problem) =>
-          difficultiesFilter.has(problem.difficulty.toString()),
+          problem.title.toLowerCase().includes(searchKey.toLowerCase()),
         );
       }
 
       return {
-        items: mockProblems,
+        items: items,
       };
     },
+
     async sort({ items, sortDescriptor }) {
       return {
         items: items.sort((a, b) => {
@@ -68,44 +68,26 @@ export default function ProblemsTable() {
       };
     },
   });
-  const filteredItems = React.useMemo(() => {
-    return list.items.filter((submission) =>
-      submission.id.toString().includes(filterValue),
-    );
-  }, [list.items, filterValue]);
-
-  const onSearchChange = React.useCallback((value?: string) => {
-    if (value) {
-      setFilterValue(value);
-    } else {
-      setFilterValue("");
-    }
-  }, []);
 
   const renderCell = React.useCallback(
-    (problem: Problem, columnKey: React.Key) => {
-      const cellValue = problem[columnKey as keyof Problem];
-
+    (problem: Problem, columnKey: React.Key): React.ReactNode => {
       switch (columnKey) {
         case "id":
           return (
             <Tooltip content="View submission">
-              <a href={`/problems/${problem.id}`}>{cellValue}</a>
+              <a href={`/problems/${problem.id}`}>{problem.id}</a>
             </Tooltip>
           );
         case "title":
-          return <Link href={`/problems/${problem.id}`}>{cellValue}</Link>;
+          return <Link href={`/problems/${problem.id}`}>{problem.title}</Link>;
         case "difficulty":
           return (
-            <Chip
-              color={difficultyColorMap[problem.difficulty.toString()]}
-              radius="full"
-            >
+            <p className="p-1 w-fit rounded-full text-foreground-700">
               {problem.difficulty}
-            </Chip>
+            </p>
           );
         default:
-          return cellValue;
+          return "-";
       }
     },
     [],
@@ -114,74 +96,76 @@ export default function ProblemsTable() {
   const topContent = React.useMemo(() => {
     return (
       <LinearContainer fullwidth direction="row" space="sm">
-        <Input
-          fullWidth
-          isClearable
-          placeholder="Search by name..."
-          startContent={<SearchIcon />}
-          onValueChange={onSearchChange}
-        />
         <div className="flex gap-3">
-          <Dropdown>
+          {/* <Dropdown
+            classNames={{
+              trigger: "bg-foreground-50 shadow-sm",
+            }}
+          >
             <DropdownTrigger className="hidden sm:flex">
               <Button
-                endContent={<ArrowDown01Icon className="text-small" />}
+                startContent={<ArrangeByNumbers19Icon className="text-foreground-500" />}
+                endContent={<ArrowDown01Icon size={16} className="text-small" />}
                 variant="flat"
               >
-                Difficulty
+                {list.sortDescriptor?.direction || "Difficulty"}
               </Button>
             </DropdownTrigger>
             <DropdownMenu
               disallowEmptySelection
               aria-label="Table Columns"
               closeOnSelect={false}
-              selectedKeys={difficultiesFilter}
-              selectionMode="multiple"
+              defaultSelectedKeys={["1"]}
+              selectionMode="single"
               onSelectionChange={setDifficultiesFilter}
             >
-              {["1", "2", "3"].map((difficulty) => (
-                <DropdownItem key={difficulty}>{difficulty}</DropdownItem>
-              ))}
+              <DropdownItem key="ascending" startContent={<ArrowUp01Icon />} >Ascending</DropdownItem>
+              <DropdownItem key="descending" startContent={<ArrowDown01Icon />} >Descending</DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </LinearContainer>
     );
   }, []);
 
+  React.useEffect(() => {
+    list.reload();
+  }, [searchKey]);
+
   return (
-    <Table
-      aria-label="Problems Table"
-      classNames={{
-        tbody: "h-full",
-        wrapper: "h-full justify-start",
-        base: "h-full",
-      }}
-      sortDescriptor={list.sortDescriptor}
-      topContent={topContent}
-      onSortChange={list.sort}
-    >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-            className={"bg-transparent"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody isLoading={list.isLoading} items={filteredItems}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <LinearContainer fullheight fullwidth direction="column">
+      <Table
+        aria-label="Problems Table"
+        classNames={{
+          tbody: "h-full",
+          wrapper: "h-full justify-start",
+          base: "h-full overflow-hidden",
+        }}
+        sortDescriptor={list.sortDescriptor}
+        onSortChange={list.sort}
+      >
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === "actions" ? "center" : "start"}
+              allowsSorting={column.sortable}
+              className={"bg-transparent"}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody isLoading={list.isLoading} items={list.items} emptyContent="No problems found">
+          {(item) => (
+            <TableRow key={item.id}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </LinearContainer>
   );
 }

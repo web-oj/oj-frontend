@@ -4,7 +4,6 @@ import { Input, Textarea } from "@nextui-org/react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
-import { Select, SelectItem } from "@nextui-org/react";
 import { toast } from "react-toastify";
 
 import { useProblem } from "../../../context";
@@ -15,7 +14,7 @@ import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { createProblem } from "@/fetch-functions";
 
 interface CreateProblemFormProps
-  extends React.HTMLAttributes<HTMLFormElement> { }
+  extends React.HTMLAttributes<HTMLFormElement> {}
 type CreateProblemFormValues = {
   solutionText: string;
   outputFormat: string;
@@ -24,7 +23,7 @@ type CreateProblemFormValues = {
   timeLimit: number;
   difficulty: number;
   statement: string;
-  title: string
+  title: string;
 };
 
 export function CreateProblemForm(props: CreateProblemFormProps) {
@@ -106,13 +105,14 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
     }),
     solutionText: register("solutionText", {
       required: "Solution text is required",
-    })
+    }),
   };
   const watchedFields = watch();
 
   return (
     <form
       {...props}
+      id="create-problem-form"
       onBlur={() => {
         setData({
           ...data,
@@ -126,7 +126,6 @@ export function CreateProblemForm(props: CreateProblemFormProps) {
           solutionText: watchedFields.solutionText,
         });
       }}
-      id="create-problem-form"
       onSubmit={handleSubmit(onSubmit, onInvalid)}
     >
       <Input

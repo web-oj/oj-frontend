@@ -6,7 +6,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Chip,
   Tooltip,
   ChipProps,
   Input,
@@ -17,7 +16,7 @@ import {
   DropdownTrigger,
   Selection,
 } from "@nextui-org/react";
-import { ArrowDown01Icon, CircleIcon } from "hugeicons-react";
+import { ArrowDown01Icon } from "hugeicons-react";
 import { useAsyncList } from "@react-stately/data";
 
 import { columns, statusOptions } from "./data";
@@ -31,14 +30,14 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   error: "danger",
 };
 
-
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   submissions: Submission[];
 }
 
 export default function SubmissionsTable(props: Props) {
-  const [submissions, setSubmissions] =
-    React.useState<Submission[]>(props.submissions);
+  const [submissions, setSubmissions] = React.useState<Submission[]>(
+    props.submissions,
+  );
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
 

@@ -1,16 +1,16 @@
 "use client";
 
-import { Problem } from "@/types";
 import { PropsWithChildren } from "react";
+
 import { ProblemProvider } from "./context";
 
+import { Problem } from "@/types";
+
 interface Props extends React.PropsWithChildren {
-  problem?: Problem
+  problem?: Problem;
 }
 export default function Providers(props: PropsWithChildren<Props>) {
   return (
-    <ProblemProvider problem={props.problem}>
-      {props.children}
-    </ProblemProvider>
-  )
+    <ProblemProvider problem={props.problem}>{props.children}</ProblemProvider>
+  );
 }

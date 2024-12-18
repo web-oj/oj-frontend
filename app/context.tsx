@@ -10,7 +10,7 @@ import React, {
 import Cookies from "js-cookie";
 
 import { User } from "@/types";
-import { getUserById, getUserByToken } from "@/fetch-functions";
+import { getUserByToken } from "@/fetch-functions";
 
 type AuthContextType = {
   user: User | null;
@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (!token) {
         return;
       }
+
       const user = await getUserByToken();
 
       setUser(user);
@@ -48,6 +49,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const token = Cookies.get("token");
+
     if (token) {
       setToken(token);
     }
@@ -76,7 +78,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     Cookies.remove("token");
     setUser(null);
   };
-
 
   const allowCookies = () => {
     Cookies.set("cookieConsent", "true");

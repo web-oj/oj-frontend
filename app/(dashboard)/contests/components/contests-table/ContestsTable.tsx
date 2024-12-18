@@ -11,7 +11,6 @@ import {
   TableRow,
   TableCell,
   Tooltip,
-  Input,
   Selection,
   Button,
   Dropdown,
@@ -19,27 +18,33 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
+import {
+  ArrangeByNumbers19Icon,
+  ArrowDown01Icon,
+  ArrowUp01Icon,
+} from "hugeicons-react";
 
 import { columns } from "./data";
 
-import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
 import { Contest } from "@/types";
-import { mockContests } from "@/mock";
-import { ArrangeByNumbers19Icon, ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 
-export default function ContestsTable() {
-  const [contests, setContests] = React.useState<Contest[]>(mockContests);
-  const [startTimesFilter, setStartTimesFilter] = React.useState<Selection>("all");
+interface Props {
+  contests: Contest[];
+}
+export default function ContestsTable(props: Props) {
+  const [contests, setContests] = React.useState<Contest[]>(props.contests);
+  const [startTimesFilter, setStartTimesFilter] =
+    React.useState<Selection>("all");
   const [endTimesFilter, setEndTimesFilter] = React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
 
   const list = useAsyncList<Contest>({
     async load({ signal }) {
-      let items = mockContests;
+      let items = contests;
 
       return {
-        items: mockContests,
+        items: contests,
       };
     },
     async sort({ items, sortDescriptor }) {
@@ -71,18 +76,14 @@ export default function ContestsTable() {
 
   const renderCell = React.useCallback(
     (contest: Contest, columnKey: React.Key) => {
-      const cellValue = contest[columnKey as keyof Contest];
-
       switch (columnKey) {
-        case "contestId":
+        case "id":
           return (
-            <Tooltip content="View contest">
-              <a href={`/contests/${contest.contestId}`}>{cellValue}</a>
-            </Tooltip>
+            <p className="font-semibold">{contest.id}</p>
           );
         case "title":
           return (
-            <Link href={`/contests/${contest.contestId}`}>{cellValue}</Link>
+            <p className="font-semibold">{contest.title}</p>
           );
         case "startTime":
           return new Date(contest.startTime).toLocaleString();
@@ -90,7 +91,7 @@ export default function ContestsTable() {
           return new Date(contest.endTime).toLocaleString();
 
         default:
-          return cellValue;
+          return "-";
       }
     },
     [],
@@ -107,8 +108,12 @@ export default function ContestsTable() {
           >
             <DropdownTrigger className="hidden sm:flex">
               <Button
-                startContent={<ArrangeByNumbers19Icon className="text-foreground-500" />}
-                endContent={<ArrowDown01Icon size={16} className="text-small" />}
+                endContent={
+                  <ArrowDown01Icon className="text-small" size={16} />
+                }
+                startContent={
+                  <ArrangeByNumbers19Icon className="text-foreground-500" />
+                }
                 variant="flat"
               >
                 Start Time
@@ -121,8 +126,12 @@ export default function ContestsTable() {
               selectionMode="single"
               onSelectionChange={setStartTimesFilter}
             >
-              <DropdownItem startContent={<ArrowDown01Icon />} key="all">Decending</DropdownItem>
-              <DropdownItem startContent={<ArrowUp01Icon />} key="ascending">Ascending</DropdownItem>
+              <DropdownItem key="all" startContent={<ArrowDown01Icon />}>
+                Decending
+              </DropdownItem>
+              <DropdownItem key="ascending" startContent={<ArrowUp01Icon />}>
+                Ascending
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -157,7 +166,12 @@ export default function ContestsTable() {
         </TableHeader>
         <TableBody isLoading={list.isLoading} items={filteredItems}>
           {(item) => (
-            <TableRow key={item.id}>
+            <TableRow
+              key={item.id}
+              as={Link}
+              href={`/contests/${item.id}`}
+              className="cursor-pointer hover:scale-[101%] hover:bg-foreground-50 ease-in-out transition-transform"
+            >
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>
               )}

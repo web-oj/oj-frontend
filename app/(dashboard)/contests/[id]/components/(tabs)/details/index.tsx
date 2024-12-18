@@ -1,6 +1,7 @@
 "use client";
 
 import { Calendar03Icon } from "hugeicons-react";
+import React from "react";
 
 import { useContest } from "../../../../context";
 
@@ -25,16 +26,28 @@ export default function DetailsArea(props: DetailsAreaProps) {
       <div className="flex items-center flex-row gap-1">
         <h1 className="text-2xl font-bold text-foreground">{contest?.title}</h1>
       </div>
-      <Field
-        classNames={{
-          value: "text-foreground-500",
-        }}
-        direction="row"
-        icon={<Calendar03Icon className="text-foreground-500" size={16} />}
-        label="Duration"
-        showLabel={false}
-        value={`${new Date(contest?.startTime).toLocaleString()} - ${new Date(contest?.endTime).toLocaleString()}`}
-      />
+      <LinearContainer direction="row" space="sm">
+        <Field
+          classNames={{
+            value: "text-foreground-500",
+          }}
+          direction="row"
+          icon={<Calendar03Icon className="text-foreground-500" size={16} />}
+          label="Start time"
+          showLabel={false}
+          value={new Date(contest.startTime).toLocaleString()}
+        />
+        <Field
+          classNames={{
+            value: "text-foreground-500",
+          }}
+          direction="row"
+          icon={<Calendar03Icon className="text-foreground-500" size={16} />}
+          label="End time"
+          showLabel={false}
+          value={new Date(contest.endTime).toLocaleString()}
+        />
+      </LinearContainer>
       <RenderMarkdown data={contest.description} />
     </LinearContainer>
   );

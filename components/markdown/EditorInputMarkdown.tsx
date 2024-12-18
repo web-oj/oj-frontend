@@ -13,6 +13,7 @@ import {
 import React from "react";
 
 import { LinearContainer } from "@/components/ui/container";
+
 import "katex/dist/katex.min.css";
 import { RenderMarkdown } from "./RenderMarkdown";
 
@@ -53,7 +54,7 @@ const EditorInputMarkdown = React.forwardRef<
         <ModalContent>
           <ModalHeader>Statement Editor</ModalHeader>
           <ModalBody>
-            <LinearContainer direction="row" fullheight fullwidth>
+            <LinearContainer fullheight fullwidth direction="row">
               <Editor
                 height={"75vh"}
                 language="markdown"

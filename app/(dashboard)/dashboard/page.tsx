@@ -1,15 +1,19 @@
 import ContestsArea from "./components/ContestsArea";
 import ProblemsArea from "./components/ProblemsArea";
 
+import { getAllContests, getAllProblems } from "@/fetch-functions";
 import { LinearContainer, PageContainer } from "@/components/ui";
 
-export default function Page() {
+export default async function Page() {
+  const problems = await getAllProblems();
+  const contests = await getAllContests();
+
   return (
     <PageContainer
       className="flex-1 overflow-hidden"
       label={
         <div className="gap-0 flex flex-col">
-          <p className="text-lg text-foreground">Welcome to the dashboard!</p>
+          <p className="text-lg text-foreground">👋 Welcome to the dashboard</p>
           <h1 className="text-4xl font-bold text-foreground">Dashboard</h1>
         </div>
       }
@@ -22,8 +26,8 @@ export default function Page() {
         }}
         direction="row"
       >
-          <ContestsArea />
-          <ProblemsArea />
+        <ContestsArea contests={contests} />
+        <ProblemsArea problems={problems} />
       </LinearContainer>
     </PageContainer>
   );
