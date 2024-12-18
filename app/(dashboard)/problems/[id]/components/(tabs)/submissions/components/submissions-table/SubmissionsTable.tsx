@@ -24,70 +24,30 @@ import { columns, statusOptions } from "./data";
 
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
+import { Submission } from "@/types";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   accepted: "success",
   error: "danger",
 };
 
-type Submission = {
-  id: number;
-  createdAt: string;
-  status: string;
-};
 
-export default function SubmissionsTable() {
-  const mockSubmissions: Submission[] = [
-    {
-      id: 1,
-      createdAt: "2021-10-10",
-      status: "accepted",
-    },
-    {
-      id: 2,
-      createdAt: "2021-10-11",
-      status: "error",
-    },
-    {
-      id: 3,
-      createdAt: "2021-10-12",
-      status: "accepted",
-    },
-    {
-      id: 4,
-      createdAt: "2021-10-13",
-      status: "error",
-    },
-    {
-      id: 5,
-      createdAt: "2021-10-14",
-      status: "accepted",
-    },
-    {
-      id: 6,
-      createdAt: "2021-10-15",
-      status: "error",
-    },
-  ];
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  submissions: Submission[];
+}
+
+export default function SubmissionsTable(props: Props) {
   const [submissions, setSubmissions] =
-    React.useState<Submission[]>(mockSubmissions);
+    React.useState<Submission[]>(props.submissions);
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [filterValue, setFilterValue] = React.useState("");
 
   const list = useAsyncList<Submission>({
     async load({ signal }) {
-      // @todo: fetch submissions from the server
-      let items = mockSubmissions;
-
-      if (statusFilter !== "all") {
-        items = items.filter(
-          (submission) =>
-            submission.status === Array.from(statusFilter).join(""),
-        );
-      }
+      let items = submissions;
 
       return {
-        items: mockSubmissions,
+        items: items,
       };
     },
     async sort({ items, sortDescriptor }) {
@@ -128,35 +88,17 @@ export default function SubmissionsTable() {
 
   const renderCell = React.useCallback(
     (submission: Submission, columnKey: React.Key) => {
-      const cellValue = submission[columnKey as keyof Submission];
-
       switch (columnKey) {
         case "id":
           return (
             <Tooltip content="View submission">
-              <a href={`/submissions/${submission.id}`}>{cellValue}</a>
+              <a href={`/submissions/${submission.id}`}>{submission.id}</a>
             </Tooltip>
           );
         case "createdAt":
           return new Date(submission.createdAt).toLocaleDateString();
-        case "status":
-          return (
-            <Chip
-              className="capitalize"
-              classNames={{
-                content: "text-foreground-700",
-              }}
-              color={statusColorMap[submission.status]}
-              endContent={<CircleIcon fill="currentColor" size={14} />}
-              size="sm"
-              variant="light"
-            >
-              {cellValue}
-            </Chip>
-          );
-
         default:
-          return cellValue;
+          return "-";
       }
     },
     [],
@@ -211,7 +153,6 @@ export default function SubmissionsTable() {
         base: "h-full",
       }}
       sortDescriptor={list.sortDescriptor}
-      topContent={topContent}
       onSortChange={list.sort}
     >
       <TableHeader columns={columns}>

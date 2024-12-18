@@ -75,29 +75,26 @@ export const Navbar = () => {
   const Toolbar = () => {
     return (
       <LinearContainer
-        fullwidth
         className="justify-center items-center"
         direction="row"
-        space="sm"
+        space="md"
       >
         {true && <Button
           as={NextLink}
-          className="font-medium shadow-sm shadow-neutral-50"
-          color="primary"
+          className="font-medium shadow-sm dark"
           href="/problems/create"
           radius="full"
         >
-          Create Problem
+          + Problem
         </Button>
         }
         {true && <Button
           as={NextLink}
-          className="font-medium shadow-sm shadow-neutral-50"
-          color="primary"
+          className="font-medium shadow-sm dark"
           href="/contests/create"
           radius="full"
         >
-          Create Contest
+          + Contest
         </Button>}
       </LinearContainer>
     )
@@ -121,69 +118,79 @@ export const Navbar = () => {
         </NextLink>
       </NavbarBrand>
       <NavbarContent className="basis-1/5 lg:basis-full" justify="start">
-        <div className="hidden lg:flex flex-row gap-4 px-4 py-3 items-center justify-center w-full rounded-full text-foreground">
-          <ul className="hidden lg:flex gap-4 justify-start ml-2">
-            {siteConfig.navItems.map((item) => (
-              <NavbarItem key={item.href}>
+        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+          {siteConfig.navItems.map((item) => (
+            <NavbarItem key={item.href}>
+              <Link
+                as={NextLink}
+                className={clsx(
+                  "text-foreground-500",
+                  "flex flex-row items-center gap-1 rounded-full px-3 py-1",
+                  pathname.startsWith(item.href) &&
+                  "text-foreground bg-primary font-medium",
+                )}
+                color="foreground"
+                href={item.href}
+                size="sm"
+              >
+                {item.label}
+              </Link>
+            </NavbarItem>
+          ))}
+        </ul>
+        <Search />
+        <NavbarMenu className="hidden lg:flex">
+          <div className="mx-4 mt-2 flex flex-col gap-2">
+            {siteConfig.navMenuItems.map((item, index) => (
+              <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
-                  as={NextLink}
-                  className={clsx(
-                    "text-foreground-500",
-                    "flex flex-row items-center gap-1 rounded-full px-3 py-1",
-                    pathname.startsWith(item.href) &&
-                    "text-foreground bg-primary font-medium",
-                  )}
-                  color="foreground"
-                  href={item.href}
-                  size="sm"
+                  color={
+                    index === 2
+                      ? "primary"
+                      : index === siteConfig.navMenuItems.length - 1
+                        ? "danger"
+                        : "foreground"
+                  }
+                  href="#"
+                  size="lg"
                 >
                   {item.label}
                 </Link>
-              </NavbarItem>
+              </NavbarMenuItem>
             ))}
-          </ul>
-          <NavbarMenu className="hidden lg:flex">
-            <div className="mx-4 mt-2 flex flex-col gap-2">
-              {siteConfig.navMenuItems.map((item, index) => (
-                <NavbarMenuItem key={`${item}-${index}`}>
-                  <Link
-                    color={
-                      index === 2
-                        ? "primary"
-                        : index === siteConfig.navMenuItems.length - 1
-                          ? "danger"
-                          : "foreground"
-                    }
-                    href="#"
-                    size="lg"
-                  >
-                    {item.label}
-                  </Link>
-                </NavbarMenuItem>
-              ))}
-            </div>
-          </NavbarMenu>
-        </div>
+          </div>
+        </NavbarMenu>
       </NavbarContent>
       {user ? (
-        <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
+        <ul className="w-fit hidden lg:flex flex-row gap-4 items-center">
           <Toolbar />
-          <Search />
+          <Button
+            as={NextLink}
+            className="flex flex-row w-fit"
+            color="secondary"
+            href="../ide"
+            radius="full"
+            startContent={<KeyboardIcon />}
+          >
+            Open IDE
+          </Button>
           <UserAccordion />
         </ul>
       ) : (
         <ul className="w-fit hidden lg:flex flex-row gap-1 items-center">
           <Button
-            isIconOnly
             as={NextLink}
+            className="px-4 flex flex-row w-fit"
+            color="secondary"
             href="../ide"
             radius="full"
-            startContent={<KeyboardIcon className="text-foreground-500" />}
-            variant="light"
-          />
+            startContent={<KeyboardIcon />}
+          >
+            Open IDE
+          </Button>
           <Button
             as={NextLink}
-            className="font-medium shadow-sm shadow-neutral-50"
+            className="font-medium shadow-sm shadow-neutral-50 w-fit"
             color="primary"
             href="../login"
             radius="full"
