@@ -48,6 +48,9 @@ const EditorInputMarkdown = React.forwardRef<
         radius="full"
         value={markdown}
         onClick={onOpen}
+        classNames={{
+          inputWrapper: "bg-foreground-50"
+        }}
         {...register}
       />
       <Modal isOpen={isOpen} size="5xl" onClose={onClose} {...rest}>
