@@ -1,12 +1,13 @@
-import { type User, type Problem, type Contest, Submission } from "@/types";
+import { type User, type Problem, type Contest, Submission, ApiResponse, QueryParams } from "@/types";
+
+
 import { api } from "@/utils/api";
-interface ApiResponse<T> {
-  error: string;
-  data: T;
-  status: number;
-  message: string;
-}
-// User functions
+
+/*
+====================================================
+=============== USER FUNCTIONS ====================
+====================================================
+*/
 
 export async function signUp(params: {
   email: string;
@@ -35,6 +36,17 @@ export async function login(params: { email: string; password: string }) {
     throw new Error("Failed to sign in");
   }
 }
+
+export async function getUserRoleByToken() {
+  try {
+    const res = await api.get<ApiResponse<string>>("/user/role");
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error("Failed to fetch user role by token");
+  }
+}
+
 export async function getUserByToken() {
   try {
     const res1 = await api.get<ApiResponse<User>>("/user/id");
@@ -92,7 +104,11 @@ export async function updateUser(params: Partial<User>) {
   }
 }
 
-// Problem functions
+/*
+====================================================
+=============== PROBLEMS FUNCTIONS ====================
+====================================================
+*/
 
 export async function createProblem(params: {
   isPublished: Problem["isPublished"];
@@ -112,6 +128,29 @@ export async function createProblem(params: {
   } catch (error) {
     console.log(error);
     throw new Error("Failed to create problem");
+  }
+}
+
+export async function updateProblem(params: {
+  id: number;
+  data: Partial<Problem>;
+}) {
+  try {
+    const res = await api.patch<ApiResponse<null>>(`/problem/id/${params.id}`, params.data);
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error("Failed to update problem");
+  }
+}
+
+export async function getProblemById(params: { id: number }): Promise<Problem> {
+  try {
+    const res = await api.get<ApiResponse<Problem>>(`/problem/id/${params.id}`);
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error("Failed to fetch problem by ID");
   }
 }
 
@@ -153,32 +192,6 @@ export async function addTestcasesToProblem(params: {
   }
 }
 
-export async function updateProblem(params: {
-  id: number;
-  data: Partial<Problem>;
-}) {
-  try {
-    const res = await api.patch<ApiResponse<null>>(
-      `/problem/id/${params.id}`,
-      params.data,
-    );
-
-    return res.data;
-  } catch (error: any) {
-    console.error(error);
-    throw new Error("Failed to update problem");
-  }
-}
-
-export async function getProblemById(params: { id: number }): Promise<Problem> {
-  try {
-    const res = await api.get<ApiResponse<Problem>>(`/problem/id/${params.id}`);
-
-    return res.data.data;
-  } catch (error) {
-    throw new Error("Failed to fetch problem by ID");
-  }
-}
 
 export async function getProblemByTitle(params: {
   title: string;
@@ -249,6 +262,12 @@ export async function searchProblems(params: {
   }
 }
 
+/*
+====================================================
+============== CONTEST FUNCTIONS ===================
+====================================================
+*/
+
 export async function createContest(params: {
   organizerId: number;
   isPublished: boolean;
@@ -283,9 +302,11 @@ export async function getContestById(params: { id: number }) {
   }
 }
 
-export async function getAllContests() {
+export async function getAllContests(params: QueryParams) {
   try {
-    const res = await api.get<ApiResponse<Contest[]>>("/contest");
+    const res = await api.get<ApiResponse<Contest[]>>("/contest", {
+      params,
+    });
 
     return res.data.data;
   } catch (error) {
@@ -338,6 +359,33 @@ export async function deleteContest(params: { id: number }) {
     return res.data;
   } catch (error) {
     throw new Error("Failed to delete contest");
+  }
+}
+
+export async function editScoreByContestId(params: {
+  contestId: number;
+  userId: number;
+  score: number;
+}) {
+  try {
+    const res = await api.patch<ApiResponse<null>>(`/contest/${params.contestId}/editScore`, {
+      userId: params.userId,
+      score: params.score,
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to edit score by contest ID");
+  }
+}
+
+export async function getRankingByContestId(params: { id: number }) {
+  try {
+    const res = await api.get<ApiResponse<User[]>>(`/contest/${params.id}/ranking`);
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error("Failed to get ranking by contest ID");
   }
 }
 
@@ -434,6 +482,11 @@ export async function createSubmission(params: {
   id?: number;
   code: string;
 }) {
+  // code must be base64 encoded, if not, encode it
+  if (!btoa(params.code).includes(params.code)) {
+    params.code = btoa(params.code);
+  }
+
   try {
     const res = await api.post<ApiResponse<null>>(`/submission`, {
       ...params,
@@ -458,10 +511,10 @@ export async function getSubmissionExecutionStatus(params: { id: number }) {
 
 export async function getSubmissionById(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<Submission>>(
-      `/submission/${params.id}`,
-    );
-
+    const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
+    // decode the code
+    res.data.data.code = atob(res.data.data.code);
+    
     return res.data.data;
   } catch (error) {
     throw new Error("Failed to get submission by ID");
