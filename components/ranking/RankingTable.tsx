@@ -52,7 +52,7 @@ export default function RankingTable(props: Props) {
             }
           />
         );
-      case "standing":
+      case "rating":
         return <p>
           {user.rating}
         </p>
@@ -82,7 +82,6 @@ export default function RankingTable(props: Props) {
         wrapper: "h-full justify-start",
         base: "h-full overflow-auto",
       }}
-      topContent={topContent}
     >
       <TableHeader columns={columns}>
         {(column) => (
