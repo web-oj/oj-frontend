@@ -35,7 +35,7 @@ export default function DetailsArea(props: DetailsAreaProps) {
           icon={<Calendar03Icon className="text-foreground-500" size={16} />}
           label="Start time"
           showLabel={false}
-          value={new Date(contest.startTime).toLocaleString()}
+          value={new Date(Number(contest.startTime)).toLocaleString()}
         />
         <Field
           classNames={{
@@ -45,7 +45,7 @@ export default function DetailsArea(props: DetailsAreaProps) {
           icon={<Calendar03Icon className="text-foreground-500" size={16} />}
           label="End time"
           showLabel={false}
-          value={new Date(contest.endTime).toLocaleString()}
+          value={new Date(Number(contest.endTime)).toLocaleString()}
         />
       </LinearContainer>
       <RenderMarkdown data={contest.description} />
