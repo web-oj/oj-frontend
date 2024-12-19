@@ -10,8 +10,8 @@ export const columns = [
     sortable: true,
   },
   {
-    name: "rating",
-    uid: "Rating",
+    name: "Rating",
+    uid: "rating",
     sortable: true,
   },
 ];

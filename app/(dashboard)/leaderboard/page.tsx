@@ -1,6 +1,6 @@
-import { LeaderboardTableWrapper } from "./components/leaderboard-table";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
+import LeaderboardTable from "./components/leaderboard-table/LeaderboardTable";
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
         }}
         direction="column"
       >
-        <LeaderboardTableWrapper />
+        <LeaderboardTable />
       </LinearContainer>
     </PageContainer>
   );

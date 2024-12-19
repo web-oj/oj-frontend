@@ -12,6 +12,8 @@ import {
   TableCell,
   Input,
   User as UserUI,
+  Avatar,
+  Image,
 } from "@nextui-org/react";
 
 import { columns } from "./data";
@@ -25,50 +27,34 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   users?: User[];
 }
 export default function RankingTable(props: Props) {
-  const [filterValue, setFilterValue] = React.useState("");
-  const { user } = useAuth()
-  const list = useAsyncList<User>({
-    async load({ signal }) {
-      let items = [user] as User[];
-      console.log(user)
-      return {
-        items: items,
-      };
-    },
-    async sort({ items, sortDescriptor }) {
-      return {
-        items: items.sort((a, b) => {
-          let first = a[sortDescriptor.column as keyof User] as number;
-          let second = b[sortDescriptor.column as keyof User] as number;
-
-          const cmp = first - second;
-
-          return sortDescriptor.direction === "descending" ? cmp : -cmp;
-        }),
-      };
-    },
-  });
-  // const filteredItems = React.useMemo(() => {
-  //   return list.items.filter((user) =>
-  //     user.id.toString().includes(filterValue),
-  //   );
-  // }, [list.items, filterValue]);
-
-  const onSearchChange = React.useCallback((value?: string) => {
-    if (value) {
-      setFilterValue(value);
-    } else {
-      setFilterValue("");
-    }
-  }, []);
-
   const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
-
     switch (columnKey) {
+      case "handle":
+        return (
+          <UserUI
+            name={
+              <p className="flex items-center flex-row gap-1">
+                {user.handle}
+                <span>
+                  <Image width={16} height={16} radius="full" src={`https://flagcdn.com/w320/vn.png`} alt={user.country} />
+                </span>
+              </p>
+            }
+            avatarProps={{
+              src: user.avatar_image,
+              alt: user.handle,
+              showFallback: true,
+            }}
+            description={
+              <p>
+                #{user.id}
+              </p>
+            }
+          />
+        );
       case "standing":
         return <p>
-
+          {user.rating}
         </p>
       default:
         return "-";
@@ -83,16 +69,10 @@ export default function RankingTable(props: Props) {
           isClearable
           placeholder="Search by name..."
           startContent={<SearchIcon />}
-          onValueChange={onSearchChange}
         />
       </LinearContainer>
     );
   }, []);
-
-  React.useEffect(() => {
-    list.reload();
-    console.log(list.items);
-  }, [user]);
 
   return (
     <Table
@@ -102,9 +82,7 @@ export default function RankingTable(props: Props) {
         wrapper: "h-full justify-start",
         base: "h-full overflow-auto",
       }}
-      sortDescriptor={list.sortDescriptor}
       topContent={topContent}
-      onSortChange={list.sort}
     >
       <TableHeader columns={columns}>
         {(column) => (
@@ -118,7 +96,7 @@ export default function RankingTable(props: Props) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody isLoading={list.isLoading} items={list.items}>
+      <TableBody items={props.users}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
