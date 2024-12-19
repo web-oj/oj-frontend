@@ -269,9 +269,7 @@ export async function createContest(params: {
   title: string;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>("/contest", {
-      params,
-    });
+    const res = await api.post<ApiResponse<null>>("/contest", params);
 
     return res.data;
   } catch (error) {
@@ -484,7 +482,7 @@ export async function getSubmissionById(params: { id: number }) {
     const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
     // decode the code
     res.data.data.code = atob(res.data.data.code);
-    
+
     return res.data.data;
   } catch (error) {
     throw new Error("Failed to get submission by ID");
