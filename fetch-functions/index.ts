@@ -279,9 +279,7 @@ export async function createContest(params: {
   title: string;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>("/contest", {
-      params,
-    });
+    const res = await api.post<ApiResponse<null>>("/contest", params);
 
     return res.data;
   } catch (error) {
@@ -391,14 +389,13 @@ export async function getRankingByContestId(params: { id: number }) {
 export async function addProblemToContest(params: {
   id: number;
   problemId: number;
+  score: number;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>(
-      `/contest/${params.id}/problem`,
-      {
-        problemId: params.problemId,
-      },
-    );
+    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
+      problemId: params.problemId,
+      score: params.score,
+    });
 
     return res.data;
   } catch (error) {
@@ -476,6 +473,23 @@ export async function unregisterForContest(params: {
   }
 }
 
+export async function runMoss(params: {
+  contestId: number;
+}) {
+  try {
+    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/moss`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to run MOSS");
+  }
+}
+
+/*
+====================================================
+============== SUBMISSION FUNCTIONS ===================
+====================================================
+*/
 export async function createSubmission(params: {
   problemId: number;
   id?: number;
@@ -513,7 +527,7 @@ export async function getSubmissionById(params: { id: number }) {
     const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
     // decode the code
     res.data.data.code = atob(res.data.data.code);
-    
+
     return res.data.data;
   } catch (error) {
     throw new Error("Failed to get submission by ID");
