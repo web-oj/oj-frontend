@@ -1,16 +1,11 @@
-"use client";
-
-import { useAuth } from "@/app/context";
-import RankingTable from "@/components/ranking/RankingTable";
+import LeaderboardTable from "./RankingTable";
 
 interface LeaderboardTableWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 export function LeaderboardTableWrapper(props: LeaderboardTableWrapperProps) {
-  const { user } = useAuth();
-
   return (
     <>
-      <RankingTable users={[user!]} />
+      <LeaderboardTable />
     </>
   );
 }

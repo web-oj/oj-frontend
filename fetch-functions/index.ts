@@ -1,6 +1,11 @@
-import { type User, type Problem, type Contest, Submission, ApiResponse, QueryParams } from "@/types";
-
-
+import {
+  type User,
+  type Problem,
+  type Contest,
+  Submission,
+  ApiResponse,
+  QueryParams,
+} from "@/types";
 import { api } from "@/utils/api";
 
 /*
@@ -79,6 +84,16 @@ export async function getUserByHandle(params: {
   }
 }
 
+export async function getLeaderboard() {
+  try {
+    const res = await api.get<ApiResponse<User[]>>("/user/leaderboard");
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error("Failed to fetch leaderboard");
+  }
+}
+
 export async function deleteUser(params: { id: number }) {
   try {
     const res = await api.delete<ApiResponse<null>>(`/user/${params.id}`);
@@ -134,10 +149,14 @@ export async function updateProblem(params: {
   data: Partial<Problem>;
 }) {
   try {
-    const res = await api.patch<ApiResponse<null>>(`/problem/id/${params.id}`, params.data);
+    const res = await api.patch<ApiResponse<null>>(
+      `/problem/id/${params.id}`,
+      params.data,
+    );
 
     return res.data;
   } catch (error: any) {
+    console.error(error);
     throw new Error("Failed to update problem");
   }
 }
@@ -183,7 +202,6 @@ export async function addTestcasesToProblem(params: {
     throw new Error("Failed to add testcases to problem");
   }
 }
-
 
 export async function getProblemByTitle(params: {
   title: string;
@@ -261,7 +279,6 @@ export async function searchProblems(params: {
 export async function createContest(params: {
   organizerId: number;
   isPublished: boolean;
-  isPlagiarismCheckEnabled: boolean;
   scoringRule: string;
   endTime: number;
   startTime: number;
@@ -270,9 +287,7 @@ export async function createContest(params: {
   title: string;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>("/contest", {
-      params,
-    });
+    const res = await api.post<ApiResponse<null>>("/contest", params);
 
     return res.data;
   } catch (error) {
@@ -354,10 +369,13 @@ export async function editScoreByContestId(params: {
   score: number;
 }) {
   try {
-    const res = await api.patch<ApiResponse<null>>(`/contest/${params.contestId}/editScore`, {
-      userId: params.userId,
-      score: params.score,
-    });
+    const res = await api.patch<ApiResponse<null>>(
+      `/contest/${params.contestId}/editScore`,
+      {
+        userId: params.userId,
+        score: params.score,
+      },
+    );
 
     return res.data;
   } catch (error) {
@@ -367,7 +385,9 @@ export async function editScoreByContestId(params: {
 
 export async function getRankingByContestId(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<User[]>>(`/contest/${params.id}/ranking`);
+    const res = await api.get<ApiResponse<User[]>>(
+      `/contest/${params.id}/ranking`,
+    );
 
     return res.data.data;
   } catch (error) {
@@ -378,14 +398,20 @@ export async function getRankingByContestId(params: { id: number }) {
 export async function addProblemToContest(params: {
   contestId: number;
   problemId: number;
+  score: number;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
-      problemId: params.problemId,
-    });
+    const res = await api.post<ApiResponse<null>>(
+      `/contest/${params.problemId}/problem`,
+      {
+        problemId: params.problemId,
+        score: params.score,
+      },
+    );
 
     return res.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to add problem to contest");
   }
 }
@@ -403,6 +429,7 @@ export async function removeProblemFromContest(params: {
 
     return res.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to remove problem from contest");
   }
 }
@@ -449,6 +476,23 @@ export async function unregisterForContest(params: {
   }
 }
 
+export async function runMoss(params: { contestId: number }) {
+  try {
+    const res = await api.post<ApiResponse<null>>(
+      `/contest/${params.contestId}/moss`,
+    );
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to run MOSS");
+  }
+}
+
+/*
+====================================================
+============== SUBMISSION FUNCTIONS ===================
+====================================================
+*/
 export async function createSubmission(params: {
   problemId: number;
   contestId?: number;
@@ -483,10 +527,13 @@ export async function getSubmissionExecutionStatus(params: { id: number }) {
 
 export async function getSubmissionById(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
+    const res = await api.get<ApiResponse<Submission>>(
+      `/submission/${params.id}`,
+    );
+
     // decode the code
     res.data.data.code = atob(res.data.data.code);
-    
+
     return res.data.data;
   } catch (error) {
     throw new Error("Failed to get submission by ID");

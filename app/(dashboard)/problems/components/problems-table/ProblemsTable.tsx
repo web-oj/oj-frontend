@@ -8,7 +8,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Tooltip,
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import Link from "next/link";
@@ -63,17 +62,9 @@ export default function ProblemsTable(props: Props) {
     (problem: Problem, columnKey: React.Key): React.ReactNode => {
       switch (columnKey) {
         case "id":
-          return (
-            <p className="font-semibold">
-              {problem.id}
-            </p>
-          );
+          return <p className="font-semibold">{problem.id}</p>;
         case "title":
-          return (
-            <p className="font-semibold">
-              {problem.title}
-            </p>
-          )
+          return <p className="font-semibold">{problem.title}</p>;
         case "difficulty":
           return (
             <p className="p-1 w-fit rounded-full text-foreground-700">
@@ -159,8 +150,8 @@ export default function ProblemsTable(props: Props) {
             <TableRow
               key={item.id}
               as={Link}
-              href={`/problems/${item.id}`}
               className="cursor-pointer hover:scale-[101%] hover:bg-foreground-50 ease-in-out transition-transform"
+              href={`/problems/${item.id}`}
             >
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>

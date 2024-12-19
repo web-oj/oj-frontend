@@ -22,9 +22,7 @@ export function ContestCard(props: Props) {
       space="md"
       onClick={() => router.push(`/contests/${contest.id}`)}
     >
-      <p className="text-primary text-base font-semibold">
-        {contest.id}
-      </p>
+      <p className="text-primary text-base font-semibold">{contest.id}</p>
       <p className="text-2xl font-semibold text-foreground-900">
         {contest.title}
       </p>

@@ -39,11 +39,11 @@ export function Field(props: FieldProps) {
         classNames?.wrapper,
       )}
     >
-      {icon &&
+      {icon && (
         <Tooltip content={label} placement="top">
           {icon}
         </Tooltip>
-      }
+      )}
       {showLabel && (
         <div
           className={twMerge(
