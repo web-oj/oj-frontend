@@ -375,10 +375,12 @@ export async function getRankingByContestId(params: { id: number }) {
 export async function addProblemToContest(params: {
   contestId: number;
   problemId: number;
+  score: number;
 }) {
   try {
     const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/problem`, {
       problemId: params.problemId,
+      score: params.score,
     });
 
     return res.data;
@@ -446,6 +448,23 @@ export async function unregisterForContest(params: {
   }
 }
 
+export async function runMoss(params: {
+  contestId: number;
+}) {
+  try {
+    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/moss`);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to run MOSS");
+  }
+}
+
+/*
+====================================================
+============== SUBMISSION FUNCTIONS ===================
+====================================================
+*/
 export async function createSubmission(params: {
   problemId: number;
   contestId?: number;
