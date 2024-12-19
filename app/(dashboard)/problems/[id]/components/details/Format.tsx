@@ -1,8 +1,8 @@
 "use client";
 
-import { RenderMarkdown } from "@/components/markdown";
 import { useProblem } from "../../../context";
 
+import { RenderMarkdown } from "@/components/markdown";
 import { LinearContainer } from "@/components/ui";
 
 function FormatWrapper({ title, format }: { title: string; format: string }) {

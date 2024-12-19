@@ -2,15 +2,15 @@
 
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import { useSearchParams } from "next/navigation";
 
 import { useProblem } from "../../../context";
 
 import { useAuth } from "@/app/context";
 import { useIDEContext } from "@/components/ide/context";
 import { createSubmission } from "@/fetch-functions";
-import { useSearchParams } from "next/navigation";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> { }
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function Submit(props: Props) {
   const problem = useProblem();
@@ -28,17 +28,16 @@ export default function Submit(props: Props) {
         return;
       }
 
-      contestId ?
-        await createSubmission({
-          code,
-          problemId: problem.data.id,
-          contestId: parseInt(contestId),
-        })
-        :
-        await createSubmission({
-          code,
-          problemId: problem.data.id,
-        });
+      contestId
+        ? await createSubmission({
+            code,
+            problemId: problem.data.id,
+            contestId: parseInt(contestId),
+          })
+        : await createSubmission({
+            code,
+            problemId: problem.data.id,
+          });
 
       toast.success("Problem submitted successfully");
     } catch (error) {

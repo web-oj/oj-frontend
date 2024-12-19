@@ -1,13 +1,14 @@
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { notFound } from "next/navigation";
 
+import OwnerToolbar from "../components/OwnerToolbar";
+
 import IDEArea from "./IDEArea";
 import ProblemTabs from "./components/(tabs)";
 import Providers from "./providers";
 
 import { PageContainer } from "@/components/ui";
 import { getProblemById } from "@/fetch-functions";
-import OwnerToolbar from "../components/OwnerToolbar";
 
 interface Props {
   params: {
@@ -19,6 +20,7 @@ export default async function Page({ params }: Props) {
   const fetchProblem = async () => {
     try {
       const problem = await getProblemById({ id: parseInt(id) });
+
       return problem;
     } catch (error) {
       console.error("Failed to fetch problem", error);

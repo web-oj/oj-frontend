@@ -1,14 +1,19 @@
 "use client";
-import { Clock01Icon, FireIcon, Rocket01Icon, UsbMemory01Icon } from "hugeicons-react";
+import {
+  Clock01Icon,
+  FireIcon,
+  Rocket01Icon,
+  UsbMemory01Icon,
+} from "hugeicons-react";
+import { useSearchParams } from "next/navigation";
 
 import { useProblem } from "../../../context";
 
 import Submit from "./Submit";
 
 import { Field, LinearContainer } from "@/components/ui";
-import { useSearchParams } from "next/navigation";
 
-interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 export default function Header(props: HeaderProps) {
   const { data: problem } = useProblem();
   const searchParams = useSearchParams();
@@ -29,36 +34,36 @@ export default function Header(props: HeaderProps) {
       </h1>
       <LinearContainer
         className="text-foreground-500"
-        direction="row"
-        space="sm"
         classnames={{
           container: "flex-wrap",
         }}
+        direction="row"
+        space="sm"
       >
         <Field
           icon={<FireIcon size={16} />}
           label="Difficulty"
-          value={problem?.difficulty}
           showLabel={false}
+          value={problem?.difficulty}
         />
         <Field
           icon={<Clock01Icon size={16} />}
           label="Time Limit"
-          value={`${problem?.timeLimit} seconds`}
           showLabel={false}
+          value={`${problem?.timeLimit} seconds`}
         />
         <Field
           icon={<UsbMemory01Icon size={16} />}
           label="Memory Limit"
-          value={`${problem?.memoryLimit} MB`}
           showLabel={false}
+          value={`${problem?.memoryLimit} MB`}
         />
         {contestId && (
           <Field
             icon={<Rocket01Icon size={16} />}
             label="Contest"
-            value={contestId}
             showLabel={false}
+            value={contestId}
           />
         )}
       </LinearContainer>
