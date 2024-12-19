@@ -179,7 +179,7 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
         register={registers.statement}
         setMarkdown={setStatement}
       />
-      <LinearContainer direction="row">
+      <LinearContainer direction="row" fullwidth>
         <Input
           fullWidth
           description="Time limit in milliseconds"

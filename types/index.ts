@@ -130,6 +130,7 @@ export interface AssociatedContest {
   deletedAt: string;
   problemId: number;
   id: number;
+  id: number;
   problem: Problem;
   contest: Contest;
   score: number;
@@ -141,6 +142,7 @@ export interface ProblemInContest {
   deletedAt: string;
   problemId: number;
   id: number;
+  id: number;
   problem: Problem;
   contest: Contest;
   score: number;
@@ -150,6 +152,7 @@ export enum Language {
   CPP = "CPP",
   C = "C",
   JAVA = "JAVA",
+  PYTHON = "PYTHON",
   PYTHON = "PYTHON",
 }
 

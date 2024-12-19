@@ -8,6 +8,7 @@ import FormToolbar from "./components/Toolbar";
 
 import { getProblemById } from "@/fetch-functions";
 import { LinearContainer, PageContainer } from "@/components/ui";
+import OwnerToolbar from "../../components/OwnerToolbar";
 
 interface Props {
   params: {
@@ -43,6 +44,7 @@ export default async function Page({ params }: Props) {
             <FastCheckTableWrapper />
           </LinearContainer>
         </LinearContainer>
+        <OwnerToolbar />
       </PageContainer>
     </Providers>
   );
