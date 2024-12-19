@@ -387,7 +387,7 @@ export async function getRankingByContestId(params: { id: number }) {
 }
 
 export async function addProblemToContest(params: {
-  id: number;
+  contestId: number;
   problemId: number;
   score: number;
 }) {
@@ -443,12 +443,13 @@ export async function registerForContest(params: {
     const res = await api.post<ApiResponse<Contest>>(
       `/contest/${params.id}/register`,
       {
-        id: params.userId,
+        userId: params.userId,
       },
     );
 
     return res.data.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to register for contest");
   }
 }
@@ -462,7 +463,7 @@ export async function unregisterForContest(params: {
       `/contest/${params.id}/register`,
       {
         data: {
-          id: params.userId,
+          userId: params.userId,
         },
       },
     );
