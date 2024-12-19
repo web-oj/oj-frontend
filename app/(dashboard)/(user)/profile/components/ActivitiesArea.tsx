@@ -187,34 +187,16 @@ export default function ActivitiesArea(props: Props) {
             onClick={() => router.push(`/contests/${contest.id}`)}
           >
             <LinearContainer direction="column" space="sm">
-              <h1 className="text-lg font-semibold">{contest?.title}</h1>
+              <h1 className="text-lg font-semibold">{contest?.id}</h1>
               <LinearContainer>
                 <Field
                   classNames={{
                     value: "text-foreground-500",
                   }}
                   icon={<Calendar01Icon size={16} />}
-                  label="Start Time"
+                  label="Joined At"
                   showLabel={false}
-                  value={new Date(contest.startTime).toLocaleDateString()}
-                />
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<Calendar01Icon size={16} />}
-                  label="End Time"
-                  showLabel={false}
-                  value={contest.endTime}
-                />
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<UserGroupIcon size={16} />}
-                  label="Participants"
-                  showLabel={false}
-                  value={contest.participations.length}
+                  value={new Date(contest.createdAt).toLocaleDateString()}
                 />
               </LinearContainer>
             </LinearContainer>

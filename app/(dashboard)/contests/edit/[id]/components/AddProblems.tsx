@@ -22,7 +22,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 export default function AddProblems(props: Props) {
     const { data: contest } = useContest();
 
-    const { problemsInContest,                                                                                                                                                                                                                                                                                                                                                                         setProblemsInContest } = props;
+    const { problemsInContest, setProblemsInContest } = props;
 
     const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure();
 
@@ -83,6 +83,7 @@ export default function AddProblems(props: Props) {
         const ProblemCard = (problem: Problem) => {
             return (
                 <LinearContainer
+                    key={problem.id}
                     direction="row"
                     fullwidth
                     className="bg-foreground-50 p-2 rounded-lg shadow-sm hover:scale-[1.01] transition-transform ease-in-out cursor-pointer"
@@ -112,7 +113,7 @@ export default function AddProblems(props: Props) {
 
         return (
             <LinearContainer fullwidth direction="column" space="sm">
-                {problems.map(p => <ProblemCard {...p} />)}
+                {problems.map(p => <ProblemCard key={p.id} {...p} />)}
             </LinearContainer>
         )
     }
@@ -128,7 +129,7 @@ export default function AddProblems(props: Props) {
             <LinearContainer direction="row" fullwidth space="sm" classnames={{
                 container: "flex-wrap",
             }}>
-                {problemsInContest.map(p => <ProblemInContestCard {...p} />)}
+                {problemsInContest.map(p => <ProblemInContestCard key={p.problemId} {...p} />)}
             </LinearContainer>
             <>
                 <Button color="secondary" radius="full" onClick={onOpen}>Add Problems</Button>

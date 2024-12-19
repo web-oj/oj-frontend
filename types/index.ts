@@ -33,10 +33,10 @@ export interface QueryParams {
  * ========================================================
  * */
 export enum Role {
-  Admin = "ADMIN",
-  User = "USER",
-  Organizer = "ORGANIZER",
-  ProblemSetter = "PROBLEM_SETTER",
+  Admin = 'ADMIN',
+  User = 'USER',
+  Organizer = 'ORGANIZER',
+  ProblemSetter = 'PROBLEM_SETTER',
 }
 
 export interface User {
@@ -108,6 +108,7 @@ export interface Contest {
   isPlagiarismCheckEnabled: boolean;
   isPublished: boolean;
   organizer: User;
+  mossUrl: string;
   participations: ContestParticipation[];
   problemsInContest: ProblemInContest[];
   submissions: Submission[];
@@ -130,7 +131,6 @@ export interface AssociatedContest {
   deletedAt: string;
   problemId: number;
   id: number;
-  id: number;
   problem: Problem;
   contest: Contest;
   score: number;
@@ -142,7 +142,6 @@ export interface ProblemInContest {
   deletedAt: string;
   problemId: number;
   id: number;
-  id: number;
   problem: Problem;
   contest: Contest;
   score: number;
@@ -152,7 +151,6 @@ export enum Language {
   CPP = "CPP",
   C = "C",
   JAVA = "JAVA",
-  PYTHON = "PYTHON",
   PYTHON = "PYTHON",
 }
 
