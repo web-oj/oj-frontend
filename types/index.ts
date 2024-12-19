@@ -52,6 +52,7 @@ export interface User {
   password: string;
   role: Role;
   isBan: boolean;
+  rating: number;
   lastTimeChangeHandle: number;
   lastTimeChangeImage: number;
   country: string;
