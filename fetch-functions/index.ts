@@ -279,9 +279,7 @@ export async function createContest(params: {
   title: string;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>("/contest", {
-      params,
-    });
+    const res = await api.post<ApiResponse<null>>("/contest", params);
 
     return res.data;
   } catch (error) {
