@@ -271,7 +271,6 @@ export async function searchProblems(params: {
 export async function createContest(params: {
   organizerId: number;
   isPublished: boolean;
-  isPlagiarismCheckEnabled: boolean;
   scoringRule: string;
   endTime: number;
   startTime: number;
