@@ -150,7 +150,7 @@ export default function ActivitiesArea(props: Props) {
   };
 
   const Participations = () => {
-    if (!user?.contestParticipations)
+    if (!user?.participatedContest)
       return (
         <LinearContainer
           fullheight
@@ -175,7 +175,7 @@ export default function ActivitiesArea(props: Props) {
           router;
         }}
       >
-        {user.contestParticipations.map((contest, index) => (
+        {user.participatedContest.map((contest, index) => (
           <LinearContainer
             key={index}
             fullwidth
@@ -196,7 +196,7 @@ export default function ActivitiesArea(props: Props) {
                   icon={<Calendar01Icon size={16} />}
                   label="Start Time"
                   showLabel={false}
-                  value={contest.startTime}
+                  value={new Date(contest.startTime).toLocaleDateString()}
                 />
                 <Field
                   classNames={{

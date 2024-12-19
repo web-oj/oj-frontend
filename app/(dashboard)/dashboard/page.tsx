@@ -6,7 +6,7 @@ import { LinearContainer, PageContainer } from "@/components/ui";
 
 export default async function Page() {
   const problems = await getAllProblems();
-  const contests = await getAllContests();
+  const contests = await getAllContests({});
 
   return (
     <PageContainer
