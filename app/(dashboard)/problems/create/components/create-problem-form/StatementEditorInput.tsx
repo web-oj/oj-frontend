@@ -51,7 +51,7 @@ const StatementEditorInput = React.forwardRef<
         <ModalContent>
           <ModalHeader>Statement Editor</ModalHeader>
           <ModalBody>
-            <LinearContainer direction="row">
+            <LinearContainer direction="row" fullheight fullwidth>
               <Editor
                 height={"75vh"}
                 language="markdown"
@@ -68,7 +68,7 @@ const StatementEditorInput = React.forwardRef<
                   setMarkdown(value as string);
                 }}
               />
-              <RenderMarkdown data={markdown} />
+              <RenderMarkdown className="" data={markdown} />
             </LinearContainer>
           </ModalBody>
           <ModalFooter>
