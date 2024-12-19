@@ -84,6 +84,16 @@ export async function getUserByHandle(params: {
   }
 }
 
+export async function getLeaderboard() {
+  try {
+    const res = await api.get<ApiResponse<User[]>>("/user/leaderboard");
+
+    return res.data.data;
+  } catch (error) {
+    throw new Error("Failed to fetch leaderboard");
+  }
+}
+
 export async function deleteUser(params: { id: number }) {
   try {
     const res = await api.delete<ApiResponse<null>>(`/user/${params.id}`);
