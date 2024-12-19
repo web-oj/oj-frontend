@@ -2,6 +2,16 @@
 
 import { PropsWithChildren } from "react";
 
-export default function Providers({ children }: PropsWithChildren<{}>) {
-  return <></>;
+import { Submission } from "@/types";
+import { SubmissionProvider } from "../context";
+
+interface Props extends PropsWithChildren {
+  submission: Submission;
+}
+export default function Providers({ submission, children }: Props) {
+  return (
+    <SubmissionProvider submission={submission}>
+      {children}
+    </SubmissionProvider>
+  )
 }
