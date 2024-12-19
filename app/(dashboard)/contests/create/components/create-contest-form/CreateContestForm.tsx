@@ -14,7 +14,7 @@ import { useAuth } from "@/app/context";
 import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 
 interface CreateContestFormProps
-  extends React.HTMLAttributes<HTMLFormElement> {}
+  extends React.HTMLAttributes<HTMLFormElement> { }
 
 type CreateContestFormValues = {
   organizerId: number;
@@ -48,11 +48,11 @@ export function CreateContestForm(props: CreateContestFormProps) {
 
       return;
     }
+
     try {
       await createContest({
         organizerId: user?.id,
         isPublished: data.isPublished,
-        isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
         scoringRule: data.scoringRule,
         endTime: new Date(data.endTime).getTime(),
         startTime: new Date(data.startTime).getTime(),
@@ -115,7 +115,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
           startTime: watchedFields.startTime,
           endTime: watchedFields.endTime,
           scoringRule: watchedFields.scoringRule,
-          description: watchedFields.description,
+          description: description,
           isPlagiarismCheckEnabled: watchedFields.isPlagiarismCheckEnabled,
           isPublished: watchedFields.isPublished,
         });
@@ -131,6 +131,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
         placeholder="Title"
         radius="full"
         type="text"
+        classNames={{
+          inputWrapper: "bg-foreground-50",
+        }}
         {...registers.title}
       />
       <ErrorMessage
@@ -163,6 +166,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
           placeholder="Start Time"
           radius="full"
           type="datetime-local"
+          classNames={{
+            inputWrapper: "bg-foreground-50",
+          }}
           {...registers.startTime}
         />
         <Input
@@ -172,6 +178,9 @@ export function CreateContestForm(props: CreateContestFormProps) {
           placeholder="End Time"
           radius="full"
           type="datetime-local"
+          classNames={{
+            inputWrapper: "bg-foreground-50",
+          }}
           {...registers.endTime}
         />
       </LinearContainer>
@@ -194,11 +203,13 @@ export function CreateContestForm(props: CreateContestFormProps) {
         required
         classNames={{
           base: "max-h-[200ch]",
+          inputWrapper: "bg-foreground-50",
         }}
         label="Scoring Rule"
         labelPlacement="outside"
         placeholder="Type the scoring rule here"
         radius="full"
+        
         {...registers.scoringRule}
       />
       <ErrorMessage
@@ -213,6 +224,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
         required
         classNames={{
           base: "max-h-[200ch]",
+          inputWrapper: "bg-foreground-50",
         }}
         label="Rule Text"
         labelPlacement="outside"

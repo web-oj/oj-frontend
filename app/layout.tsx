@@ -43,7 +43,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <ToastContainer />
           <CookieConsent />
           <div className="relative flex flex-col h-screen w-screen">
