@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const declineCookies = () => {
     Cookies.set("cookieConsent", "false");
     setShowCookieConsent(false);
-  }
+  };
 
   return (
     <AuthContext.Provider

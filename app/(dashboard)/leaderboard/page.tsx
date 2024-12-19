@@ -1,6 +1,6 @@
+import LeaderboardTable from "./components/leaderboard-table/LeaderboardTable";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
-import LeaderboardTable from "./components/leaderboard-table/LeaderboardTable";
 
 export default function Page() {
   return (

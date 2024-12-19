@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { useAsyncList } from "@react-stately/data";
 import {
   Table,
   TableHeader,
@@ -12,7 +10,6 @@ import {
   TableCell,
   Input,
   User as UserUI,
-  Avatar,
   Image,
 } from "@nextui-org/react";
 
@@ -21,7 +18,6 @@ import { columns } from "./data";
 import { User } from "@/types";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
-import { useAuth } from "@/app/context";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   users?: User[];
@@ -32,30 +28,30 @@ export default function RankingTable(props: Props) {
       case "handle":
         return (
           <UserUI
-            name={
-              <p className="flex items-center flex-row gap-1">
-                {user.handle}
-                <span>
-                  <Image width={16} height={16} radius="full" src={`https://flagcdn.com/w320/vn.png`} alt={user.country} />
-                </span>
-              </p>
-            }
             avatarProps={{
               src: user.avatar_image,
               alt: user.handle,
               showFallback: true,
             }}
-            description={
-              <p>
-                #{user.id}
+            description={<p>#{user.id}</p>}
+            name={
+              <p className="flex items-center flex-row gap-1">
+                {user.handle}
+                <span>
+                  <Image
+                    alt={user.country}
+                    height={16}
+                    radius="full"
+                    src={`https://flagcdn.com/w320/vn.png`}
+                    width={16}
+                  />
+                </span>
               </p>
             }
           />
         );
       case "rating":
-        return <p>
-          {user.rating}
-        </p>
+        return <p>{user.rating}</p>;
       default:
         return "-";
     }

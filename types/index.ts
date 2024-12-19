@@ -33,10 +33,10 @@ export interface QueryParams {
  * ========================================================
  * */
 export enum Role {
-  Admin = 'ADMIN',
-  User = 'USER',
-  Organizer = 'ORGANIZER',
-  ProblemSetter = 'PROBLEM_SETTER',
+  Admin = "ADMIN",
+  User = "USER",
+  Organizer = "ORGANIZER",
+  ProblemSetter = "PROBLEM_SETTER",
 }
 
 export interface User {

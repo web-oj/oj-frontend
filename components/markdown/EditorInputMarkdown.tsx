@@ -37,6 +37,9 @@ const EditorInputMarkdown = React.forwardRef<
       <Textarea
         isRequired
         required
+        classNames={{
+          inputWrapper: "bg-foreground-50",
+        }}
         description={
           <p>
             Support <b>markdown</b> and <b>latex</b> syntax
@@ -48,9 +51,6 @@ const EditorInputMarkdown = React.forwardRef<
         radius="full"
         value={markdown}
         onClick={onOpen}
-        classNames={{
-          inputWrapper: "bg-foreground-50"
-        }}
         {...register}
       />
       <Modal isOpen={isOpen} size="5xl" onClose={onClose} {...rest}>

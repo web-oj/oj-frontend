@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { useAsyncList } from "@react-stately/data";
 
 import { User } from "@/types";
@@ -38,7 +37,5 @@ export default function LeaderboardTable() {
     );
   }, [list.items, filterValue]);
 
-  return (
-    <RankingTable users={filteredItems} />
-  );
+  return <RankingTable users={filteredItems} />;
 }

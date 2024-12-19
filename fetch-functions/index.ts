@@ -1,6 +1,11 @@
-import { type User, type Problem, type Contest, Submission, ApiResponse, QueryParams } from "@/types";
-
-
+import {
+  type User,
+  type Problem,
+  type Contest,
+  Submission,
+  ApiResponse,
+  QueryParams,
+} from "@/types";
 import { api } from "@/utils/api";
 
 /*
@@ -206,7 +211,6 @@ export async function addTestcasesToProblem(params: {
   }
 }
 
-
 export async function getProblemByTitle(params: {
   title: string;
 }): Promise<Problem[]> {
@@ -379,10 +383,13 @@ export async function editScoreByContestId(params: {
   score: number;
 }) {
   try {
-    const res = await api.patch<ApiResponse<null>>(`/contest/${params.contestId}/editScore`, {
-      userId: params.userId,
-      score: params.score,
-    });
+    const res = await api.patch<ApiResponse<null>>(
+      `/contest/${params.contestId}/editScore`,
+      {
+        userId: params.userId,
+        score: params.score,
+      },
+    );
 
     return res.data;
   } catch (error) {
@@ -392,7 +399,9 @@ export async function editScoreByContestId(params: {
 
 export async function getRankingByContestId(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<User[]>>(`/contest/${params.id}/ranking`);
+    const res = await api.get<ApiResponse<User[]>>(
+      `/contest/${params.id}/ranking`,
+    );
 
     return res.data.data;
   } catch (error) {
@@ -406,10 +415,13 @@ export async function addProblemToContest(params: {
   score: number;
 }) {
   try {
-    const res = await api.post<ApiResponse<null>>(`/contest/${params.id}/problem`, {
-      problemId: params.problemId,
-      score: params.score,
-    });
+    const res = await api.post<ApiResponse<null>>(
+      `/contest/${params.id}/problem`,
+      {
+        problemId: params.problemId,
+        score: params.score,
+      },
+    );
 
     return res.data;
   } catch (error) {
@@ -423,11 +435,13 @@ export async function removeProblemFromContest(params: {
   problemId: number;
 }) {
   try {
-    const res = await api.delete<ApiResponse<null>>(`/contest/${params.id}/problem`, {
-      data: {
-        problemId: params.problemId,
+    const res = await api.delete<ApiResponse<null>>(
+      `/contest/${params.id}/problem`,
+      {
+        data: {
+          problemId: params.problemId,
+        },
       },
-    }
     );
 
     return res.data;
@@ -487,11 +501,11 @@ export async function unregisterForContest(params: {
   }
 }
 
-export async function runMoss(params: {
-  contestId: number;
-}) {
+export async function runMoss(params: { contestId: number }) {
   try {
-    const res = await api.post<ApiResponse<null>>(`/contest/${params.contestId}/moss`);
+    const res = await api.post<ApiResponse<null>>(
+      `/contest/${params.contestId}/moss`,
+    );
 
     return res.data;
   } catch (error) {
@@ -538,7 +552,10 @@ export async function getSubmissionExecutionStatus(params: { id: number }) {
 
 export async function getSubmissionById(params: { id: number }) {
   try {
-    const res = await api.get<ApiResponse<Submission>>(`/submission/${params.id}`);
+    const res = await api.get<ApiResponse<Submission>>(
+      `/submission/${params.id}`,
+    );
+
     // decode the code
     res.data.data.code = atob(res.data.data.code);
 

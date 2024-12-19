@@ -8,5 +8,5 @@ export const columns = [
     name: "Rating",
     uid: "rating",
     sortable: true,
-  }
+  },
 ];
