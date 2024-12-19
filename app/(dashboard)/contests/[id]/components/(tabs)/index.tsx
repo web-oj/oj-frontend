@@ -26,6 +26,16 @@ export const tabs = [
     value: "ranking",
     component: <RankingArea />,
   },
+  {
+    label: "Submissions",
+    value: "submissions",
+    component: <div />,
+  },
+  {
+    label: "Moss",
+    value: "moss",
+    component: <div />,
+  }
 ];
 
 export default function ContestTabs() {
