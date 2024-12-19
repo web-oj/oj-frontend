@@ -3,40 +3,41 @@ import { useContestTrack } from "../../context";
 
 import { LinearContainer } from "@/components/ui";
 import { Field } from "@/components/ui";
+import { Checkbox } from "@nextui-org/react";
 
-interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface FastCheckTableProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function FastCheckTable(props: FastCheckTableProps) {
   const { data } = useContestTrack();
 
-  const fields = [
+  const checkFields = [
     {
       label: "Title",
-      value: data ? data.title : "N/A",
-    },
-    {
-      label: "Start Time",
-      value: data ? data.startTime : "N/A",
-    },
-    {
-      label: "End Time",
-      value: data ? data.endTime : "N/A",
-    },
-    {
-      label: "Scoring Rule",
-      value: data ? data.scoringRule : "N/A",
-    },
-    {
-      label: "Plagiarism Check",
-      value: data ? data.isPlagiarismCheckEnabled : "N/A",
-    },
-    {
-      label: "Published",
-      value: data ? data.isPublished : "N/A",
+      value: !!data.title
     },
     {
       label: "Description",
-      value: data ? data.description : "N/A",
+      value: !!data.description
     },
+    {
+      label: "Start Time",
+      value: !!data.startTime
+    },
+    {
+      label: "End Time",
+      value: !!data.endTime
+    },
+    {
+      label: "Scoring Rule",
+      value: !!data.scoringRule
+    },
+    {
+      label: "Plagiarism Check",
+      value: data ? data.isPlagiarismCheckEnabled : false,
+    },
+    {
+      label: "Published",
+      value: data ? data.isPublished : false,
+    }
   ];
 
   return (
@@ -48,7 +49,7 @@ export function FastCheckTable(props: FastCheckTableProps) {
       direction="column"
       space="sm"
     >
-      {fields.map((field, index) => (
+      {checkFields.map((field, index) => (
         <Field
           key={index}
           fullWidth
@@ -57,7 +58,17 @@ export function FastCheckTable(props: FastCheckTableProps) {
           }}
           direction="row"
           label={field.label}
-          value={field.value}
+          value={
+            <Checkbox
+              isSelected={field.value}
+              isInvalid={
+                field.label === "Plagiarism Check" && !data.isPlagiarismCheckEnabled
+                || field.label === "Published" && !data.isPublished
+              }
+              disabled
+              radius="full"
+            />
+          }
         />
       ))}
     </LinearContainer>

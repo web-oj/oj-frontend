@@ -48,6 +48,17 @@ export function CreateContestForm(props: CreateContestFormProps) {
 
       return;
     }
+    console.log({
+      organizerId: user?.id,
+      isPublished: data.isPublished,
+      isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
+      scoringRule: data.scoringRule,
+      endTime: new Date(data.endTime).getTime(),
+      startTime: new Date(data.startTime).getTime(),
+      ruleText: data.scoringRule,
+      description: data.description,
+      title: data.title,
+    });
     try {
       await createContest({
         organizerId: user?.id,
@@ -115,7 +126,7 @@ export function CreateContestForm(props: CreateContestFormProps) {
           startTime: watchedFields.startTime,
           endTime: watchedFields.endTime,
           scoringRule: watchedFields.scoringRule,
-          description: watchedFields.description,
+          description: description,
           isPlagiarismCheckEnabled: watchedFields.isPlagiarismCheckEnabled,
           isPublished: watchedFields.isPublished,
         });
