@@ -15,14 +15,33 @@ export type ObjectContextType<T> = {
   setData: (data: T) => void;
 };
 
+export interface ApiResponse<T> {
+  error: string;
+  data: T;
+  status: number;
+  message: string;
+}
+
+export interface QueryParams {
+  page?: number;
+  limit?: number;
+}
+
 /*
  * ========================================================
  *                       SDK
  * ========================================================
  * */
+export enum Role {
+  Admin = 'ADMIN',
+  User = 'USER',
+  Organizer = 'ORGANIZER',
+  ProblemSetter = 'PROBLEM_SETTER',
+}
 
 export interface User {
   id: number;
+  description?: string;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
@@ -31,14 +50,14 @@ export interface User {
   bio: string;
   email: string;
   password: string;
-  role: string;
+  role: Role;
   isBan: boolean;
   lastTimeChangeHandle: number;
   lastTimeChangeImage: number;
   country: string;
   submissions: Submission[];
   organizedContests: Contest[];
-  contestParticipations: Contest[];
+  participatedContest: ContestParticipation[];
 }
 
 export interface Submission {
@@ -58,7 +77,7 @@ export interface Problem {
   id: number;
   createdAt: string;
   updatedAt: string;
-  deletedAt: string;
+  deletedAt: string | null;
   title: string;
   statement: string;
   difficulty: number;
@@ -67,10 +86,10 @@ export interface Problem {
   inputFormat: string;
   outputFormat: string;
   solutionText: string;
-  createdBy: number;
+  isPublished: boolean;
+  owner: User;
   submissions: Submission[];
   testcases: TestCase[];
-  isPublished: boolean;
   associatedContests: AssociatedContest[];
 }
 
@@ -94,11 +113,11 @@ export interface Contest {
 }
 
 export interface ContestParticipation {
+  id: number;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
   userId: number;
-  id: number;
   user: User;
   contest: Contest;
   score: number;

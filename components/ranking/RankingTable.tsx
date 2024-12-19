@@ -29,8 +29,8 @@ export default function RankingTable(props: Props) {
   const { user } = useAuth()
   const list = useAsyncList<User>({
     async load({ signal }) {
-      let items = props.users as User[];
-
+      let items = [user] as User[];
+      console.log(user)
       return {
         items: items,
       };
@@ -48,11 +48,11 @@ export default function RankingTable(props: Props) {
       };
     },
   });
-  const filteredItems = React.useMemo(() => {
-    return list.items.filter((user) =>
-      user.id.toString().includes(filterValue),
-    );
-  }, [list.items, filterValue]);
+  // const filteredItems = React.useMemo(() => {
+  //   return list.items.filter((user) =>
+  //     user.id.toString().includes(filterValue),
+  //   );
+  // }, [list.items, filterValue]);
 
   const onSearchChange = React.useCallback((value?: string) => {
     if (value) {
@@ -91,6 +91,7 @@ export default function RankingTable(props: Props) {
 
   React.useEffect(() => {
     list.reload();
+    console.log(list.items);
   }, [user]);
 
   return (
@@ -117,7 +118,7 @@ export default function RankingTable(props: Props) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody isLoading={list.isLoading} items={filteredItems}>
+      <TableBody isLoading={list.isLoading} items={list.items}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
