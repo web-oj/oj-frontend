@@ -62,7 +62,7 @@ export default function ProblemsInContests(props: Props) {
                     container: "justify-between items-center"
                 }}
                 onClick={() => {
-                    router.push(`../problems/${problem.id}`);
+                    router.push(`../problems/${problem.id}?contestId=${contest.id}`);
                 }}
             >
                 <LinearContainer direction="column">
