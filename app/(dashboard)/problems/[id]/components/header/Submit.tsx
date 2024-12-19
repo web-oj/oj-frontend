@@ -8,13 +8,17 @@ import { useProblem } from "../../../context";
 import { useAuth } from "@/app/context";
 import { useIDEContext } from "@/components/ide/context";
 import { createSubmission } from "@/fetch-functions";
+import { useSearchParams } from "next/navigation";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> { }
 
 export default function Submit(props: Props) {
   const problem = useProblem();
   const { user } = useAuth();
   const { code } = useIDEContext();
+  const searchParams = useSearchParams();
+
+  const contestId = searchParams.get("contestId");
 
   const handleSubmit = async () => {
     try {
@@ -24,10 +28,17 @@ export default function Submit(props: Props) {
         return;
       }
 
-      await createSubmission({
-        code,
-        problemId: problem.data.id,
-      });
+      contestId ?
+        await createSubmission({
+          code,
+          problemId: problem.data.id,
+          contestId: parseInt(contestId),
+        })
+        :
+        await createSubmission({
+          code,
+          problemId: problem.data.id,
+        });
 
       toast.success("Problem submitted successfully");
     } catch (error) {
