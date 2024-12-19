@@ -7,6 +7,7 @@ import { useContest } from "../../../../context";
 
 import { RenderMarkdown } from "@/components/markdown";
 import { Field, LinearContainer } from "@/components/ui";
+import ParticipantToolbar from "./ParticipantToolbar";
 
 interface DetailsAreaProps extends React.HTMLAttributes<HTMLDivElement> {}
 export default function DetailsArea(props: DetailsAreaProps) {
@@ -17,12 +18,13 @@ export default function DetailsArea(props: DetailsAreaProps) {
       fullheight
       fullwidth
       classnames={{
-        wrapper: "bg-foreground-50 p-4 overflow-y-auto",
+        wrapper: "bg-foreground-50 p-4 overflow-y-auto relative",
       }}
       direction="column"
       space="sm"
       {...props}
     >
+      <ParticipantToolbar />
       <div className="flex items-center flex-row gap-1">
         <h1 className="text-2xl font-bold text-foreground">{contest?.title}</h1>
       </div>
