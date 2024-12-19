@@ -10,11 +10,11 @@ export default function FormToolbar() {
       rightContents={
         <Button
           color="primary"
-          form="create-contest-form"
+          form="update-contest-form"
           radius="full"
           type="submit"
         >
-          Create
+          Update
         </Button>
       }
     />

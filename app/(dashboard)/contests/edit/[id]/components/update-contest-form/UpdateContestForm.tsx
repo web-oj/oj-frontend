@@ -9,10 +9,11 @@ import { toast } from "react-toastify";
 import { useContestTrack } from "../../context";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-import { createContest, updateContest } from "@/fetch-functions";
+import { addProblemToContest, createContest, updateContest } from "@/fetch-functions";
 import { useAuth } from "@/app/context";
 import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 import { useContest } from "@/app/(dashboard)/contests/context";
+import AddProblems from "../AddProblems";
 
 interface UpdateContestFormProps
   extends React.HTMLAttributes<HTMLFormElement> { }
@@ -53,6 +54,10 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
   const { user } = useAuth();
 
   const [description, setDescription] = React.useState<string>("");
+  const [problemsInContest, setProblemsInContest] = React.useState<{
+    score: number;
+    problemId: number;
+  }[]>([]);
 
   const onSubmit: SubmitHandler<UpdateContestFormValues> = async (data) => {
     if (!user) {
@@ -60,6 +65,7 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
 
       return;
     }
+    
     try {
       await updateContest({
         id: contest.id,
@@ -74,6 +80,12 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
         },
       });
 
+      problemsInContest.forEach(async (problem) => {
+        await addProblemToContest({
+          id: contest.id,
+          problemId: problem.problemId,
+        });
+      });
       toast.success("Contest created successfully");
     } catch (error) {
       toast.error("Failed to create contest");
@@ -113,17 +125,6 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
       {...props}
       className="flex flex-col gap-4 lg:min-w-[48ch] overflow-auto"
       id="update-contest-form"
-      onBlur={() => {
-        setData({
-          ...data,
-          title: watchedFields.title,
-          startTime: watchedFields.startTime,
-          endTime: watchedFields.endTime,
-          scoringRule: watchedFields.scoringRule,
-          description: watchedFields.description,
-          isPublished: watchedFields.isPublished,
-        });
-      }}
       onSubmit={handleSubmit(onSubmit, onInvalid)}
     >
       <Input
@@ -167,6 +168,7 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
           placeholder="Start Time"
           radius="full"
           type="datetime-local"
+          value={new Date(Number(contest.startTime)).toISOString().slice(0, 16)}
           {...registers.startTime}
         />
         <Input
@@ -176,6 +178,7 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
           placeholder="End Time"
           radius="full"
           type="datetime-local"
+          value={new Date(Number(contest.endTime)).toISOString().slice(0, 16)}
           {...registers.endTime}
         />
       </LinearContainer>
@@ -248,6 +251,7 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
           Published
         </Checkbox>
       </LinearContainer>
+      <AddProblems problemsInContest={problemsInContest} setProblemsInContest={setProblemsInContest} />
     </form>
   );
 }
