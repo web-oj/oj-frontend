@@ -2,7 +2,7 @@
 
 import { useContest } from "@/app/(dashboard)/contests/context";
 import { Field, LinearContainer } from "@/components/ui";
-import { getAllProblems, getProblemById } from "@/fetch-functions";
+import { getAllProblems, getProblemById, getProblemsInContest } from "@/fetch-functions";
 import { Problem, ProblemInContest } from "@/types";
 import { Chip } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
@@ -17,31 +17,13 @@ export default function ProblemsInContests(props: Props) {
 
     const problems = useAsyncList({
         async load() {
-            const problems: Problem[] = [];
-
-            // contest.problemsInContest.forEach(async (problemInContest: ProblemInContest) => {
-            //     const data = await getProblemById({
-            //         id: 1,
-            //     });
-
-            //     problems.push(data);
-            // });
-            // new Array(5).fill(0).forEach(async (_, index) => {
-            //     try {
-            //         const data = await getProblemById({
-            //             id: 1,
-            //         });
-
-            //         problems.push(data);
-            //     } catch (error) {
-            //         console.error(error);
-            //     }
-            // });
-
+            const problems: Problem[] = await getProblemsInContest({
+                id: contest.id
+            })
 
 
             return {
-                items: await getAllProblems(),
+                items: problems
             };
         },
 
