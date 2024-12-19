@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useContestTrack } from "../../context";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-import { addProblemToContest, createContest, updateContest } from "@/fetch-functions";
+import { addProblemToContest, createContest, removeProblemFromContest, updateContest } from "@/fetch-functions";
 import { useAuth } from "@/app/context";
 import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 import { useContest } from "@/app/(dashboard)/contests/context";
@@ -53,7 +53,7 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
   const { data, setData } = useContestTrack();
   const { user } = useAuth();
 
-  const [description, setDescription] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>(contest.description);
   const [problemsInContest, setProblemsInContest] = React.useState<{
     score: number;
     problemId: number;
@@ -65,30 +65,64 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
 
       return;
     }
-    
+
     try {
       await updateContest({
         id: contest.id,
         data: {
-          isPublished: data.isPublished,
-          scoringRule: data.scoringRule,
-          endTime: new Date(data.endTime).getTime(),
-          startTime: new Date(data.startTime).getTime(),
-          ruleText: data.scoringRule,
-          description: description,
+          isPublished: data.isPublished || contest.isPublished,
+          scoringRule: data.scoringRule || contest.scoringRule,
+          endTime: new Date(data.endTime).getTime() || contest.endTime,
+          startTime: new Date(data.startTime).getTime() || contest.startTime,
+          ruleText: data.scoringRule || contest.scoringRule,
+          description: description || contest.description,
           title: data.title,
         },
       });
 
-      problemsInContest.forEach(async (problem) => {
-        await addProblemToContest({
-          id: contest.id,
-          problemId: problem.problemId,
-        });
-      });
-      toast.success("Contest created successfully");
+      // compare problemsInContest with contest.problemsInContest, if has difference, update the contest (add or remove problems)
+      const existingProblems = contest.problemsInContest || [];
+      console.log(problemsInContest, existingProblems);
+      const problemsToAdd = problemsInContest.filter(
+        (problem) =>
+          !existingProblems.some(
+            (existingProblem) => existingProblem.problemId === problem.problemId
+          )
+      ).map(p => ({ problemId: p.problemId, score: p.score }));
+
+      const problemsToRemove = existingProblems.filter(
+        (existingProblem) =>
+          !problemsInContest.some(
+            (problem) => problem.problemId === existingProblem.problemId
+          )
+      ).map(p => ({ problemId: p.id }));
+
+      for (const problem of problemsToAdd) {
+        try {
+          await addProblemToContest({
+            contestId: contest.id,
+            problemId: problem.problemId,
+            score: problem.score,
+          });
+        } catch (error) {
+          toast.error("Failed to add problem to contest");
+        }
+      }
+
+      for (const problem of problemsToRemove) {
+        try {
+          await removeProblemFromContest({
+            id: contest.id,
+            problemId: problem.problemId,
+          });
+        } catch (error) {
+          toast.error("Failed to remove problem from contest");
+        }
+      }
+
+      toast.success("Contest updated successfully");
     } catch (error) {
-      toast.error("Failed to create contest");
+      toast.error("Failed to update contest");
     }
   };
 
@@ -115,10 +149,6 @@ export function UpdateContestForm(props: UpdateContestFormProps) {
   };
 
   const watchedFields = watch();
-
-  React.useEffect(() => {
-    setDescription(contest.description);
-  }, [contest]);
 
   return (
     <form

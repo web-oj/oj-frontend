@@ -6,6 +6,7 @@ import { getAllProblems } from "@/fetch-functions";
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
 import { Add01Icon, Delete01Icon, ImoIcon } from "hugeicons-react";
+import { useContest } from "../../../context";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     problemsInContest: {
@@ -19,7 +20,9 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function AddProblems(props: Props) {
-    const { problemsInContest, setProblemsInContest } = props;
+    const { data: contest } = useContest();
+
+    const { problemsInContest,                                                                                                                                                                                                                                                                                                                                                                         setProblemsInContest } = props;
 
     const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure();
 
@@ -113,6 +116,12 @@ export default function AddProblems(props: Props) {
             </LinearContainer>
         )
     }
+
+    React.useEffect(() => {
+        if (contest) {
+            setProblemsInContest(contest.problemsInContest.map(p => ({ score: p.score, problemId: p.problemId })));
+        }
+    }, [contest]);
 
     return (
         <LinearContainer direction="column" fullwidth label="Add Problems">

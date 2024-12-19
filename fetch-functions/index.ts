@@ -387,7 +387,7 @@ export async function getRankingByContestId(params: { id: number }) {
 }
 
 export async function addProblemToContest(params: {
-  id: number;
+  contestId: number;
   problemId: number;
   score: number;
 }) {
@@ -399,6 +399,7 @@ export async function addProblemToContest(params: {
 
     return res.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to add problem to contest");
   }
 }
@@ -408,17 +409,16 @@ export async function removeProblemFromContest(params: {
   problemId: number;
 }) {
   try {
-    const res = await api.delete<ApiResponse<null>>(
-      `/contest/${params.id}/problem`,
-      {
-        data: {
-          problemId: params.problemId,
-        },
+    const res = await api.delete<ApiResponse<null>>(`/contest/${params.id}/problem`, {
+      data: {
+        problemId: params.problemId,
       },
+    }
     );
 
     return res.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to remove problem from contest");
   }
 }

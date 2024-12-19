@@ -108,7 +108,7 @@ export interface Contest {
   isPublished: boolean;
   organizer: User;
   participations: ContestParticipation[];
-  problemsInContest: Problem[];
+  problemsInContest: ProblemInContest[];
   submissions: Submission[];
 }
 
