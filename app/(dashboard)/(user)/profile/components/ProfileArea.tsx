@@ -8,11 +8,11 @@ import { useAuth } from "@/app/context";
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 export function ProfileArea(props: Props) {
   const { user } = useAuth();
-
+  console.log(user);
   return (
     <LinearContainer
       className={
-        "flex-0 max-w-64 w-full bg-foreground-50 aspect-square shadow-sm p-4 rounded-2xl"
+        "flex-0 max-w-64 w-full bg-foreground-50 aspect-square shadow-sm p-4 rounded-3xl"
       }
       classnames={{
         container: "items-center justify-center",
