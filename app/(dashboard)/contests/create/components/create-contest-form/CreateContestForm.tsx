@@ -48,22 +48,11 @@ export function CreateContestForm(props: CreateContestFormProps) {
 
       return;
     }
-    console.log({
-      organizerId: user?.id,
-      isPublished: data.isPublished,
-      isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
-      scoringRule: data.scoringRule,
-      endTime: new Date(data.endTime).getTime(),
-      startTime: new Date(data.startTime).getTime(),
-      ruleText: data.scoringRule,
-      description: data.description,
-      title: data.title,
-    });
+
     try {
       await createContest({
         organizerId: user?.id,
         isPublished: data.isPublished,
-        isPlagiarismCheckEnabled: data.isPlagiarismCheckEnabled,
         scoringRule: data.scoringRule,
         endTime: new Date(data.endTime).getTime(),
         startTime: new Date(data.startTime).getTime(),
