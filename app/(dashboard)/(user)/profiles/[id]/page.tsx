@@ -1,10 +1,11 @@
 import { PageContainer, LinearContainer } from "@/components/ui";
 import { getUserById } from "@/fetch-functions";
 import { notFound } from "next/navigation";
-import ActivitiesArea from "../../profile/components/ActivitiesArea";
-import ContactsArea from "../../profile/components/ContactsArea";
-import { ProfileArea } from "../../profile/components/ProfileArea";
+
 import Providers from "./providers";
+import { ProfileArea } from "./components/ProfileArea";
+import ActivitiesArea from "./components/ActivitiesArea";
+import ContactsArea from "./components/ContactsArea";
 
 interface Props {
   params: {
@@ -15,7 +16,7 @@ export default async function Page({ params }: Props) {
   const fetchProfile = async () => {
     try {
       const user = await getUserById({ id: parseInt(params.id) });
-      
+
       return user;
     } catch (error) {
       console.error("Failed to fetch user", error);
@@ -40,9 +41,9 @@ export default async function Page({ params }: Props) {
           direction="row"
           space="lg"
         >
-          <ProfileArea />
-          <ActivitiesArea />
-          <ContactsArea />
+          <ProfileArea user={user} />
+          <ActivitiesArea user={user} />
+          <ContactsArea user={user} />
         </LinearContainer>
       </PageContainer>
     </Providers>

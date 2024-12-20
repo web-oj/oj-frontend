@@ -18,6 +18,7 @@ import { columns } from "./data";
 import { User } from "@/types";
 import { SearchIcon } from "@/components/icons";
 import { LinearContainer } from "@/components/ui";
+import Link from "next/link";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   users?: User[];
@@ -93,7 +94,10 @@ export default function RankingTable(props: Props) {
       </TableHeader>
       <TableBody items={props.users}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.id}
+            as={Link}
+            href={`/profiles/${item.id}`}
+          >
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

@@ -8,6 +8,7 @@ import { useAuth } from "@/app/context";
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 export function ProfileArea(props: Props) {
   const { user } = useAuth();
+  
   console.log(user);
   return (
     <LinearContainer

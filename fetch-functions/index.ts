@@ -66,7 +66,11 @@ export async function getUserByToken() {
 
 export async function getUserById(params: { id: number }): Promise<User> {
   try {
-    const res = await api.get<ApiResponse<User>>(`/user/${params.id}`);
+    const res = await api.get<ApiResponse<User>>(`/user/${params.id}`,{
+      headers: {
+        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MzQ2NjUxMDYsImV4cCI6MTczNDgzNzkwNn0.kAdGEorcgN5uGazL2Tdv1WC13qVMXDY-5qDEMmE7aVk",
+      },
+    });
 
     return res.data.data;
   } catch (error) {
@@ -468,6 +472,7 @@ export async function registerForContest(params: {
 
     return res.data.data;
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to register for contest");
   }
 }

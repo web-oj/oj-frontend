@@ -52,18 +52,13 @@ export const Navbar = () => {
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem
-            as={NextLink}
             href="/profile"
             key={"profile"}
-            startContent={<UserIcon className="text-foreground-500" />}
           >
             Profile
           </DropdownItem>
           <DropdownItem
             key={"logout"}
-            startContent={
-              <LogoutCircle01Icon className="text-foreground-500" />
-            }
             onClick={logout}
           >
             Logout
