@@ -81,9 +81,9 @@ export default function ContestsTable(props: Props) {
         case "title":
           return <p className="font-semibold">{contest.title}</p>;
         case "startTime":
-          return new Date(contest.startTime).toLocaleString();
+          return new Date(Number(contest.startTime)).toLocaleString();
         case "endTime":
-          return new Date(contest.endTime).toLocaleString();
+          return new Date(Number(contest.startTime)).toLocaleString();
 
         default:
           return "-";
