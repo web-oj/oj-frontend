@@ -5,8 +5,10 @@ import { GoogleIcon, MentorIcon, ProgrammingFlagIcon } from "hugeicons-react";
 import { Field, LinearContainer } from "@/components/ui";
 import { useAuth } from "@/app/context";
 
+import { Image } from "@nextui-org/react";
+
 export interface ContactsAreaProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+  extends React.HTMLAttributes<HTMLDivElement> { }
 
 export default function ContactsArea(props: ContactsAreaProps) {
   const { user } = useAuth();
@@ -24,7 +26,7 @@ export default function ContactsArea(props: ContactsAreaProps) {
     {
       icon: <ProgrammingFlagIcon className="text-foreground-500" size={16} />,
       label: "Country",
-      value: user?.country || "-",
+      value: <Image src={`https://flagcdn.com/w320/vn.png`} radius="full" width={16} height={16} alt={user?.country || "Vietnam"} />,
     },
   ];
 

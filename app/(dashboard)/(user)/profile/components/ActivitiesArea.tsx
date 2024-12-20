@@ -7,16 +7,24 @@ import {
   PackageOpenIcon,
   UserGroupIcon,
 } from "hugeicons-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Field, LinearContainer } from "@/components/ui";
 import { useAuth } from "@/app/context";
+import React from "react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> { }
 
 export default function ActivitiesArea(props: Props) {
   const { user } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+
+  React.useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   const Submissions = () => {
     if (!user?.submissions)
       return (
@@ -36,46 +44,53 @@ export default function ActivitiesArea(props: Props) {
       );
 
     return (
-      <LinearContainer direction="column">
-        {user.submissions.map((submission, index) => (
-          <LinearContainer
-            key={index}
-            fullwidth
-            className="bg-foreground-50 rounded-2xl p-4"
-            classnames={{
-              container: "items-center justify-between",
-            }}
-            direction="row"
-            onClick={() => router.push(`/problems/${submission.problem.id}`)}
-          >
-            <LinearContainer direction="column" space="sm">
-              <h1 className="text-lg font-semibold">
-                {submission?.problem.title}
-              </h1>
-              <LinearContainer>
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<Calendar01Icon size={16} />}
-                  label="Created At"
-                  showLabel={false}
-                  value={new Date(submission.createdAt).toLocaleDateString()}
-                />
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<CodeIcon size={16} />}
-                  label="Language"
-                  showLabel={false}
-                  value={submission.language}
-                />
+      <LinearContainer fullwidth direction="column">
+        {user.submissions
+          .filter((submission) => {
+            if (!search) return true;
+            return submission.id.toString().includes(search);
+          })
+          .map((submission, index) => (
+            <LinearContainer
+              key={index}
+              fullwidth
+              className="bg-foreground-50 rounded-2xl p-4 hover:scale-[101%] transition-transform duration-300 ease-in-out cursor-pointer"
+              classnames={{
+                container: "items-center justify-between",
+              }}
+              direction="row"
+              onClick={() => router.push(`/problems/${submission.problem.id}`)}
+            >
+              <LinearContainer direction="column" space="sm">
+                <h1 className="text-lg font-semibold">
+                  {submission?.id}
+                </h1>
+                <LinearContainer>
+                  <Field
+                    classNames={{
+                      value: "text-foreground-500",
+                    }}
+                    icon={<Calendar01Icon size={16} />}
+                    label="Created At"
+                    showLabel={false}
+                    value={new Date(submission.createdAt).toLocaleDateString()}
+                  />
+                  <Field
+                    classNames={{
+                      value: "text-foreground-500",
+                    }}
+                    icon={<CodeIcon size={16} />}
+                    label="Language"
+                    showLabel={false}
+                    value={submission.language}
+                  />
+                </LinearContainer>
               </LinearContainer>
+              <Chip radius="full">
+                Submission
+              </Chip>
             </LinearContainer>
-            <Chip radius="full">{submission.id}</Chip>
-          </LinearContainer>
-        ))}
+          ))}
       </LinearContainer>
     );
   };
@@ -99,52 +114,50 @@ export default function ActivitiesArea(props: Props) {
 
     return (
       <LinearContainer fullwidth direction="column">
-        {user.organizedContests.map((contest, index) => (
-          <LinearContainer
-            key={index}
-            fullwidth
-            className="bg-foreground-50 rounded-2xl p-4"
-            classnames={{
-              container: "items-center justify-between",
-            }}
-            direction="row"
-            onClick={() => router.push(`/contests/${contest.id}`)}
-          >
-            <LinearContainer direction="column" space="sm">
-              <h1 className="text-lg font-semibold">{contest?.title}</h1>
-              <LinearContainer>
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<Calendar01Icon size={16} />}
-                  label="Start Time"
-                  showLabel={false}
-                  value={contest.startTime}
-                />
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<Calendar01Icon size={16} />}
-                  label="End Time"
-                  showLabel={false}
-                  value={contest.endTime}
-                />
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<UserGroupIcon size={16} />}
-                  label="Participants"
-                  showLabel={false}
-                  value={contest.participations.length}
-                />
+        {user.organizedContests
+          .filter((contest) => {
+            if (!search) return true;
+            return contest.title.includes(search) || contest.id.toString().includes(search);
+          })
+          .map((contest, index) => (
+            <LinearContainer
+              key={index}
+              fullwidth
+              className="bg-foreground-50 rounded-2xl p-4 hover:scale-[101%] transition-transform duration-300 ease-in-out cursor-pointer"
+              classnames={{
+                container: "items-center justify-between",
+              }}
+              direction="row"
+              onClick={() => router.push(`/contests/${contest.id}`)}
+            >
+              <LinearContainer direction="column" space="sm">
+                <h1 className="text-lg font-semibold">{contest?.title}</h1>
+                <LinearContainer>
+                  <Field
+                    classNames={{
+                      value: "text-foreground-500",
+                    }}
+                    icon={<Calendar01Icon size={16} />}
+                    label="Start Time"
+                    showLabel={false}
+                    value={new Date(Number(contest.startTime)).toLocaleDateString()}
+                  />
+                  <Field
+                    classNames={{
+                      value: "text-foreground-500",
+                    }}
+                    icon={<Calendar01Icon size={16} />}
+                    label="End Time"
+                    showLabel={false}
+                    value={new Date(Number(contest.endTime)).toLocaleDateString()}
+                  />
+                </LinearContainer>
               </LinearContainer>
+              <Chip radius="full">
+                Contest
+              </Chip>
             </LinearContainer>
-            <Chip radius="full">#{contest.id}</Chip>
-          </LinearContainer>
-        ))}
+          ))}
       </LinearContainer>
     );
   };
@@ -175,34 +188,41 @@ export default function ActivitiesArea(props: Props) {
           router;
         }}
       >
-        {user.participatedContest.map((contest, index) => (
-          <LinearContainer
-            key={index}
-            fullwidth
-            className="bg-foreground-50 rounded-2xl p-4"
-            classnames={{
-              container: "items-center justify-between",
-            }}
-            direction="row"
-            onClick={() => router.push(`/contests/${contest.id}`)}
-          >
-            <LinearContainer direction="column" space="sm">
-              <h1 className="text-lg font-semibold">{contest?.id}</h1>
-              <LinearContainer>
-                <Field
-                  classNames={{
-                    value: "text-foreground-500",
-                  }}
-                  icon={<Calendar01Icon size={16} />}
-                  label="Joined At"
-                  showLabel={false}
-                  value={new Date(contest.createdAt).toLocaleDateString()}
-                />
+        {user.participatedContest
+          .filter((contest) => {
+            if (!search) return true;
+            return contest.id.toString().includes(search) || contest.contest.title.includes(search);
+          })
+          .map((contest, index) => (
+            <LinearContainer
+              key={index}
+              fullwidth
+              className="bg-foreground-50 rounded-2xl p-4 hover:scale-[101%] transition-transform duration-300 ease-in-out cursor-pointer"
+              classnames={{
+                container: "items-center justify-between",
+              }}
+              direction="row"
+              onClick={() => router.push(`/contests/${contest.id}`)}
+            >
+              <LinearContainer direction="column" space="sm">
+                <h1 className="text-lg font-semibold">{contest?.id}</h1>
+                <LinearContainer>
+                  <Field
+                    classNames={{
+                      value: "text-foreground-500",
+                    }}
+                    icon={<Calendar01Icon size={16} />}
+                    label="Joined At"
+                    showLabel={false}
+                    value={new Date(contest.createdAt).toLocaleDateString()}
+                  />
+                </LinearContainer>
               </LinearContainer>
+              <Chip radius="full">
+                Contest
+              </Chip>
             </LinearContainer>
-            <Chip radius="full">#{contest.id}</Chip>
-          </LinearContainer>
-        ))}
+          ))}
       </LinearContainer>
     );
   };
@@ -231,7 +251,7 @@ export default function ActivitiesArea(props: Props) {
     >
       <Tabs color="primary" radius="full" variant="underlined">
         {items.map((item, index) => (
-          <Tab key={index} className="h-full" title={item.label}>
+          <Tab key={index} className="h-full overflow-y-auto" title={item.label}>
             {item.component}
           </Tab>
         ))}

@@ -8,11 +8,11 @@ import { useAuth } from "@/app/context";
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 export function ProfileArea(props: Props) {
   const { user } = useAuth();
-
+  console.log(user);
   return (
     <LinearContainer
       className={
-        "flex-0 max-w-64 w-full bg-foreground-50 aspect-square shadow-sm p-4 rounded-2xl"
+        "flex-0 max-w-64 w-full bg-foreground-50 aspect-square shadow-sm p-4 rounded-3xl"
       }
       classnames={{
         container: "items-center justify-center",
@@ -35,12 +35,12 @@ export function ProfileArea(props: Props) {
         <h1 className="text-2xl text-center font-semibold text-foreground-900">
           {user?.handle || "-"}
         </h1>
-        <p className="text-sm text-foreground-500 text-center ">
-          {user?.email || "-"}
+        <p className="text-sm text-foreground text-center ">
+          {user?.bio || "Hello guy"}
         </p>
-        <Tooltip content={"bio"}>
+        <Tooltip content={"Rating"}>
           <p className="text-2xl font-bold text-secondary cursor-pointer text-center ">
-            {user?.bio}
+            {user?.rating || 0}
           </p>
         </Tooltip>
       </LinearContainer>

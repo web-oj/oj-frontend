@@ -11,7 +11,7 @@ export default async function Page() {
         fullheight
         fullwidth
         classnames={{
-          wrapper: "overflow-y-auto",
+          wrapper: "overflow-y-hidden",
         }}
         direction="row"
         space="lg"
