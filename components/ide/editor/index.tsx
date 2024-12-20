@@ -23,7 +23,7 @@ export default function IDEEditor() {
 
   return (
     <Editor
-      className="rounded-large overflow-hidden absolute h-full"
+      className="rounded-large overflow-hidden h-full"
       height={"100%"}
       language={language}
       loading={

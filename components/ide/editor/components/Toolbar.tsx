@@ -74,6 +74,9 @@ export default function Toolbar() {
       <Select
         shouldFlip
         aria-label="Select theme"
+        classNames={{
+          trigger: "bg-foreground-50",
+        }}
         placeholder="Select theme"
         radius="full"
         selectedKeys={editorThemeKey}
@@ -86,13 +89,16 @@ export default function Toolbar() {
       <Select
         shouldFlip
         aria-label="Select language"
+        classNames={{
+          trigger: "bg-foreground-50",
+        }}
         placeholder="Select language"
         radius="full"
         selectedKeys={languagekey}
         onSelectionChange={setLanguageKey}
       >
         {languages.map((item, index) => (
-          <SelectItem key={item.key}>{item.key}</SelectItem>
+          <SelectItem key={item.key}>{item.label}</SelectItem>
         ))}
       </Select>
       <Button

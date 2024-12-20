@@ -19,11 +19,7 @@ export const tabs = [
     label: "Submissions",
     value: "submissions",
     component: <Submissions />,
-  },
-  {
-    label: "Discussion",
-    value: "discussion",
-  },
+  }
 ];
 
 export default function ProblemTabs() {

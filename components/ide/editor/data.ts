@@ -1,6 +1,10 @@
 export type Language =
   | "javascript"
   | "typescript"
+  | "cpp"
+  | "c"
+  | "java"
+  | "python"
   | "html"
   | "json"
   | "xml"
@@ -58,20 +62,62 @@ function greet(name: string): void {
 greet('World');`,
     },
     {
+      key: "cpp",
+      label: "C++",
+      codeSnippet: `// C++ Example
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello, World!" << endl;
+    return 0;
+}`,
+    },
+    {
+      key: "c",
+      label: "C",
+      codeSnippet: `// C Example
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!");
+    return 0;
+}`,
+    },
+    {
+      key: "java",
+      label: "Java",
+      codeSnippet: `// Java Example
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`,
+    },
+    {
+      key: "python",
+      label: "Python",
+      codeSnippet: `# Python Example
+def greet(name):
+    print(f'Hello, {name}!')
+    
+greet('World')`,
+    },
+    {
       key: "html",
       label: "HTML",
-      codeSnippet: `<!DOCTYPE html>
-<html>
-<head>
-    <title>Page Title</title>
-</head>
-<body>
+      codeSnippet: `< !DOCTYPE html>
+        <html>
+        <head>
+        <title>Page Title </title>
+        </head>
+        < body >
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+        <h1>This is a Heading </h1>
+        < p > This is a paragraph.</p>
 
-</body>
-</html>`,
+        </body>
+        </html>`,
     },
     {
       key: "json",

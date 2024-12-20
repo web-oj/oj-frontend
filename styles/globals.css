@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 * {
-    scrollbar-width: thin;
+    scrollbar-width: none;
     scrollbar-color: #71717A #d1d5db;
+}
+
+.p-splitter-gutter-handle {
+    @apply bg-foreground-300 rounded-full
 }
 
 .hidden-scrollbar {

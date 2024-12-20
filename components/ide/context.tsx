@@ -16,8 +16,8 @@ type IDEContextType = {
 const IDEContext = createContext<IDEContextType | undefined>(undefined);
 
 export const IDEProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("javascript");
-  const [theme, setTheme] = useState<string>("vs-dark");
+  const [language, setLanguage] = useState<Language>("cpp");
+  const [theme, setTheme] = useState<string>("light");
   const [code, setCode] = useState<string>("");
   const [output, setOutput] = useState<string>("");
 

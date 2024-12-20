@@ -37,6 +37,9 @@ const EditorInputMarkdown = React.forwardRef<
       <Textarea
         isRequired
         required
+        classNames={{
+          inputWrapper: "bg-foreground-50",
+        }}
         description={
           <p>
             Support <b>markdown</b> and <b>latex</b> syntax

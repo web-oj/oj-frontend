@@ -7,12 +7,14 @@ import React from "react";
 import { toast } from "react-toastify";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-import { updateProblem } from "@/fetch-functions";
+import { addTestcasesToProblem, updateProblem } from "@/fetch-functions";
 import { useProblem } from "@/app/(dashboard)/problems/context";
 import StatementEditorInput from "@/app/(dashboard)/problems/components/StatementEditorInput";
+import AddTestcases from "./AddTestcases";
+import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 
 interface CreateProblemFormProps
-  extends React.HTMLAttributes<HTMLFormElement> {}
+  extends React.HTMLAttributes<HTMLFormElement> { }
 type UpdateProblemFormValues = {
   solutionText: string;
   outputFormat: string;
@@ -25,7 +27,7 @@ type UpdateProblemFormValues = {
 };
 
 export function UpdateProblemForm(props: CreateProblemFormProps) {
-  const { data, setData } = useProblem();
+  const { data: problem, setData } = useProblem();
 
   const {
     register,
@@ -35,25 +37,41 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
   } = useForm<UpdateProblemFormValues>({
     mode: "onChange",
     defaultValues: {
-      title: data.title,
-      statement: data.statement,
-      difficulty: data.difficulty,
-      timeLimit: data.timeLimit,
-      memoryLimit: data.memoryLimit,
-      inputFormat: data.inputFormat,
-      outputFormat: data.outputFormat,
-      solutionText: data.solutionText,
+      title: problem.title,
+      statement: problem.statement,
+      difficulty: problem.difficulty,
+      timeLimit: problem.timeLimit,
+      memoryLimit: problem.memoryLimit,
+      inputFormat: problem.inputFormat,
+      outputFormat: problem.outputFormat,
+      solutionText: problem.solutionText,
     },
   });
 
   const [statement, setStatement] = React.useState<
     UpdateProblemFormValues["statement"]
-  >(data.statement);
+  >(problem.statement);
+  const [testcases, setTestcases] = React.useState<{
+    input: string;
+    output: string;
+  }[]>(
+    problem.testcases.map((testcase) => ({
+      input: testcase.input,
+      output: testcase.output,
+    })),
+  );
+
+  const [inputFormat, setInputFormat] = React.useState<string>(
+    problem.inputFormat,
+  );
+
+  const [outputFormat, setOutputFormat] = React.useState<string>(
+    problem.outputFormat,
+  );
 
   const onSubmit: SubmitHandler<UpdateProblemFormValues> = async (data) => {
     const {
       title,
-      statement,
       difficulty,
       timeLimit,
       memoryLimit,
@@ -63,23 +81,40 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
     } = data;
 
     try {
-      await updateProblem({
-        id: 10,
-        data: {
-          ...data,
-          title,
-          statement,
-          difficulty,
-          timeLimit,
-          memoryLimit,
-          inputFormat,
-          outputFormat,
-          solutionText,
-        },
-      });
-      toast.success("Problem created successfully");
+      // await updateProblem({
+      //   id: 10,
+      //   data: {
+      //     ...data,
+      //     title,
+      //     statement,
+      //     difficulty,
+      //     timeLimit,
+      //     memoryLimit,
+      //     inputFormat,
+      //     outputFormat,
+      //     solutionText,
+      //   },
+      // });
+
+      if (testcases.length > 0) {
+        const testcasesToProblem = testcases.map((testcase) => ({
+          input: testcase.input,
+          output: testcase.output,
+        }));
+
+        try {
+          await addTestcasesToProblem({
+            problemId: problem.id,
+            testcases: testcasesToProblem,
+          })
+        } catch (error) {
+          toast.error("Failed to add testcases to problem");
+        }
+      }
+
+      toast.success("Problem updated successfully");
     } catch (error) {
-      toast.error("Failed to create problem");
+      toast.error("Failed to update problem");
     }
   };
 
@@ -128,7 +163,7 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
       id="update-problem-form"
       onBlur={() => {
         setData({
-          ...data,
+          ...problem,
           title: watchedFields.title,
           statement: watchedFields.statement,
           difficulty: watchedFields.difficulty as any,
@@ -143,6 +178,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
     >
       <Input
         description={`Max length ${registers.title.maxLength}`}
+        classNames={{
+          inputWrapper: "bg-foreground-50",
+        }}
         label="Title"
         labelPlacement="outside"
         placeholder="Title"
@@ -161,6 +199,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
         fullWidth
         description="Difficulty level of the problem"
         label="Difficulty"
+        classNames={{
+          inputWrapper: "bg-foreground-50",
+        }}
         labelPlacement="outside"
         placeholder="Difficulty"
         radius="full"
@@ -174,10 +215,11 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           <p className="text-sm text-danger">{message.message}</p>
         )}
       />
-      <StatementEditorInput
+      <EditorInputMarkdown
         markdown={statement}
-        register={registers.statement}
         setMarkdown={setStatement}
+        label="Statement"
+        register={registers.statement}
       />
       <LinearContainer direction="row" fullwidth>
         <Input
@@ -188,6 +230,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           placeholder="Time Limit"
           radius="full"
           type="number"
+          classNames={{
+            inputWrapper: "bg-foreground-50",
+          }}
           {...registers.timeLimit}
         />
         <Input
@@ -196,6 +241,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           label="Memory Limit"
           labelPlacement="outside"
           placeholder="Memory Limit"
+          classNames={{
+            inputWrapper: "bg-foreground-50",
+          }}
           radius="full"
           type="number"
           {...registers.memoryLimit}
@@ -215,21 +263,17 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           <p className="text-sm text-danger">{message.message}</p>
         )}
       />
-      <Textarea
-        description="Describe the input format"
+      <EditorInputMarkdown
+        markdown={problem.inputFormat}
+        setMarkdown={setInputFormat}
         label="Input Format"
-        labelPlacement="outside"
-        placeholder="Type the input format here"
-        radius="full"
-        {...registers.inputFormat}
+        register={registers.inputFormat}
       />
-      <Textarea
-        description="Describe the output format"
+      <EditorInputMarkdown
+        markdown={problem.outputFormat}
+        setMarkdown={setOutputFormat}
         label="Output Format"
-        labelPlacement="outside"
-        placeholder="Type the output format here"
-        radius="full"
-        {...registers.outputFormat}
+        register={registers.outputFormat}
       />
       <Textarea
         description="Describe the solution"
@@ -237,6 +281,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
         labelPlacement="outside"
         placeholder="Type the solution text here"
         radius="full"
+        classNames={{
+          inputWrapper: "bg-foreground-50",
+        }}
         {...registers.solutionText}
       />
       <ErrorMessage
@@ -246,8 +293,7 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           <p className="text-sm text-danger">{message.message}</p>
         )}
       />
-      {/* @todo implement TestCasesInput */}
-      {/* <TestCasesInput/> */}
+      <AddTestcases testcases={testcases} setTestcases={setTestcases} />
     </form>
   );
 }

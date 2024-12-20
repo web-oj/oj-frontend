@@ -14,7 +14,7 @@ import { LinearContainer } from "../ui";
 
 import { useAuth } from "@/app/context";
 
-interface CookieConsentProps { }
+interface CookieConsentProps {}
 
 const CookieConsent: React.FC<CookieConsentProps> = () => {
   const { showCookieConsent, allowCookies, declineCookies } = useAuth();
