@@ -5,6 +5,7 @@ import { Button, Image } from "@nextui-org/react";
 import { ArrowRight01Icon } from "hugeicons-react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import Link from "next/link";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> { }
 export function Hero(props: Props) {
@@ -18,6 +19,7 @@ export function Hero(props: Props) {
                 </p>
                 <h1 className="text-6xl font-semibold max-w-screen-sm">Online Judge Platform</h1>
                 <Button
+                    as={Link}
                     className="bg-foreground-900 w-fit text-foreground-100"
                     radius="full"
                     endContent={
@@ -28,6 +30,7 @@ export function Hero(props: Props) {
                             <ArrowRight01Icon />
                         </motion.div>
                     }
+                    href="/dashboard"
                 >
                     Open App
                 </Button>
