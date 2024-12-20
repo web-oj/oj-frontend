@@ -21,20 +21,18 @@ export default function Header(props: HeaderProps) {
     const [status, setStatus] = useState<Status>(Status.Pending);
 
     useEffect(() => {
-        if (submission?.result) {
-            const passed = submission.result.filter((result) => result.result === Status.Accepted).length;
-            setPassed(passed);
+        console.log(submission);
+        const passed = submission.result.filter((result) => result.result === Status.Accepted).length;
+        setPassed(passed);
 
-            if (passed === submission.result.length) {
-                setStatus(Status.Accepted);
-            } else if (passed === 0) {
-                setStatus(Status.WrongAnswer);
-            }
+        if (passed === submission.problem.testcases.length) {
+            setStatus(Status.Accepted);
+        } else {
+            setStatus(Status.WrongAnswer);
         }
 
-        if (submission?.problem.testcases) {
-            setTestCases(submission.problem.testcases.length);
-        }
+
+        setTestCases(submission.problem.testcases.length);
     }, [submission]);
 
     return (
@@ -48,7 +46,7 @@ export default function Header(props: HeaderProps) {
         >
             <h1 className={clsx(
                 "text-2xl font-bold text-foreground capitalize",
-                status === Status.Accepted ? "text-success" : status === Status.WrongAnswer ? "text-danger-500" : "text-warning"
+                status === Status.Accepted ? "text-success" : status === Status.WrongAnswer ? "text-red-500" : "text-warning"
             )}>
                 {status}
             </h1>

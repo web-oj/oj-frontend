@@ -1,14 +1,34 @@
+"use client";
+
 import Link from "next/link";
 
 import ProblemsTable from "../../problems/components/problems-table/ProblemsTable";
 
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
+import React from "react";
+import { getAllProblems } from "@/fetch-functions";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   problems: Problem[];
 }
 export default function ProblemsArea(props: Props) {
+  const [problems, setProblems] = React.useState<Problem[]>(props.problems);
+
+  const fetch = async () => {
+    try {
+      const data = await getAllProblems();
+
+      setProblems(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  React.useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <LinearContainer
       fullheight
@@ -26,7 +46,7 @@ export default function ProblemsArea(props: Props) {
       }
       labelSize="2xl"
     >
-      <ProblemsTable problems={props.problems} />
+      <ProblemsTable problems={problems} />
     </LinearContainer>
   );
 }

@@ -1,14 +1,34 @@
+"use client";
+
 import Link from "next/link";
 
 import ContestsTable from "../../contests/components/contests-table/ContestsTable";
 
 import { LinearContainer } from "@/components/ui";
 import { Contest } from "@/types";
+import React from "react";
+import { getAllContests } from "@/fetch-functions";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   contests: Contest[];
 }
 export default function ContestsArea(props: Props) {
+  const [contests, setContests] = React.useState<Contest[]>(props.contests);
+
+  const fetch = async () => {
+    try {
+      const data = await getAllContests({});
+
+      setContests(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  React.useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <LinearContainer
       fullheight
@@ -27,7 +47,7 @@ export default function ContestsArea(props: Props) {
       }
       labelSize="2xl"
     >
-      <ContestsTable contests={props.contests} />
+      <ContestsTable contests={contests} />
     </LinearContainer>
   );
 }

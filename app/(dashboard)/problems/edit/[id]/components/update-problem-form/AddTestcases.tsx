@@ -1,6 +1,7 @@
 import { LinearContainer } from "@/components/ui";
 import { Button, Input } from "@nextui-org/react";
 import { Cancel01Icon } from "hugeicons-react";
+import React from "react";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     testcases: {
@@ -17,30 +18,40 @@ export default function AddTestcases(props: Props) {
     const { testcases, setTestcases, ...rest } = props;
 
     const addTestcase = () => {
-        setTestcases([...testcases, { input: "", output: "" }]);
+      const newTestcase = { input: "", output: "" };
+      const isDuplicate = testcases.some(
+        (testcase) =>
+          testcase.input === newTestcase.input &&
+          testcase.output === newTestcase.output
+      );
+  
+      if (!isDuplicate) {
+        setTestcases([...testcases, newTestcase]);
+      } else {
+        console.warn("Duplicate test case");
+      }
     };
-
+  
     const removeTestcase = (index: number) => {
-        const newTestcases = testcases.filter((_, i) => i !== index);
-
-        setTestcases(newTestcases);
+      const newTestcases = testcases.filter((_, i) => i !== index);
+      setTestcases(newTestcases);
     };
 
     const handleTestcaseChange = (
         index: number,
         key: "input" | "output",
         value: string
-    ) => {
+      ) => {
         const newTestcases = testcases.map((testcase, i) => {
-            if (i === index) {
-                return { ...testcase, [key]: value };
-            }
-            return testcase;
+          if (i === index) {
+            return { ...testcase, [key]: value };
+          }
+          return testcase;
         });
-
+    
         setTestcases(newTestcases);
-    };
-
+      };
+      
     return (
         <LinearContainer
             fullwidth

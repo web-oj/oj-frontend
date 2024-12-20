@@ -113,10 +113,6 @@ export default function ProblemsTable(props: Props) {
     );
   }, []);
 
-  React.useEffect(() => {
-    list.reload();
-  }, [searchKey]);
-
   return (
     <LinearContainer fullheight fullwidth direction="column">
       <Table

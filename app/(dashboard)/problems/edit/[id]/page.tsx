@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import Providers from "../../providers";
 
-import CreateProblemFormWrapper from "./components/update-problem-form";
+import UpdateProblemFormWrapper from "./components/update-problem-form";
 import FastCheckTableWrapper from "./components/fast-check-table";
 import FormToolbar from "./components/Toolbar";
 
@@ -40,7 +40,7 @@ export default async function Page({ params }: Props) {
             roundedMedium={false}
             space="lg"
           >
-            <CreateProblemFormWrapper />
+            <UpdateProblemFormWrapper />
             <FastCheckTableWrapper />
           </LinearContainer>
         </LinearContainer>

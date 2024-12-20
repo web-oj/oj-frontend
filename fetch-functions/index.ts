@@ -151,10 +151,11 @@ export async function updateProblem(params: {
   data: Partial<Problem>;
 }) {
   try {
-    const res = await api.patch<ApiResponse<null>>(`/problem/id/${params.id}`, params.data);
+    const res = await api.patch<ApiResponse<null>>(`/problem/${params.id}`, params.data);
 
     return res.data;
   } catch (error: any) {
+    console.error(error);
     throw new Error("Failed to update problem");
   }
 }
@@ -316,9 +317,7 @@ export async function getContestById(params: { id: number }) {
 
 export async function getAllContests(params: QueryParams) {
   try {
-    const res = await api.get<ApiResponse<Contest[]>>("/contest", {
-      params,
-    });
+    const res = await api.get<ApiResponse<Contest[]>>("/contest");
 
     return res.data.data;
   } catch (error) {
@@ -463,7 +462,7 @@ export async function registerForContest(params: {
     const res = await api.post<ApiResponse<Contest>>(
       `/contest/${params.id}/register`,
       {
-        id: params.userId,
+        userId: params.userId,
       },
     );
 

@@ -28,12 +28,11 @@ import { LinearContainer } from "./ui";
 
 import { siteConfig } from "@/config/site";
 import { useAuth } from "@/app/context";
-import { useTheme } from "next-themes";
+import { ThemeSwitch } from "./theme-switch";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
-  const { theme, setTheme } = useTheme();
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -53,10 +52,12 @@ export const Navbar = () => {
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem
+            as={NextLink}
+            href="/profile"
             key={"profile"}
             startContent={<UserIcon className="text-foreground-500" />}
           >
-            <NextLink href="/profile">Profile</NextLink>
+            Profile
           </DropdownItem>
           <DropdownItem
             key={"logout"}
@@ -103,17 +104,6 @@ export const Navbar = () => {
     );
   };
 
-  const SwitchTheme = () => {
-    return (
-      <Switch
-        color="primary"
-        className="cursor-pointer"
-        onChange={() => {
-          setTheme(theme === 'light' ? 'dark' : 'light');
-        }}
-      />
-    )
-  }
   return (
     <NextUINavbar
       classNames={{
@@ -122,7 +112,7 @@ export const Navbar = () => {
       position="sticky"
     >
       <NavbarBrand as="li" className="gap-3 max-w-fit">
-        <NextLink className="flex justify-start items-center gap-1" href="/">
+        <NextLink className="flex justify-start items-center gap-1" href="/dashboard">
           <p className="font-bold text-foreground">
             Sync{" "}
             <span className="text-primary-foreground p-1 rounded-full bg-primary">
@@ -188,7 +178,7 @@ export const Navbar = () => {
           >
             Open IDE
           </Button>
-          <SwitchTheme />
+          <ThemeSwitch />
           <UserAccordion />
         </ul>
       ) : (

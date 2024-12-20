@@ -74,18 +74,25 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
       difficulty,
       timeLimit,
       memoryLimit,
-      inputFormat,
-      outputFormat,
       solutionText,
     } = data;
 
     try {
       if (testcases.length > 0) {
-        const testcasesToProblem = testcases.map((testcase) => ({
-          input: testcase.input,
-          output: testcase.output,
-        }));
+        const allTestcases = [...testcases, ...problem.testcases];
 
+        // remove duplicates
+        const testcasesSet = new Set<string>();
+        const testcasesToProblem = allTestcases.filter((testcase) => {
+          const key = `${testcase.input}-${testcase.output}`;
+          if (testcasesSet.has(key)) {
+            return false;
+          }
+          testcasesSet.add(key);
+          return true;
+
+        });
+        
         try {
           await addTestcasesToProblem({
             problemId: problem.id,
@@ -95,9 +102,9 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           toast.error("Failed to add testcases to problem");
         }
       }
-      
+
       await updateProblem({
-        id: 10,
+        id: problem.id,
         data: {
           ...data,
           title,

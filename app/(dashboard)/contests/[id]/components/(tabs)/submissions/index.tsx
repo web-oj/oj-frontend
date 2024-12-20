@@ -5,12 +5,13 @@ import { Field, LinearContainer } from "@/components/ui";
 import { Submission } from "@/types";
 import { Chip } from "@nextui-org/react";
 import { Calendar01Icon, CodeIcon } from "hugeicons-react";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> { }
 
 export default function Submissions(props: Props) {
     const { data: contest } = useContest();
+    const router = useRouter();
 
     return (
         <>
@@ -23,7 +24,8 @@ export default function Submissions(props: Props) {
                         container: "items-center justify-between",
                     }}
                     direction="row"
-                    onClick={() => router.push(`/problems/${submission.id}`)}
+                    space="lg"
+                    onClick={() => router.push(`/submissons/${submission.id}`)}
                 >
                     <LinearContainer direction="column" space="sm">
                         <h1 className="text-lg font-semibold">
