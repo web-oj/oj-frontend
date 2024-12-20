@@ -10,7 +10,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Tooltip,
   Selection,
   Button,
   Dropdown,
@@ -78,13 +77,9 @@ export default function ContestsTable(props: Props) {
     (contest: Contest, columnKey: React.Key) => {
       switch (columnKey) {
         case "id":
-          return (
-            <p className="font-semibold">{contest.id}</p>
-          );
+          return <p className="font-semibold">{contest.id}</p>;
         case "title":
-          return (
-            <p className="font-semibold">{contest.title}</p>
-          );
+          return <p className="font-semibold">{contest.title}</p>;
         case "startTime":
           return new Date(contest.startTime).toLocaleString();
         case "endTime":
@@ -169,8 +164,8 @@ export default function ContestsTable(props: Props) {
             <TableRow
               key={item.id}
               as={Link}
-              href={`/contests/${item.id}`}
               className="cursor-pointer hover:scale-[101%] hover:bg-foreground-50 ease-in-out transition-transform"
+              href={`/contests/${item.id}`}
             >
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>

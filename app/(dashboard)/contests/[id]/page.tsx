@@ -9,6 +9,7 @@ import SetterToolbar from "./components/SetterToolbar";
 
 import { PageContainer } from "@/components/ui";
 import { getContestById } from "@/fetch-functions";
+import { OwnerToolbar } from "../components/OwnerToolbar";
 
 interface Props {
   params: {
@@ -37,6 +38,7 @@ export default async function Home({ params }: Props) {
         </Splitter>
       </PageContainer>
       <SetterToolbar />
+      <OwnerToolbar />
     </ContestProvider>
   );
 }

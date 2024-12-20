@@ -1,70 +1,70 @@
 export type Language =
-    | "javascript"
-    | "typescript"
-    | "cpp"
-    | "c"
-    | "java"
-    | "python"
-    | "html"
-    | "json"
-    | "xml"
-    | "markdown"
-    | "plaintext"
-    | "css"
-    | "scss"
-    | "less"
-    | "python"
-    | "java"
-    | "csharp"
-    | "php"
-    | "ruby"
-    | "go"
-    | "swift"
-    | "kotlin"
-    | "rust"
-    | "dart"
-    | "yaml"
-    | "sql"
-    | "shell"
-    | "powershell"
-    | "dockerfile";
+  | "javascript"
+  | "typescript"
+  | "cpp"
+  | "c"
+  | "java"
+  | "python"
+  | "html"
+  | "json"
+  | "xml"
+  | "markdown"
+  | "plaintext"
+  | "css"
+  | "scss"
+  | "less"
+  | "python"
+  | "java"
+  | "csharp"
+  | "php"
+  | "ruby"
+  | "go"
+  | "swift"
+  | "kotlin"
+  | "rust"
+  | "dart"
+  | "yaml"
+  | "sql"
+  | "shell"
+  | "powershell"
+  | "dockerfile";
 
 export const monacoDataConfig = {
-    themes: [
-        {
-            key: "light",
-            label: "Light",
-        },
-        {
-            key: "vs-dark",
-            label: "Dark",
-        },
-    ],
-    languages: [
-        {
-            key: "javascript",
-            label: "JavaScript",
-            codeSnippet: `// JavaScript Example
+  themes: [
+    {
+      key: "light",
+      label: "Light",
+    },
+    {
+      key: "vs-dark",
+      label: "Dark",
+    },
+  ],
+  languages: [
+    {
+      key: "javascript",
+      label: "JavaScript",
+      codeSnippet: `// JavaScript Example
 function greet(name) {
     console.log('Hello, ' + name + '!');
 }
 
 greet('World');`,
-        },
-        {
-            key: "typescript",
-            label: "TypeScript",
-            codeSnippet: `// TypeScript Example
+    },
+    {
+      key: "typescript",
+      label: "TypeScript",
+      codeSnippet: `// TypeScript Example
 function greet(name: string): void {
     console.log('Hello, ' + name + '!');
 }
 
 greet('World');`,
-        },
-        {
-            key: "cpp",
-            label: "C++",
-            codeSnippet: `// C++ Example
+    },
+    {
+      key: "cpp",
+      label: "C++",
+      codeSnippet: `// C++ Example
 #include <iostream>
 using namespace std;
 
@@ -72,41 +72,41 @@ int main() {
     cout << "Hello, World!" << endl;
     return 0;
 }`,
-        },
-        {
-            key: "c",
-            label: "C",
-            codeSnippet: `// C Example
+    },
+    {
+      key: "c",
+      label: "C",
+      codeSnippet: `// C Example
 #include <stdio.h>
 
 int main() {
     printf("Hello, World!");
     return 0;
 }`,
-        },
-        {
-            key: "java",
-            label: "Java",
-            codeSnippet: `// Java Example
+    },
+    {
+      key: "java",
+      label: "Java",
+      codeSnippet: `// Java Example
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
 }`,
-        },
-        {
-            key: "python",
-            label: "Python",
-            codeSnippet: `# Python Example
+    },
+    {
+      key: "python",
+      label: "Python",
+      codeSnippet: `# Python Example
 def greet(name):
     print(f'Hello, {name}!')
     
 greet('World')`,
-        },
-        {
-            key: "html",
-            label: "HTML",
-            codeSnippet: `< !DOCTYPE html>
+    },
+    {
+      key: "html",
+      label: "HTML",
+      codeSnippet: `< !DOCTYPE html>
         <html>
         <head>
         <title>Page Title </title>
@@ -118,31 +118,31 @@ greet('World')`,
 
         </body>
         </html>`,
-        },
-        {
-            key: "json",
-            label: "JSON",
-            codeSnippet: `{
+    },
+    {
+      key: "json",
+      label: "JSON",
+      codeSnippet: `{
     "name": "John Doe",
     "age": 30,
     "city": "New York"
 }`,
-        },
-        {
-            key: "xml",
-            label: "XML",
-            codeSnippet: `<?xml version="1.0" encoding="UTF-8"?>
+    },
+    {
+      key: "xml",
+      label: "XML",
+      codeSnippet: `<?xml version="1.0" encoding="UTF-8"?>
 <note>
     <to>Tove</to>
     <from>Jani</from>
     <heading>Reminder</heading>
     <body>Don't forget me this weekend!</body>
 </note>`,
-        },
-        {
-            key: "markdown",
-            label: "Markdown",
-            codeSnippet: `# Markdown Example
+    },
+    {
+      key: "markdown",
+      label: "Markdown",
+      codeSnippet: `# Markdown Example
 
 ## This is a sub-heading
 
@@ -153,31 +153,31 @@ This is a paragraph with **bold** text and *italic* text.
 - Item 3
 
 [Link to Google](https://www.google.com)`,
-        },
-        // Adding more languages
-        {
-            key: "python",
-            label: "Python",
-            codeSnippet: `# Python Example
+    },
+    // Adding more languages
+    {
+      key: "python",
+      label: "Python",
+      codeSnippet: `# Python Example
 def greet(name):
     print(f'Hello, {name}!')
 
 greet('World')`,
-        },
-        {
-            key: "java",
-            label: "Java",
-            codeSnippet: `// Java Example
+    },
+    {
+      key: "java",
+      label: "Java",
+      codeSnippet: `// Java Example
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
 }`,
-        },
-        {
-            key: "csharp",
-            label: "C#",
-            codeSnippet: `// C# Example
+    },
+    {
+      key: "csharp",
+      label: "C#",
+      codeSnippet: `// C# Example
 using System;
 
 class Program {
@@ -185,104 +185,104 @@ class Program {
         Console.WriteLine("Hello, World!");
     }
 }`,
-        },
-        {
-            key: "php",
-            label: "PHP",
-            codeSnippet: `<?php
+    },
+    {
+      key: "php",
+      label: "PHP",
+      codeSnippet: `<?php
 // PHP Example
 echo "Hello, World!";
 ?>`,
-        },
-        {
-            key: "go",
-            label: "Go",
-            codeSnippet: `// Go Example
+    },
+    {
+      key: "go",
+      label: "Go",
+      codeSnippet: `// Go Example
 package main
 import "fmt"
 
 func main() {
     fmt.Println("Hello, World!")
 }`,
-        },
-        {
-            key: "rust",
-            label: "Rust",
-            codeSnippet: `// Rust Example
+    },
+    {
+      key: "rust",
+      label: "Rust",
+      codeSnippet: `// Rust Example
 fn main() {
     println!("Hello, World!");
 }`,
-        },
-        {
-            key: "swift",
-            label: "Swift",
-            codeSnippet: `// Swift Example
+    },
+    {
+      key: "swift",
+      label: "Swift",
+      codeSnippet: `// Swift Example
 import Foundation
 
 print("Hello, World!")`,
-        },
-        {
-            key: "kotlin",
-            label: "Kotlin",
-            codeSnippet: `// Kotlin Example
+    },
+    {
+      key: "kotlin",
+      label: "Kotlin",
+      codeSnippet: `// Kotlin Example
 fun main() {
     println("Hello, World!")
 }`,
-        },
-        {
-            key: "yaml",
-            label: "YAML",
-            codeSnippet: `# YAML Example
+    },
+    {
+      key: "yaml",
+      label: "YAML",
+      codeSnippet: `# YAML Example
 name: John Doe
 age: 30
 city: New York`,
-        },
-        {
-            key: "sql",
-            label: "SQL",
-            codeSnippet: `-- SQL Example
+    },
+    {
+      key: "sql",
+      label: "SQL",
+      codeSnippet: `-- SQL Example
 SELECT name, age, city
 FROM users
 WHERE age > 20;`,
-        },
-        {
-            key: "shell",
-            label: "Shell",
-            codeSnippet: `# Shell Script Example
+    },
+    {
+      key: "shell",
+      label: "Shell",
+      codeSnippet: `# Shell Script Example
 #!/bin/bash
 echo "Hello, World!"`,
-        },
-        {
-            key: "powershell",
-            label: "PowerShell",
-            codeSnippet: `# PowerShell Example
+    },
+    {
+      key: "powershell",
+      label: "PowerShell",
+      codeSnippet: `# PowerShell Example
 Write-Output "Hello, World!"`,
-        },
-        {
-            key: "dockerfile",
-            label: "Dockerfile",
-            codeSnippet: `# Dockerfile Example
+    },
+    {
+      key: "dockerfile",
+      label: "Dockerfile",
+      codeSnippet: `# Dockerfile Example
 FROM node:14
 WORKDIR /app
 COPY . .
 RUN npm install
 CMD ["npm", "start"]`,
-        },
-    ],
-    snippets: {
-        javascript: `// JavaScript Example
+    },
+  ],
+  snippets: {
+    javascript: `// JavaScript Example
 function greet(name) {
     console.log('Hello, ' + name + '!');
 }
 
 greet('World');`,
-        typescript: `// TypeScript Example
+    typescript: `// TypeScript Example
 function greet(name: string): void {
     console.log('Hello, ' + name + '!');
 }
 
 greet('World');`,
-        html: `<!DOCTYPE html>
+    html: `<!DOCTYPE html>
 <html>
 <head>
     <title>Page Title</title>
@@ -294,19 +294,19 @@ greet('World');`,
 
 </body>
 </html>`,
-        json: `{
+    json: `{
     "name": "John Doe",
     "age": 30,
     "city": "New York"
 }`,
-        xml: `<?xml version="1.0" encoding="UTF-8"?>
+    xml: `<?xml version="1.0" encoding="UTF-8"?>
 <note>
     <to>Tove</to>
     <from>Jani</from>
     <heading>Reminder</heading>
     <body>Don't forget me this weekend!</body>
 </note>`,
-        markdown: `# Markdown Example
+    markdown: `# Markdown Example
 
 ## This is a sub-heading
 
@@ -317,18 +317,18 @@ This is a paragraph with **bold** text and *italic* text.
 - Item 3
 
 [Link to Google](https://www.google.com)`,
-        python: `# Python Example
+    python: `# Python Example
 def greet(name):
     print(f'Hello, {name}!')
 
 greet('World')`,
-        java: `// Java Example
+    java: `// Java Example
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
 }`,
-        csharp: `// C# Example
+    csharp: `// C# Example
 using System;
 
 class Program {
@@ -336,47 +336,47 @@ class Program {
         Console.WriteLine("Hello, World!");
     }
 }`,
-        php: `<?php
+    php: `<?php
 // PHP Example
 echo "Hello, World!";
 ?>`,
-        go: `// Go Example
+    go: `// Go Example
 package main
 import "fmt"
 
 func main() {
     fmt.Println("Hello, World!")
 }`,
-        rust: `// Rust Example
+    rust: `// Rust Example
 fn main() {
     println!("Hello, World!");
 }`,
-        swift: `// Swift Example
+    swift: `// Swift Example
 import Foundation
 
 print("Hello, World!")`,
-        kotlin: `// Kotlin Example
+    kotlin: `// Kotlin Example
 fun main() {
     println("Hello, World!")
 }`,
-        yaml: `# YAML Example
+    yaml: `# YAML Example
 name: John Doe
 age: 30
 city: New York`,
-        sql: `-- SQL Example
+    sql: `-- SQL Example
 SELECT name, age, city
 FROM users
 WHERE age > 20;`,
-        shell: `# Shell Script Example
+    shell: `# Shell Script Example
 #!/bin/bash
 echo "Hello, World!"`,
-        powershell: `# PowerShell Example
+    powershell: `# PowerShell Example
 Write-Output "Hello, World!"`,
-        dockerfile: `# Dockerfile Example
+    dockerfile: `# Dockerfile Example
 FROM node:14
 WORKDIR /app
 COPY . .
 RUN npm install
 CMD ["npm", "start"]`,
-    },
+  },
 };

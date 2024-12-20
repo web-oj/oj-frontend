@@ -1,4 +1,4 @@
-import { LeaderboardTableWrapper } from "./components/leaderboard-table";
+import LeaderboardTable from "./components/leaderboard-table/LeaderboardTable";
 
 import { LinearContainer, PageContainer } from "@/components/ui";
 
@@ -13,7 +13,7 @@ export default function Page() {
         }}
         direction="column"
       >
-        <LeaderboardTableWrapper />
+        <LeaderboardTable />
       </LinearContainer>
     </PageContainer>
   );
