@@ -108,6 +108,7 @@ export interface Contest {
   isPlagiarismCheckEnabled: boolean;
   isPublished: boolean;
   organizer: User;
+  mossUrl: string;
   participations: ContestParticipation[];
   problemsInContest: ProblemInContest[];
   submissions: Submission[];
