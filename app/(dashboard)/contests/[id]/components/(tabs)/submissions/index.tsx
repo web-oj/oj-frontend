@@ -23,7 +23,7 @@ export default function Submissions(props: Props) {
                         container: "items-center justify-between",
                     }}
                     direction="row"
-                    onClick={() => router.push(`/problems/${submission.problem.id}`)}
+                    onClick={() => router.push(`/problems/${submission.id}`)}
                 >
                     <LinearContainer direction="column" space="sm">
                         <h1 className="text-lg font-semibold">
