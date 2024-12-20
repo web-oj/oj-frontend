@@ -6,6 +6,7 @@ import { LinearContainer, PageContainer } from "@/components/ui";
 import { getContestById } from "@/fetch-functions";
 import { notFound } from "next/navigation";
 import Providers from "./providers";
+import { OwnerToolbar } from "../../components/OwnerToolbar";
 
 interface Props {
   params: {
@@ -48,6 +49,7 @@ export default async function Page({ params }: Props) {
             <FastCheckTableWrapper />
           </LinearContainer>
         </LinearContainer>
+        <OwnerToolbar />
       </PageContainer>
     </Providers>
   );
