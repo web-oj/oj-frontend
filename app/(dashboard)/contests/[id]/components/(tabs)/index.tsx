@@ -9,6 +9,8 @@ import ProblemsArea from "./problems";
 import RankingArea from "./ranking";
 
 import { LinearContainer } from "@/components/ui";
+import { Moss } from "./moss";
+import Submissions from "./submissions";
 
 export const tabs = [
   {
@@ -29,12 +31,12 @@ export const tabs = [
   {
     label: "Submissions",
     value: "submissions",
-    component: <div />,
+    component: <Submissions />,
   },
   {
     label: "Moss",
     value: "moss",
-    component: <div />,
+    component: <Moss />,
   }
 ];
 

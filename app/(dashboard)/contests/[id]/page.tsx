@@ -4,11 +4,12 @@ import { notFound } from "next/navigation";
 import { ContestProvider } from "../context";
 
 import ContestGeneralArea from "./ContestGeneralArea";
-import RankingArea from "./RankingArea";
 import SetterToolbar from "./components/SetterToolbar";
 
 import { PageContainer } from "@/components/ui";
 import { getContestById } from "@/fetch-functions";
+import { OwnerToolbar } from "../components/OwnerToolbar";
+import RankingArea from "./components/(tabs)/ranking";
 
 interface Props {
   params: {
@@ -37,6 +38,7 @@ export default async function Home({ params }: Props) {
         </Splitter>
       </PageContainer>
       <SetterToolbar />
+      <OwnerToolbar />
     </ContestProvider>
   );
 }
