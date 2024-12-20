@@ -8,13 +8,15 @@ export function Moss(props: Props) {
 
     return (
         <LinearContainer isCenteredX fullwidth fullheight direction="column">
-            <Link
-                href={contest.mossUrl}
-                target="_blank"
-                className="underline text-blue-500"
-            >
-                Open in new tab
-            </Link>
+            {contest.mossUrl && (
+                <Link
+                    href={contest.mossUrl}
+                    target="_blank"
+                    className="underline text-blue-500"
+                >
+                    Open in new tab
+                </Link>
+            )}
             <iframe
                 src={contest.mossUrl}
                 className="w-full h-full bg-foreground-50 rounded-large p-6"
