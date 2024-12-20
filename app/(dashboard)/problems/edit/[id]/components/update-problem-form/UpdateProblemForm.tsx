@@ -81,21 +81,6 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
     } = data;
 
     try {
-      // await updateProblem({
-      //   id: 10,
-      //   data: {
-      //     ...data,
-      //     title,
-      //     statement,
-      //     difficulty,
-      //     timeLimit,
-      //     memoryLimit,
-      //     inputFormat,
-      //     outputFormat,
-      //     solutionText,
-      //   },
-      // });
-
       if (testcases.length > 0) {
         const testcasesToProblem = testcases.map((testcase) => ({
           input: testcase.input,
@@ -111,6 +96,21 @@ export function UpdateProblemForm(props: CreateProblemFormProps) {
           toast.error("Failed to add testcases to problem");
         }
       }
+      
+      await updateProblem({
+        id: 10,
+        data: {
+          ...data,
+          title,
+          statement,
+          difficulty,
+          timeLimit,
+          memoryLimit,
+          inputFormat,
+          outputFormat,
+          solutionText,
+        },
+      });
 
       toast.success("Problem updated successfully");
     } catch (error) {
