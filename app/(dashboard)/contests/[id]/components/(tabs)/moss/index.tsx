@@ -18,6 +18,7 @@ export function Moss(props: Props) {
                 </Link>
             )}
             <iframe
+                title="MOSS Report"
                 src={contest.mossUrl}
                 className="w-full h-full bg-foreground-50 rounded-large p-6"
             />

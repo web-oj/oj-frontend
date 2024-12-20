@@ -16,6 +16,7 @@ import {
   User,
   Button,
   Link,
+  Switch,
 } from "@nextui-org/react";
 import NextLink from "next/link";
 import clsx from "clsx";
@@ -27,10 +28,12 @@ import { LinearContainer } from "./ui";
 
 import { siteConfig } from "@/config/site";
 import { useAuth } from "@/app/context";
+import { useTheme } from "next-themes";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
+  const { theme, setTheme } = useTheme();
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -100,6 +103,17 @@ export const Navbar = () => {
     );
   };
 
+  const SwitchTheme = () => {
+    return (
+      <Switch
+        color="primary"
+        className="cursor-pointer"
+        onChange={() => {
+          setTheme(theme === 'light' ? 'dark' : 'light');
+        }}
+      />
+    )
+  }
   return (
     <NextUINavbar
       classNames={{
@@ -127,7 +141,7 @@ export const Navbar = () => {
                   "text-foreground-500",
                   "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                   pathname.startsWith(item.href) &&
-                    "text-foreground bg-primary font-medium",
+                  "text-foreground bg-primary font-medium",
                 )}
                 color="foreground"
                 href={item.href}
@@ -174,6 +188,7 @@ export const Navbar = () => {
           >
             Open IDE
           </Button>
+          <SwitchTheme />
           <UserAccordion />
         </ul>
       ) : (
@@ -212,7 +227,7 @@ export const Navbar = () => {
                 "text-foreground-100",
                 "flex flex-row items-center gap-1 rounded-full px-3 py-1",
                 pathname.startsWith(item.href) &&
-                  "text-primary-foreground bg-primary font-medium",
+                "text-primary-foreground bg-primary font-medium",
               )}
               color="foreground"
               href={item.href}
