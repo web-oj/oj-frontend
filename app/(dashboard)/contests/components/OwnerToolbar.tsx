@@ -22,7 +22,7 @@ export function OwnerToolbar(props: Props) {
             <ToolbarButton
                 as={Link}
                 color={pathname.includes("edit") ? "primary" : "default"}
-                href={`/problems/edit/${contest.id}`}
+                href={`/contests/edit/${contest.id}`}
             >
                 <Edit01Icon />
             </ToolbarButton>
@@ -30,7 +30,7 @@ export function OwnerToolbar(props: Props) {
             <ToolbarButton
                 as={Link}
                 color={!pathname.includes("edit") ? "primary" : "default"}
-                href={`/problems/${contest.id}`}
+                href={`/contests/${contest.id}`}
             >
                 <ViewIcon />
             </ToolbarButton>
