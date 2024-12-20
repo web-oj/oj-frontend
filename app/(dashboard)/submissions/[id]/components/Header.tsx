@@ -1,5 +1,5 @@
 "use client";
-import { Clock01Icon, CodeIcon, FireIcon, Tick01Icon, UsbMemory01Icon } from "hugeicons-react";
+import { Clock01Icon, CodeIcon, Tick01Icon } from "hugeicons-react";
 
 
 

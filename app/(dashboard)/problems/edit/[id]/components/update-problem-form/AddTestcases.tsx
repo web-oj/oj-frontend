@@ -1,5 +1,5 @@
 import { LinearContainer } from "@/components/ui";
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { Cancel01Icon } from "hugeicons-react";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

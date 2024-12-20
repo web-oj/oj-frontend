@@ -12,7 +12,6 @@ import StatementEditorInput from "./StatementEditorInput";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { createProblem } from "@/fetch-functions";
-import { encodeBase64 } from "@/libs";
 import { useAuth } from "@/app/context";
 import DialogEditorInputMarkdown from "@/components/markdown/DialogEditorInputMarkdown";
 

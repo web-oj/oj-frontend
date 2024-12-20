@@ -6,7 +6,6 @@ import { Submission } from "@/types";
 import { Chip } from "@nextui-org/react";
 import { Calendar01Icon, CodeIcon } from "hugeicons-react";
 import router from "next/router";
-import { useState } from "react";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> { }
 

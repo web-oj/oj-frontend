@@ -3,8 +3,8 @@
 import { LinearContainer } from "@/components/ui";
 import { useSubmission } from "../../context";
 import { Input } from "@nextui-org/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Language, SubmissionResult, TestCase } from "@/types";
+import { useCallback, useEffect, useState } from "react";
+import { SubmissionResult, TestCase } from "@/types";
 import { runCode } from "@/utils/piston";
 import { toast } from "react-toastify";
 

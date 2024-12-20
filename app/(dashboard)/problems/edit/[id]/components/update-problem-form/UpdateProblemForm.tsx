@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
 import { addTestcasesToProblem, updateProblem } from "@/fetch-functions";
 import { useProblem } from "@/app/(dashboard)/problems/context";
-import StatementEditorInput from "@/app/(dashboard)/problems/components/StatementEditorInput";
 import AddTestcases from "./AddTestcases";
 import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 

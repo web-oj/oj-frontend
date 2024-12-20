@@ -5,7 +5,7 @@ import React from "react";
 import { getAllProblems } from "@/fetch-functions";
 import { LinearContainer } from "@/components/ui";
 import { Problem } from "@/types";
-import { Add01Icon, Delete01Icon, ImoIcon } from "hugeicons-react";
+import { Add01Icon, Delete01Icon } from "hugeicons-react";
 import { useContest } from "../../../context";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

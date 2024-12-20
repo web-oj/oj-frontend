@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useContestTrack } from "../../context";
 
 import { LinearContainer } from "@/components/ui/container/LinearContainer";
-import { addProblemToContest, createContest, removeProblemFromContest, updateContest } from "@/fetch-functions";
+import { addProblemToContest, removeProblemFromContest, updateContest } from "@/fetch-functions";
 import { useAuth } from "@/app/context";
 import EditorInputMarkdown from "@/components/markdown/EditorInputMarkdown";
 import { useContest } from "@/app/(dashboard)/contests/context";

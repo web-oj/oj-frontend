@@ -2,8 +2,8 @@
 
 import { useContest } from "@/app/(dashboard)/contests/context";
 import { Field, LinearContainer } from "@/components/ui";
-import { getAllProblems, getProblemById, getProblemsInContest } from "@/fetch-functions";
-import { Problem, ProblemInContest } from "@/types";
+import { getProblemsInContest } from "@/fetch-functions";
+import { Problem } from "@/types";
 import { Chip } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import { Calendar01Icon, FireIcon } from "hugeicons-react";

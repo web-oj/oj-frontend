@@ -5,7 +5,6 @@ import {
   Calendar01Icon,
   CodeIcon,
   PackageOpenIcon,
-  UserGroupIcon,
 } from "hugeicons-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
