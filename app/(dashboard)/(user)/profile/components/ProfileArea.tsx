@@ -35,12 +35,12 @@ export function ProfileArea(props: Props) {
         <h1 className="text-2xl text-center font-semibold text-foreground-900">
           {user?.handle || "-"}
         </h1>
-        <p className="text-sm text-foreground-500 text-center ">
-          {user?.email || "-"}
+        <p className="text-sm text-foreground text-center ">
+          {user?.bio || "Hello guy"}
         </p>
-        <Tooltip content={"bio"}>
+        <Tooltip content={"Rating"}>
           <p className="text-2xl font-bold text-secondary cursor-pointer text-center ">
-            {user?.bio}
+            {user?.rating || 0}
           </p>
         </Tooltip>
       </LinearContainer>

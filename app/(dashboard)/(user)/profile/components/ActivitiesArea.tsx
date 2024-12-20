@@ -54,7 +54,7 @@ export default function ActivitiesArea(props: Props) {
             <LinearContainer
               key={index}
               fullwidth
-              className="bg-foreground-50 rounded-2xl p-4"
+              className="bg-foreground-50 rounded-2xl p-4 hover:scale-[101%] transition-transform duration-300 ease-in-out cursor-pointer"
               classnames={{
                 container: "items-center justify-between",
               }}
@@ -123,7 +123,7 @@ export default function ActivitiesArea(props: Props) {
             <LinearContainer
               key={index}
               fullwidth
-              className="bg-foreground-50 rounded-2xl p-4"
+              className="bg-foreground-50 rounded-2xl p-4 hover:scale-[101%] transition-transform duration-300 ease-in-out cursor-pointer"
               classnames={{
                 container: "items-center justify-between",
               }}
@@ -140,7 +140,7 @@ export default function ActivitiesArea(props: Props) {
                     icon={<Calendar01Icon size={16} />}
                     label="Start Time"
                     showLabel={false}
-                    value={contest.startTime}
+                    value={new Date(Number(contest.startTime)).toLocaleDateString()}
                   />
                   <Field
                     classNames={{
@@ -149,16 +149,7 @@ export default function ActivitiesArea(props: Props) {
                     icon={<Calendar01Icon size={16} />}
                     label="End Time"
                     showLabel={false}
-                    value={contest.endTime}
-                  />
-                  <Field
-                    classNames={{
-                      value: "text-foreground-500",
-                    }}
-                    icon={<UserGroupIcon size={16} />}
-                    label="Participants"
-                    showLabel={false}
-                    value={contest.participations.length}
+                    value={new Date(Number(contest.endTime)).toLocaleDateString()}
                   />
                 </LinearContainer>
               </LinearContainer>
@@ -206,7 +197,7 @@ export default function ActivitiesArea(props: Props) {
             <LinearContainer
               key={index}
               fullwidth
-              className="bg-foreground-50 rounded-2xl p-4"
+              className="bg-foreground-50 rounded-2xl p-4 hover:scale-[101%] transition-transform duration-300 ease-in-out cursor-pointer"
               classnames={{
                 container: "items-center justify-between",
               }}
