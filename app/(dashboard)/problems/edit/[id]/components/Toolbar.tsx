@@ -8,18 +8,6 @@ import { Toolbar } from "@/components/ui";
 export default function FormToolbar() {
   return (
     <Toolbar
-      leftContents={
-        <>
-          <Switch
-            classNames={{
-              label: "text-foreground-500",
-            }}
-            color="secondary"
-          >
-            View mode
-          </Switch>
-        </>
-      }
       rightContents={
         <Button
           color="primary"
