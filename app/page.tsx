@@ -1,11 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { LinearContainer, PageContainer } from "@/components/ui";
+import { Button } from "@nextui-org/react";
+import { ArrowRight01Icon } from "hugeicons-react";
+import { Hero } from "./components/Hero";
 
 export default function Home() {
-  const router = useRouter();
 
-  router.push("/dashboard");
-
-  return <></>;
+  return <PageContainer isCentered>
+    <Hero />
+  </PageContainer>;
 }
